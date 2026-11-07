@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>פילאטיס – תרגול</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Secular+One&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#F2F1F7;--surface:#FFFFFF;--ink:#23213A;--muted:#6B6880;--line:#DCD9E8;
+  --accent:#4A3F9E;--accent-ink:#FFFFFF;--in:#1F7A9C;--in-bg:#E1F1F7;--ex:#C0436A;--ex-bg:#F9E3EA;
+  --ok:#2E8B57;--ok-bg:#E2F3E9;--bad:#B4372F;--bad-bg:#F8E1DF;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16151F;--surface:#211F2E;--ink:#EDEBF7;--muted:#A19DB8;--line:#35324A;
+  --accent:#9C90F0;--accent-ink:#16151F;--in:#5BC0E0;--in-bg:#16303A;--ex:#F07FA0;--ex-bg:#3A1C27;
+  --ok:#5CC98A;--ok-bg:#173326;--bad:#F08A80;--bad-bg:#3B1C1A;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16151F;--surface:#211F2E;--ink:#EDEBF7;--muted:#A19DB8;--line:#35324A;
+  --accent:#9C90F0;--accent-ink:#16151F;--in:#5BC0E0;--in-bg:#16303A;--ex:#F07FA0;--ex-bg:#3A1C27;
+  --ok:#5CC98A;--ok-bg:#173326;--bad:#F08A80;--bad-bg:#3B1C1A;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Assistant",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 40px}
+h1{font-family:"Secular One","Assistant",system-ui,sans-serif;font-weight:400;font-size:1.9rem;line-height:1.15;margin:4px 0 2px}
+.sub{color:var(--muted);margin:0 0 14px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:6px 0 16px}
+.bar>i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.tabs{display:flex;gap:4px;background:var(--line);padding:4px;border-radius:12px;margin-bottom:12px}
+.tabs button{flex:1;border:0;background:transparent;color:var(--ink);font:inherit;font-weight:600;padding:8px;border-radius:9px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--surface)}
+select{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:10px}
+label.chk{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.95rem;margin-bottom:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 20px}
+.sec{color:var(--muted);font-size:.9rem}
+.name{font-family:"Secular One","Assistant",system-ui,sans-serif;font-size:2rem;line-height:1.15;margin:4px 0 12px;direction:ltr;text-align:right}
+.hint{color:var(--muted)}
+.lbl{font-weight:700;margin:14px 0 4px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.steps li{display:flex;gap:10px;align-items:flex-start}
+.pill{flex:none;font-size:.82rem;font-weight:700;padding:2px 10px;border-radius:999px;margin-top:2px;white-space:nowrap}
+.pill.i{background:var(--in-bg);color:var(--in)}
+.pill.e{background:var(--ex-bg);color:var(--ex)}
+.pill.n{background:var(--line);color:var(--ink)}
+.steps li.h{font-weight:700;color:var(--accent);margin-top:6px}
+.note{color:var(--muted);font-size:.95rem;margin-top:10px}
+.mus{direction:ltr;text-align:right;font-weight:600;color:var(--accent)}
+.row{display:flex;gap:10px;margin-top:16px}
+.btn{flex:1;font:inherit;font-weight:700;border:0;border-radius:12px;padding:13px;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.no{background:var(--ex-bg);color:var(--ex)}
+.btn.yes{background:var(--ok-bg);color:var(--ok)}
+button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.count{color:var(--muted);font-size:.9rem;text-align:center;margin-top:12px}
+.q{font-weight:700;font-size:1.1rem;margin:6px 0 4px}
+.qtext{background:var(--bg);border-radius:10px;padding:10px 12px;margin:8px 0}
+.opts{display:grid;gap:8px;margin-top:12px}
+.opt{font:inherit;text-align:right;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;cursor:pointer}
+.opt.ltr{direction:ltr;text-align:right}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt:disabled{cursor:default}
+.big{font-family:"Secular One","Assistant",system-ui,sans-serif;font-size:3rem;line-height:1;margin:6px 0}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+summary{cursor:pointer;padding:12px 14px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+summary .en{direction:ltr}
+summary .tick{color:var(--ok)}
+details>div{padding:0 14px 14px}
+h2{font-family:"Secular One","Assistant",system-ui,sans-serif;font-weight:400;font-size:1.25rem;margin:20px 0 8px}
+.legend{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:.9rem;margin-bottom:14px}
+.reset{background:none;border:0;color:var(--muted);font:inherit;text-decoration:underline;cursor:pointer;margin-top:24px}
+@media (prefers-reduced-motion:reduce){.bar>i{transition:none}}
+
+/* program switch */
+.prog{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 14px}
+.prog button{font:inherit;font-family:"Secular One","Assistant",system-ui,sans-serif;font-size:.98rem;padding:9px 4px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;line-height:1.2}
+.prog button small{display:block;font-family:"Assistant",system-ui,sans-serif;font-size:.72rem;font-weight:600}
+.prog button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+:root{--accent-soft:#ECEAF8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--accent-soft:#2A2740}}
+:root[data-theme="dark"]{--accent-soft:#2A2740}
+body[data-prog="mat"]{--accent:#4A3F9E;--accent-soft:#ECEAF8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-prog="mat"]{--accent:#9C90F0;--accent-soft:#2A2740}}
+:root[data-theme="dark"] body[data-prog="mat"]{--accent:#9C90F0;--accent-soft:#2A2740}
+body[data-prog="reformer"]{--accent:#9A5B1E;--accent-soft:#F6ECE1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-prog="reformer"]{--accent:#E3AA6B;--accent-soft:#3A2A1A}}
+:root[data-theme="dark"] body[data-prog="reformer"]{--accent:#E3AA6B;--accent-soft:#3A2A1A}
+body[data-prog="tower"]{--accent:#1F7A68;--accent-soft:#E0F2EE}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-prog="tower"]{--accent:#6CCBB6;--accent-soft:#163530}}
+:root[data-theme="dark"] body[data-prog="tower"]{--accent:#6CCBB6;--accent-soft:#163530}
+body[data-prog="chair"]{--accent:#B03A48;--accent-soft:#F8E4E7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-prog="chair"]{--accent:#F08A97;--accent-soft:#3A1C21}}
+:root[data-theme="dark"] body[data-prog="chair"]{--accent:#F08A97;--accent-soft:#3A1C21}
+body[data-prog="legw"]{--accent:#5F6E12;--accent-soft:#EEF2D8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-prog="legw"]{--accent:#C4D36A;--accent-soft:#262B12}}
+:root[data-theme="dark"] body[data-prog="legw"]{--accent:#C4D36A;--accent-soft:#262B12}
+body[data-prog="magic"]{--accent:#8E3B8A;--accent-soft:#F5E4F4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-prog="magic"]{--accent:#E39BDE;--accent-soft:#341A33}}
+:root[data-theme="dark"] body[data-prog="magic"]{--accent:#E39BDE;--accent-soft:#341A33}
+body[data-prog="ladder"]{--accent:#2563A8;--accent-soft:#E2ECF8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-prog="ladder"]{--accent:#7DB3F0;--accent-soft:#16253A}}
+:root[data-theme="dark"] body[data-prog="ladder"]{--accent:#7DB3F0;--accent-soft:#16253A}
+body[data-prog="step"]{--accent:#B4521A;--accent-soft:#FBE9DD}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-prog="step"]{--accent:#F2A06B;--accent-soft:#3A2214}}
+:root[data-theme="dark"] body[data-prog="step"]{--accent:#F2A06B;--accent-soft:#3A2214}
+.mlist{display:grid;gap:4px}
+.mrow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.mrow .en{direction:ltr;font-weight:700;color:var(--accent)}
+.mrow .he{color:var(--ink)}
+.springs{display:inline-block;background:var(--accent-soft);color:var(--accent);font-weight:700;border-radius:8px;padding:2px 10px;font-size:.92rem}
+.opt small{display:block;color:var(--muted);font-size:.85rem;direction:rtl;text-align:right}
+.lphead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.lptot{font-family:"Secular One","Assistant",system-ui,sans-serif;font-size:1.3rem}
+.lpbar{display:flex;gap:2px;height:10px;margin-bottom:12px;border-radius:5px;overflow:hidden}
+.lpbar i{background:var(--line);cursor:pointer;min-width:2px}
+.lpbar i.tr{opacity:.45}
+.lpbar i.done{background:var(--accent);opacity:.55}
+.lpbar i.now{background:var(--accent)}
+.lpcard{min-height:340px}
+.lpreps{font-weight:700;color:var(--accent);margin-top:-6px}
+.lpbreath{display:flex;align-items:center;gap:18px;margin:16px 0 6px;min-height:120px}
+.orb{flex:none;width:110px;height:110px;border-radius:50%;background:var(--line);transform:scale(.6);transition-property:transform,background-color;transition-timing-function:ease-in-out}
+.orb.i{background:var(--in-bg);box-shadow:inset 0 0 0 3px var(--in)}
+.orb.e{background:var(--ex-bg);box-shadow:inset 0 0 0 3px var(--ex)}
+.orb.n{background:var(--accent-soft);box-shadow:inset 0 0 0 3px var(--accent)}
+.orb.e{transform:scale(1)}
+.orb.i.go{transform:scale(1)}
+.orb.e.go{transform:scale(.55)}
+.orb.n.go{animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(.6)}50%{transform:scale(.95)}}
+.orbtxt{flex:1;min-width:0}
+.orbtxt .pill{display:inline-block;margin-bottom:6px}
+.lpcue{margin-top:8px}
+.lptime{color:var(--muted);margin-top:10px;font-variant-numeric:tabular-nums}
+.lptime #lpleft{font-family:"Secular One","Assistant",system-ui,sans-serif;font-size:1.6rem;color:var(--ink)}
+.lpnext{margin-top:6px;color:var(--muted)}
+.lptr{font-size:1.25rem;font-weight:700;margin:14px 0}
+.lpctl{display:flex;gap:10px;margin:12px 0 16px}
+.lpctl .btn.ghost{flex:0 0 64px;font-size:1.2rem}
+.lplist{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.lplist li{display:flex;gap:8px;align-items:baseline;padding:8px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line);cursor:pointer}
+.lplist li.tr{background:transparent;border-style:dashed;color:var(--muted);font-size:.92rem}
+.lplist li.now{border-color:var(--accent);background:var(--accent-soft)}
+.lplist .en{direction:ltr;font-weight:600}
+.lplist .lpr{color:var(--muted);font-size:.88rem;flex:1}
+.lplist li.tr span:first-child{flex:1}
+.lplist .lpd{color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){.orb{transition:none!important;animation:none!important}}
+.lpsel{display:flex;gap:6px;margin-bottom:10px}
+.lpsel button{flex:1;font:inherit;font-weight:700;padding:8px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
+.lpsel button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.lpvoice{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:10px}
+.lpvoice select{width:auto;margin:0;padding:6px 8px}
+.lpvoice .note{flex-basis:100%;margin:0}
+.lpvoice .note:empty{display:none}
+.sitenav{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin:10px 0 12px;border-radius:12px;background:var(--line)}
+.sitenav a{display:block;text-align:center;padding:8px 6px;border-radius:9px;font-weight:700;text-decoration:none;color:var(--muted)}
+.sitenav a[aria-current="page"]{background:var(--surface);color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="sitenav" aria-label="חלקי האתר"><a href="./" aria-current="page">תרגילים ושיעורים</a><a href="theory.html">עיוני</a></nav>
+  <div class="prog" id="progs" role="group" aria-label="סוג אימון"></div>
+  <h1 id="title">פילאטיס מזרן</h1>
+  <p class="sub" id="prog"></p>
+  <div class="bar"><i id="pbar"></i></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="cards" aria-selected="true">כרטיסיות</button>
+    <button role="tab" data-tab="quiz" aria-selected="false">מבחן</button>
+    <button role="tab" data-tab="list" aria-selected="false">עיון</button>
+    <button role="tab" data-tab="lesson" aria-selected="false">שיעור</button>
+  </div>
+  <select id="filter" aria-label="פרק"></select>
+  <div class="legend"><span class="pill i">שאיפה</span><span class="pill e">נשיפה</span><span>הצבעים עוזרים לזכור את הנשימה</span></div>
+  <main id="view"></main>
+  <button class="reset" id="reset">איפוס ההתקדמות</button>
+</div>
+<script>
+const MAT=[
+{n:"Pelvic Curl",s:"Warm Up",st:"שכיבה על הגב, גוף במנח נטרלי, ברכיים כפופות, כפות רגליים על המזרן ברוחב אגן, ידיים לצידי הגוף, כפות הידיים כלפי מעלה.",steps:[["e","אוספים בטן, מגלגלים את האגן ל-PPT ומנתקים מהמזרן חוליה אחר חוליה עד קו ישר מהכתפיים ועד הברכיים."],["i","נשארים במקום ומאריכים את עמוד השדרה, ברכיים מצביעות קדימה."],["e","מניחים את החוליות אחת אחרי השנייה עד מנח נטרלי של הגב והאגן."]],note:"מתבצע בשני מחזורי אוויר.",m:"Hamstrings"},
+{n:"Shoulder Bridge",s:"Warm Up",st:"מתחילים ממנח Pelvic Curl.",steps:[["h","הכנה"],["i","במקום."],["e","אוספים בטן ומנתקים רגל אחת."],["i","מניחים את הרגל בחזרה על המזרן."],["e","מנתקים רגל שנייה וכך ממשיכים."],["h","התרגיל המלא"],["e","מנתקים רגל אחת ומיישרים אותה אל התקרה בפלקס."],["i","מורידים את הרגל ישרה לכיוון המזרן בפוינט."]],note:"חוזרים מספר פעמים לכל רגל, שמים לב שהאגן לא משתנה.",m:"Hamstrings + Hip Flexors"},
+{n:"Single Leg Lifts",s:"Warm Up",st:"שכיבה על הגב, רגליים כפופות, כפות רגליים על המזרן ברוחב אגן.",steps:[["e","אוספים בטן ומרימים רגל אחת ל-90 מעלות."],["i","מורידים את הרגל בחזרה אל המזרן."],["e","מרימים את הרגל השנייה וכך ממשיכים."]],m:"Hip Flexors"},
+{n:"Leg Changes",s:"Warm Up",st:"מתחילים במנח Single Leg Lifts.",steps:[["i","מורידים רגל אל המזרן תוך כדי הרמת הרגל השנייה ל-90 מעלות."],["e","מחליפים בין הרגליים."]],note:"החלפה בשאיפה והחלפה בנשיפה.",m:"Hip Flexors"},
+{n:"Spine Twist Supine",s:"Warm Up",st:"שכיבה על הגב, גב נטרלי, רגליים כפופות וצמודות ב-90 מעלות, פוינט, ידיים ישרות לצדדים, כפות ידיים לתקרה (או מרפקים כפופים וידיים על הצלעות).",steps:[["i","מניעים את הרגליים לצד אחד, מאריכים את הצד הנגדי של הגב והמותן."],["e","אוספים בטן ומחזירים את הרגליים למרכז."],["i","מניעים לצד השני וכך ממשיכים."]],note:"בית החזה והצלעות נשארים במרכז לאורך כל התרגיל.",m:"Abdominals Obliques"},
+{n:"Chest Lift",s:"Warm Up",st:"שכיבה על הגב, גב נטרלי, רגליים כפופות וצמודות, כפות רגליים על המזרן, ידיים שלובות מאחורי הראש, מרפקים בזווית העיניים.",steps:[["e","מבצעים Imprinting, אוספים בטן ומרימים בית חזה וראש לכפיפה."],["i","מעמיקים את הכפיפה עוד קצת."],["e","מניחים את בית החזה בחזרה על המזרן."]],note:"מתבצע בשני מחזורי אוויר.",m:"Rectus Abdominus"},
+{n:"Chest Lift With Rotation",s:"Warm Up",st:"מתחילים במנח Chest Lift.",steps:[["e","מסתובבים עם בית החזה לפיתול לצד אחד."],["i","חוזרים למרכז ומתארכים בלי להניח את הראש."],["e","מסתובבים לצד השני וכך ממשיכים."]],m:"Abdominals Obliques"},
+{n:"Hundreds",s:"Abdominal Work",st:"שכיבה על הגב, רגליים כפופות על המזרן, ידיים ישרות לאחור על המזרן מעבר לראש.",steps:[["h","הכנה"],["e","מרימים ידיים לתקרה, אוספים בטן, Imprinting בגב התחתון, בית חזה לכפיפה, ידיים עוברות לפנים, רגליים מתיישרות ל-60 מעלות."],["i","חוזרים כל הדרך למנח ההתחלתי."],["h","התרגיל המלא"],["n","נשארים בכפיפה: נשימות כלב, 5 בשאיפה ו-5 בנשיפה, עם ניעור ידיים למעלה ולמטה ואיסוף בטן. 100 ניעות."]],note:"אפשר לבצע את ההכנה גם עם רגליים ישרות לתקרה או מונחות על המזרן.",m:"Rectus Abdominus"},
+{n:"Roll Up",s:"Abdominal Work",st:"שכיבה על הגב, רגליים ישרות וצמודות, פוינט, ידיים ישרות לאחור, אגודלים לכיוון המזרן מעבר לראש.",steps:[["i","מרימים ידיים וראש, מבט קדימה, ידיים פונות לפנים."],["e","אוספים בטן ועולים חוליה אחר חוליה עד ישיבה, כתפיים מעל האגן, הגב נשאר עגול."],["i","ללא תנועה."],["e","מגלגלים את החוליות בחזרה אחת אחרי השנייה עד המנח ההתחלתי."]],m:"Rectus Abdominus + Hip Flexors"},
+{n:"Neck Pull",s:"Abdominal Work",st:"שכיבה על הגב, רגליים ישרות וצמודות, ידיים שלובות מאחורי הראש, מרפקים בזווית העיניים.",steps:[["i","מרימים את הראש עם הידיים, מבט קדימה."],["e","אוספים בטן ומנתקים חוליה אחר חוליה בגב עגול עד שהמצח נוגע ברגליים."],["i","מיישרים את הגב קדימה ועולים בגב ישר עד הטיה לאחור."],["e","מניחים חוליה אחר חוליה עד למנח המוצא."]],m:"Rectus Abdominus + Hip Flexors"},
+{n:"Double Leg Stretch",s:"Abdominal Work",st:"שכיבה על הגב, ידיים מחזיקות את הברכיים ב-90 מעלות.",steps:[["e","הרגליים דוחפות קדימה, הבטן נאספת, בית החזה והראש מתנתקים מהמזרן."],["i","מיישרים רגליים ל-45 מעלות קדימה, ידיים לאחור לצד האוזניים."],["e","מעגל ידיים לצדדים, מכופפים ברכיים, ידיים חוזרות לברכיים, תוך העמקת עליית החזה."]],m:"Rectus Abdominus"},
+{n:"Single Leg Stretch",s:"Abdominal Work",st:"שכיבה על הגב, רגל אחת ישרה על המזרן ורגל שנייה ב-90 מעלות, ידיים אוחזות בברך הכפופה.",steps:[["e","הרגל הכפופה דוחפת קדימה, בית החזה והראש מתנתקים, הרגל הישרה עולה עד שכפות הרגליים באותו גובה."],["i","שאיפה קצרה במקום."],["e","מחליפים בין הרגליים, הידיים אוחזות בברך השנייה."]],note:"כל ההחלפות בנשיפה; נשימות קצרות בדגש על הנשיפה.",m:"Rectus Abdominus"},
+{n:"Crisscross",s:"Abdominal Work",st:"מתחילים מהמנח של Single Leg Stretch, ידיים שלובות מאחורי הראש.",steps:[["e","עם החלפת הרגליים מבצעים פיתול של הבטן, בית החזה מסתובב לצד אחד."],["i","שאיפה קצרה בין הנשיפות."],["e","מחליפים לצד השני."]],note:"כל ההחלפות בנשיפה; נשימות קצרות בדגש על הנשיפה.",m:"Abdominals Obliques"},
+{n:"Hamstring Pull 1+2+3",s:"Abdominal Work",st:"שכיבה על הגב, רגל אחת ישרה לתקרה בפלקס והשנייה ישרה על המזרן בפוינט, ידיים אוחזות בשוק העליונה, בית חזה בכפיפה, צוואר בהמשך לגב.",steps:[["e","(2 נשיפות קצרות) שלב 1: הידיים מושכות את הרגל העליונה לכיוון החזה בשתי ניעות."],["i","מחליפים בין הרגליים."],["n","שלב 2: אותה תנועת רגליים, ידיים שלובות מאחורי הראש, מרפקים בזווית העיניים, חזה למעלה בכפיפה."],["n","שלב 3: מוסיפים אלכסונים, החזה פונה אל הרגל שעולה."]],m:"Rectus Abdominus + Hip Flexors"},
+{n:"Roll Like A Ball",s:"Abdominal Work",st:"ישיבה עם רגליים כפופות על המזרן, ידיים אוחזות בשוקיים, מעט מעל הקרסול.",steps:[["e","מקמרים את הגב התחתון, אוספים בטן, הידיים מתיישרות וכפות הרגליים מתנתקות. שיווי משקל במנח הכדור."],["i","מתגלגלים לאחור."],["e","מתגלגלים לפנים בחזרה אל שיווי המשקל."]],m:"Rectus Abdominus"},
+{n:"Seal Puppy",s:"Abdominal Work",st:"ישיבה, אוחזים את כפות הרגליים מתחת לקרסול, שיווי משקל, כפות הרגליים בגובה העיניים.",steps:[["i","שלוש מחיאות כפיים עם כפות הרגליים ומתגלגלים לאחור."],["e","שלוש מחיאות ומתגלגלים חזרה לפנים, שוב שיווי משקל בישיבה."]],m:"Rectus Abdominus"},
+{n:"Open Leg Rocker",s:"Abdominal Work",st:"ישיבה בשיווי משקל, ידיים ישרות אוחזות בקרסוליים, רגליים ישרות למעלה ברוחב המזרן.",steps:[["i","מתגלגלים עם עמוד השדרה לאחור, הרגליים והידיים נשארות ישרות."],["e","חוזרים לפנים, הבטן נאספת ומוצאים שיווי משקל בישיבה."]],m:"Rectus Abdominus + Back Extensors"},
+{n:"Crab",s:"Abdominal Work",st:"עומדים על הברכיים, ראש מונח על המזרן, גב עגול, רגליים כפופות ושלובות באוויר, ידיים אוחזות בקרסוליים.",steps:[["i","מתגלגלים לאחור עד שהרגליים מעבר לראש, מחליפים את שילוב הרגליים."],["e","מתגלגלים לפנים עד שהראש על המזרן, למתיחה בצוואר."]],m:"Rectus Abdominus"},
+{n:"Teaser 1+2+3",s:"Abdominal Work",st:"שכיבה על הגב, ידיים ישרות לאחור, רגליים ישרות על המזרן.",steps:[["h","הכנה"],["e","מרימים ידיים וראש קדימה לכפיפה."],["i","מיישרים גב ומנתקים רגליים עד שכפות הרגליים בגובה העיניים, ידיים לפנים בגובה הכתפיים."],["i","במקום."],["e","מקמרים את הגב התחתון מעט לאחור עד נגיעה קלה במזרן, השכמות באוויר."],["i","עולים חזרה ל-Teaser, הגב מתיישר."],["h","התרגיל המלא (מתחילים ב-Teaser)"],["e","1: יורדים חוליה אחר חוליה, ידיים אחורה מעבר לראש, רגליים נשארות ב-60 מעלות."],["i","עולים בחזרה ל-Teaser."],["e","2: מורידים את הרגליים לרצפה ישרות בפוינט, חזה וידיים ללא תנועה."],["i","מרימים את הרגליים בחזרה."],["e","3: יורדים כל הדרך לשכיבה, ידיים מאחורי הראש, רגליים למזרן."],["i","עולים בחזרה ל-Teaser."]],note:"את Teaser 3 אפשר לבצע גם בשני מחזורי אוויר לדיוק מקסימלי.",m:"Rectus Abdominus + Hip Flexors"},
+{n:"Hip Circles",s:"Abdominal Work",st:"ישיבה שלמה, רגליים ישרות וצמודות, קצות האצבעות על המזרן מאחורי הגב, ידיים ישרות פונות לאחור, גב זקוף.",steps:[["h","הכנה"],["e","מנתקים את הרגליים בלי לשנות את מנח הגב, עד גובה העיניים."],["i","במקום."],["e","מורידים רגליים לצד אחד ומתחילים לצייר 8."],["i","מרימים רגליים מהצד השני וממשיכים את ה-8."],["h","התרגיל המלא"],["n","מנתקים את הידיים ומיישרים לפנים; הידיים מציירות 8 בכיוון ההפוך לרגליים (כמו אינפיניטי). הנשימה זהה להכנה."]],m:"Rectus Abdominus + Abdominals Obliques + Hip Flexors"},
+{n:"Leg Circles",s:"Hip Work",st:"שכיבה על הגב, ידיים פרוסות לצדדים או על הצלעות, רגל אחת ישרה על המזרן, השנייה ישרה לתקרה בפלקס.",steps:[["h","הכנה"],["i","הרגל הישרה נפתחת לצד בלי לתת לאגן להתנתק מהמזרן."],["e","הרגל חוזרת למרכז או ממשיכה פנימה."],["h","התרגיל המלא"],["e","אוספים בטן ומבצעים מעגל עם הרגל."],["i","מבצעים מעגל נוסף לאותו כיוון."]],note:"מעגל בנשיפה ומעגל בשאיפה; אחרי כמה פעמים מחליפים כיוון, ואז רגל.",m:"Hip Flexors"},
+{n:"Cat Stretch",s:"Spinal Articulation",st:"עמידת שש, כפות ידיים מתחת לכתפיים, ברכיים מתחת למפרקי הירך, אגן ועמוד שדרה במנח נטרלי.",steps:[["i","במקום."],["e","אוספים בטן ומקמרים את הגב, מבט פנימה, צוואר בהמשך לגב."],["i","מקערים את הגב, פותחים בית חזה ומרימים ראש, מבט קדימה."]],note:"אפשר גם בהפרדה: רק גב עליון או רק גב תחתון.",m:"Rectus Abdominus + Spine Extensors"},
+{n:"Roll Over",s:"Spinal Articulation",st:"שכיבה על הגב, רגליים ישרות וצמודות ב-60 מעלות, פוינט.",steps:[["i","רגליים עולות ל-90 מעלות."],["e","מנתקים מהמזרן חוליה אחר חוליה ומעבירים רגליים ישרות מעבר לראש."],["i","רגליים נפתחות לרוחב כתפיים, הופכות לפלקס ונוגעות במזרן מאחורי הראש."],["e","מניחים חוליה אחר חוליה, רגליים נמוכות ככל האפשר, ובסוף חוזרות ל-60 מעלות, פוינט וצמודות."]],note:"פעם כך ופעם הפוך (לאחור ברוחב כתפיים, חזרה לפנים צמודות).",m:"Rectus Abdominus + Hip Flexors"},
+{n:"Jack Knife",s:"Spinal Articulation",st:"מתחילים את התרגיל ב-Roll Over.",steps:[["i","הופכים לפלקס, נוגעים ברצפה מאחור עם האצבעות, ואז מרימים רגליים לתקרה בפוינט למנח נר."],["e","מניחים חוליה אחר חוליה, רגליים ישרות לתקרה, עד אגן נטרלי."],["i","מעגל קטן של הרגליים והורדה ל-60 מעלות."]],m:"Rectus Abdominus + Hip Flexors"},
+{n:"Control Balance",s:"Spinal Articulation",st:"מתחילים ב-Roll Over, ידיים ישרות לאחור מחזיקות את כפות הרגליים.",steps:[["i","רגל אחת עולה ישרה לתקרה בפוינט."],["e","בטן נאספת ורגליים מחליפות מקום תוך שיווי משקל: עליונה בפוינט, תחתונה בפלקס, הידיים מחזיקות את הרגל התחתונה."]],m:"Rectus Abdominus + Hip Extensors"},
+{n:"Corkscrew",s:"Spinal Articulation",st:"שכיבה על הגב, ידיים לצידי הגוף, רגליים ישרות בפלקס ב-90 מעלות לתקרה.",steps:[["i","מטים את הרגליים לצד אחד, הצלעות נשארות על המזרן."],["e","הופכים לפוינט ומניעים את הרגליים במעגל דרך 60 מעלות, חזרה למרכז ולפלקס."]],note:"מבצעים לצד השני וכך ממשיכים.",m:"Rectus Abdominus + Hip Flexors"},
+{n:"Corkscrew Advanced",s:"Spinal Articulation",st:"מתחילים מאותו מנח של Corkscrew.",steps:[["e","מעגל רגליים אחורה מעבר לראש, פלקס, האגן והחוליות מתנתקים למנח Roll Over."],["i","הופכים לפוינט וממשיכים את המעגל קדימה עד 60 מעלות."]],note:"חצי מעגל בנשיפה בפלקס וחצי בשאיפה בפוינט.",m:"Rectus Abdominus + Hip Flexors"},
+{n:"Boomerang",s:"Spinal Articulation",st:"ישיבה עם רגליים ישרות לפנים, רגל מונחת על השנייה, גב עגול, ידיים לצידי הרגליים.",steps:[["e","מתגלגלים לאחור ומרימים רגליים עד שמקבילות לרצפה מעבר לראש."],["i","מחליפים את שילוב הרגליים."],["e","מתגלגלים לפנים עד מנח Teaser."],["i","ידיים עוברות במעגל אל מאחורי הגב, אצבעות על המזרן, גב מתארך, גובה הרגליים כמו ב-Teaser."],["e","רגליים יורדות, הגב עולה ישר לישיבה, ידיים מציירות מעגל קדימה והגב מתעגל למנח ההתחלתי."]],m:"Rectus Abdominus + Hip Flexors"},
+{n:"Side Leg Lift",s:"Leg Work",st:"שכיבה על הצד, יד על המזרן כף כלפי מעלה, ראש על היד, אגן מעט אחורה מקו הגוף, גב ישר, רגליים ישרות בהמשך לגוף, כפות ידיים ורגליים באותו קו.",steps:[["i","מרימים את הרגל העליונה בפלקס לגובה מפרק הירך."],["e","מאריכים את העליונה לפוינט מעבר לתחתונה, אוספים בטן, מרימים את התחתונה ומצמידים לעליונה בלי לשנות את מנח הגב."],["i","מניחים את התחתונה על המזרן ומחזירים את העליונה לפלקס."]],m:"Hip Adductors"},
+{n:"Side Kick",s:"Leg Work",st:"שכיבה על הצד על האמה, כף היד התחתונה פונה קדימה, יד עליונה ישרה למעלה בהמשך ליד התחתונה, רגל תחתונה כפופה, רגל עליונה ישרה בגובה מפרק הירך. מרפק, אגן וכף רגל באותו קו.",steps:[["e","(2 נשיפות קצרות) שתי בעיטות קדימה עם הרגל העליונה, פלקס."],["i","(2 שאיפות קצרות) שתי בעיטות לאחור, פוינט."]],m:"Gluteus Maximus + ITB"},
+{n:"Side Kick Kneeling",s:"Leg Work",st:"עמידה על ברך אחת ויד אחת על הצד, יד וברך באותו קו, כף היד פונה הצידה, יד עליונה ישרה למעלה, רגל עליונה בגובה מפרק הירך.",steps:[["e","(2 נשיפות קצרות) שתי בעיטות קדימה, פלקס."],["i","(2 שאיפות קצרות) שתי בעיטות לאחור, פוינט."]],m:"Gluteus Maximus + ITB"},
+{n:"Front Support",s:"Full Body Integration",st:"עמידת “פלנק”, כפות ידיים מתחת לכתפיים, רגליים ישרות לאחור, פלקס על המזרן, אגן ועמוד שדרה נטרליים.",steps:[["i","מכופפים ברך אחת לנגיעה קלה במזרן, בלי לשנות את מנח האגן."],["e","מיישרים את הרגל בחזרה."],["i","מכופפים רגל שנייה."]],note:"ממשיכים פעם ימין ופעם שמאל, מספר חזרות.",m:"Transverse Abdominus"},
+{n:"Leg Pull Front",s:"Full Body Integration",st:"מתחילים ממנח Front Support.",steps:[["e","מנתקים רגל אחת בפוינט ישרה לאחור, בלי לשנות את מנח האגן."],["i","מורידים את הרגל עד שקצות האצבעות נוגעות במזרן, וכך ממשיכים."]],m:"Hip Extensors + Transverse Abdominus"},
+{n:"Push Up",s:"Full Body Integration",st:"מנח Front Support.",steps:[["i","כופפים מרפקים."],["e","מיישרים מרפקים בחזרה. חוזרים 3 פעמים."],["i","מעבירים משקל לרגליים לצורת פירמידה וצועדים עם הידיים 3 צעדים לאחור עד הרגליים."],["e","עולים חוליה אחר חוליה עד עמידה ישרה."],["i","ידיים עולות למעלה, נפתחות ויורדות."],["e","יורדים חוליה אחר חוליה עד שהידיים על המזרן."],["i","צועדים 3 צעדים קדימה עד Front Support."]],note:"חוזרים על הרצף מספר פעמים.",m:"Triceps + Transverse Abdominus"},
+{n:"Back Support",s:"Full Body Integration",st:"ישיבה שלמה בגב זקוף, רגליים ישרות וצמודות, פלקס, כפות ידיים על המזרן מאחורי האגן, אצבעות לכיוון האגן.",steps:[["i","במקום."],["e","דוחפים את הרצפה עם הידיים ומרימים את האגן לקו ישר מכפות הרגליים ועד הקודקוד, רגליים לפוינט."],["i","מניחים את האגן בלי לשנות את מנח הידיים או הגב, ומחזירים לפלקס."]],note:"הקלה: ברכיים כפופות וכפות רגליים על המזרן; עם כאב בצוואר אפשר להפנות מבט לפנים.",m:"Triceps + Hamstrings"},
+{n:"Leg Pull Back",s:"Full Body Integration",st:"מתחילים ממנח Back Support.",steps:[["e","מרימים רגל אחת בפלקס כמה שאפשר בלי לשנות את גובה האגן."],["i","מורידים את הרגל בפוינט עד מגע במזרן."]],note:"פעם ימין ופעם שמאל.",m:"Triceps + Hamstrings + Hip Flexors"},
+{n:"Saw",s:"Side Flexion and Rotation",st:"ישיבה בגב זקוף, רגליים ישרות ברוחב המזרן, פלקס, ידיים ישרות לצדדים, כפות פונות מטה.",steps:[["i","מעבירים יד אחת ישרה לפנים מעל הרגל הנגדית (אגודל מעלה) ויד שנייה ישרה לאחור (אגודל מטה)."],["e","הטיה של הגב לכיוון הרגל, הגב מתעגל, המצח לכיוון הרגל, כאילו חותכים עם היד את הרגל."],["i","הגב מתארך חזרה לפנים וחוזר ישר מעל האגן."],["e","הידיים חוזרות לצדדים, גב זקוף."]],note:"ממשיכים פעם לימין ופעם לשמאל.",m:"Abdominals Obliques + Spine Extensors"},
+{n:"Spine Twist",s:"Side Flexion and Rotation",st:"ישיבה בגב זקוף, רגליים ישרות לפנים ומקבילות ברוחב האגן, פלקס, ידיים ישרות לצדדים, כפות לתקרה.",steps:[["e","(2 נשיפות קצרות) אוספים בטן ומבצעים רוטציה לצד אחד בשתי ניעות, הראש נשאר במרכז בין הידיים."],["i","(שאיפה קצרה) חוזרים למרכז."],["e","(2 נשיפות) אותו פיתול לצד השני."]],note:"אפשר גם עם כפות ידיים על הכתפיים או מקל על השכמות.",m:"Abdominals Obliques + Spine Extensors"},
+{n:"Side Bend",s:"Side Flexion and Rotation",st:"שכיבה על הצד על האמה, כף היד פונה קדימה, יד עליונה על האגן, רגליים כפופות, רגל עליונה קדמית, עקב עליון צמוד לכף הרגל התחתונה. מרפק, אגן ועקב בקו אחד.",steps:[["i","הרגליים דוחפות את המזרן ומתיישרות, יד עליונה עולה בהמשך לתחתונה, מנח גוף ישר."],["e","אגן עולה ויד עליונה עוברת מעבר לראש: כפיפה צידית של המותן."],["i","חוזרים לקו ישר על הצד, יד עליונה למעלה."],["e","מכופפים ברכיים והאגן יורד למנח ההתחלתי."]],m:"Abdominals Obliques"},
+{n:"Twist Bend",s:"Side Flexion and Rotation",st:"ישיבה על הצד, ברכיים כפופות, עקב עליון צמוד לכף הרגל התחתונה, כף יד על המזרן פונה הצידה, יד ישרה.",steps:[["i","רגליים דוחפות ומתיישרות, האגן מתנתק, קו אחד מהרגליים ועד הקודקוד, יד עליונה בהמשך ליד התחתונה."],["e","אגן עולה, בית החזה והראש יורדים, היד התחתונה נכנסת מתחת לגוף: פיתול של עמוד השדרה."],["i","חזרה למנח הקודם, יד ישרה למעלה."],["e","יורדים בחזרה להתחלה."]],note:"ברצף לא מניחים את האגן עד הסוף בירידה.",m:"Abdominals Obliques + Hip Flexors"},
+{n:"Spine Stretch Forward",s:"Back Extension",st:"ישיבה, רגליים ישרות לפנים ברוחב המזרן, גב זקוף, ידיים ישרות לפנים בגובה הכתפיים.",steps:[["i","במקום."],["e","מגלגלים את חוליות הצוואר ובית החזה מטה עד T8 ומניעים את הגב קדימה."],["i","מאריכים את הגב בקו אלכסוני קדימה ומרימים ידיים ישרות לצידי האוזניים."],["e","מעגלים את הגב בחזרה, חוזרים לעצמות הישיבה ומגלגלים חוליה אחר חוליה לישיבת המוצא."]],m:"Spine Extensors"},
+{n:"Basic Back Extension",s:"Back Extension",st:"שכיבה על הבטן, ידיים על האמות מקבילות, כפות על המזרן, צוואר בהמשך לגב.",steps:[["e","אוספים את הבטן פנימה ומנתקים אותה מהמזרן, ללא תנועה של הגב."],["i","משחררים את איסוף הבטן."]],note:"תרגיל בסיסי שמלמד שימוש בשרירי הבטן כתמיכה בתרגילי גב.",m:"Spine Extensors"},
+{n:"Single Leg Kick",s:"Back Extension",st:"מתחילים ממנח Basic Back Extension.",steps:[["e","(2 נשיפות קצרות) אוספים בטן, מכופפים רגל אחת בפלקס ומבצעים שתי בעיטות עם העקב לכיוון הישבן."],["i","מיישרים את הרגל לאחור בפוינט, מעט מעל המזרן."],["e","בעיטות לישבן ברגל השנייה."]],note:"פעם ימין ופעם שמאל, מספר פעמים.",m:"Spine Extensors + Hamstrings"},
+{n:"Double Leg Kick",s:"Back Extension",st:"שכיבה על הבטן, ראש מונח על צד אחד, כפות ידיים שלובות על הגב התחתון, ברכיים כפופות.",steps:[["e","(3 נשיפות קצרות) בועטים 3 פעמים עם הרגליים לכיוון הישבן, פלקס."],["i","רגליים וידיים נמתחות לאחור, פוינט, בית החזה עולה לפשיטה, צוואר בהמשך לגב, ראש במרכז."]],note:"הראש מונח על המזרן כל פעם על צד אחר.",m:"Spine Extensors + Hamstrings"},
+{n:"Swimming",s:"Back Extension",st:"שכיבה על הבטן, בית החזה מעל המזרן בפשיטה, ידיים ישרות לפנים ורגליים ישרות לאחור.",steps:[["n","5 נשימות כלב בשאיפה ו-5 בנשיפה: יד ימין ורגל שמאל עולות, יד שמאל ורגל ימין יורדות, והחלפות בקצב הנשימה."]],m:"Spine Extensors"},
+{n:"Swan Dive",s:"Back Extension",st:"שכיבה על הבטן, מרפקים כפופים, אמות מונחות על המזרן מקבילות.",steps:[["e","בטן נאספת, דוחפים את הרצפה ומאריכים מרפקים."],["i","במקום."],["e","מאריכים ידיים קדימה מעבר לראש תוך נדנוד הגוף קדימה, רגליים עולות."],["i","נדנוד אחורה, רגליים יורדות ובית החזה עולה לפשיטה מקסימלית."]],m:"Spine Extensors"},
+{n:"Rocking",s:"Back Extension",st:"שכיבה על הבטן, ברכיים כפופות, כפות רגליים לכיוון הישבן, ידיים אוחזות בקרסוליים, לחי מונחת על המזרן.",steps:[["h","הכנה"],["e","הרגליים דוחפות את הידיים, הבטן נאספת ועולים למנח נדנדה."],["i","יורדים בחזרה ומניחים את הלחי השנייה."],["h","התרגיל המלא"],["i","ממנח נדנדה מתנדנדים לאחור."],["e","מתנדנדים לפנים."]],m:"Spine Extensors"},
+{n:"Rest Position",s:"Stretches",st:"נקראת גם תנוחת עובר: יושבים עם הישבן לכיוון כפות הרגליים, ברכיים כפופות, ראש משוחרר, ידיים ישרות לפנים או מונחות על המזרן.",steps:[],note:"אפשר לפתוח את הברכיים לשחרור מפרקי הירך.",m:"Spine Extensors",stretch:true}
+];
+const CHAIR=[{n:"Double Leg Foot Work",s:"Foot Work",sp:"3-3",st:"ישיבה על הכיסא, ידיים ישרות מטה, כפות ידיים פונות לפנים כנגד הכיסא, בית חזה פתוח, גב זקוף, כתפיים מעל עצמות הישיבה, כפות רגליים על הבר.",steps:[["e","דוחפים את הבר למטה תוך איסוף בטן ושמירה על מנח הגב."],["i","נותנים לבר לעלות בחזרה."]],note:"מנחים: Parallel Heels (עקבים בפלקס, מקבילים ברוחב האגן) · Parallel Toes (כריות האצבעות, פוינט) · V-Position (כריות האצבעות, V, עקבים יחד) · Open V-Position Heels (עקבים בפלקס, V, פיסוק ברוחב הבר) · Open V-Position Toes (כריות האצבעות, פוינט, V, פיסוק ברוחב הבר).",m:"Quadriceps + Hamstrings"},
+{n:"Single Leg Foot Work",s:"Foot Work",sp:"2-1",st:"ישיבה על הכיסא כמו ב-Double Leg Foot Work, רגל אחת על הבר והשנייה כפופה באותו מקום.",steps:[],note:"Single Leg Heel: עקב על הבר, פלקס, רגל אחת דוחפת את הבר למטה · Single Leg Toes: כריות האצבעות על הבר, עקבים גבוהים, רגל אחת דוחפת את הבר למטה.",m:"Quadriceps + Hamstrings"},
+{n:"Calf Raises",s:"Foot Work",sp:"3-1-1",st:"עמידה עם הפנים אל הכיסא, ברך אחת נשענת על קצה המושב, כריות האצבעות על הבר, הרגל השנייה על הרצפה ישרה, אצבעות הידיים בצידי המושב, גב ישר, הגוף בקו אלכסוני מהעקב התחתון ועד קודקוד הראש.",steps:[["e","פוינט בכף הרגל שעל הבר."],["i","חוזרים לפלקס."]],m:"Gastrocnemius"},
+{n:"Pike Sitting",s:"Abdominal Work",sp:"1-1",st:"ישיבה על קופסה קטנה מול הכיסא, קרסוליים על הכיסא, פלקס, כפות ידיים על הבר, גב עגול.",steps:[["e","ידיים לוחצות על הבר והבטן נאספת עוד פנימה, מעמיקים את הקימור, שכמות מתרחקות."],["i","נותנים לידיים לעלות בחזרה."]],m:"Rectus Abdominus"},
+{n:"Standing Pike",s:"Abdominal Work",sp:"1-1",st:"עמידה עם הפנים אל הכיסא, כפות ידיים בקצוות הבר, אצבעות פונות החוצה, גב עגול.",steps:[["i","דוחפים את הבר עד למטה."],["e","מעמיקים את הקימור, אוספים בטן ומאפשרים לבר לעלות."]],m:"Rectus Abdominus"},
+{n:"Standing Pike Reverse",s:"Abdominal Work",sp:"1-1",st:"עמידה מאחורי הכיסא, אצבעות הרגליים צמודות אל הכיסא, ידיים על הבר, ברכיים מעט כפופות נשענות על הכיסא, גב בקימור.",steps:[["e","דוחפים את הבר למטה, ממשיכים בקימור."],["i","הגב מתארך ומאפשרים לבר לעלות בחזרה ישר."]],m:"Rectus Abdominus + Spine Extensors"},
+{n:"Full Pike",s:"Abdominal Work",sp:"3-3",st:"עומדים עם האצבעות על הבר, רגליים ברוחב האגן, ידיים על מושב הכיסא משני צידיו, כתפיים מעל כפות הידיים.",steps:[["e","אוספים בטן, ותוך קימור מקסימלי של הגב והרחקת השכמות מאפשרים לבר לעלות כמה שניתן."],["i","יורדים חצי דרך מטה תוך שמירה על הקימור, וכך ממשיכים."]],m:"Rectus Abdominus"},
+{n:"Side Pike",s:"Abdominal Work",sp:"3-3",st:"עמידה על הבר בפרופיל, רגל אחרי רגל, הרגל הקרובה אל הבר לפנים, ידיים על צד המושב מעל הכתפיים, פונות לצדדים, גב עגול.",steps:[["e","אוספים בטן, ותוך קימור מקסימלי והרחקת השכמות מאפשרים לבר לעלות כמה שניתן."],["i","יורדים חצי דרך מטה תוך שמירה על הקימור."]],note:"הקלה: רגליים הפוכות, יד אחת על הדופן האחורית של הכיסא ויד אחת על הצדית.",m:"Abdominal Obliques"},
+{n:"Teaser",s:"Abdominal Work",sp:"1*3",st:"ישיבה על הכיסא, גב אל הבר, רגליים ישרות וצמודות ב-60 מעלות, ידיים על הבר, אצבעות לאחור, גב ישר.",steps:[["i","מורידים את הבר למטה תוך ירידת הגב ישר עד שהגב מקביל לרצפה."],["e","בגב ישר עולים בחזרה למנח ההתחלתי."]],note:"הקלה: מניחים את הרגליים על כדור גדול.",m:"Abdominals + Spine Extensors + Hip Flexors"},
+{n:"Pelvic Curl",s:"Spinal Articulation",sp:"1-1",st:"שכיבה על המזרן צמוד אל הכיסא, ברכיים כפופות, עקבים על הבר דורכים אותו עד הרצפה, ידיים לצידי הגוף, כפות ידיים לתקרה.",steps:[["e","מגלגלים את האגן ל-PPT ומנתקים חוליות אחת אחרי השנייה עד קו ישר מהכתפיים ועד הברכיים."],["i","במקום, מאריכים עוד את הגב, ברכיים מקבילות."],["e","מניחים את החוליות בחזרה עד גב נטרלי, הבר נשאר למטה ללא תנועה."]],m:"Hamstrings"},
+{n:"Cat Stretch",s:"Spinal Articulation",sp:"1-1",st:"עמידה על הברכיים על מושב הכיסא, ידיים על הבר.",steps:[["i","מאריכים את הגב מטה, הבר יורד עוד קצת אבל לא עד הרצפה."],["e","אוספים בטן ומכניסים את הגב לקימור מקסימלי."]],m:"Abdominals + Spine Extensors"},
+{n:"Jack Knife",s:"Spinal Articulation",sp:"1-1",st:"שכיבה על המזרן עם הראש צמוד אל הכיסא, ידיים אוחזות בבר משני צידיו, רגליים ישרות בפוינט ב-60 מעלות.",steps:[["i","רגליים עולות ל-90 מעלות."],["e","רגליים עוברות מעבר לראש, מנתקים חוליה אחר חוליה ומניחים את הרגליים על מושב הכיסא."],["i","מרימים רגליים לתקרה בפוינט למנח נר."],["e","מניחים חוליה אחר חוליה, רגליים ישרות לתקרה עד אגן נטרלי; מעגל קטן וסוגרים ל-60 מעלות."]],m:"Abdominals"},
+{n:"Shrugs",s:"Arm Work",sp:"1-1",st:"ישיבה על קופסה קטנה עם הגב אל הבר, כפות ידיים על הבר משני צידיו פונות החוצה; דוחפים את הבר מטה עד ידיים ישרות, גב ישר.",steps:[["i","כתפיים עולות לכיוון האוזניים."],["e","דוחפים את הבר בחזרה למטה תוך ירידת הכתפיים והתרווחות השכמות."]],m:"Serratus Anterior"},
+{n:"Triceps Press Sit",s:"Arm Work",sp:"1-1",st:"ישיבה על קופסה קטנה עם הגב אל הכיסא, כפות ידיים על הבר משני צידיו, מרפקים כפופים ומקבילים, גב ישר.",steps:[["e","מיישרים את המרפקים מטה, שכמות רחבות, שומרים על אורך בגב."],["i","מכופפים מרפקים מקבילים בחזרה."]],m:"Triceps"},
+{n:"Chest Expansion",s:"Arm Chair Series",sp:"קפיצים בצדי הכיסא",st:"ישיבה על קופסה מול הכיסא, רגליים על הרצפה מקבילות, גב זקוף, פנים אל הכיסא, ידיים ברצועות ישרות לצידי הגוף מעט קדימה, כפות ידיים לאחור.",steps:[["e","מאריכים את עמוד השדרה, פותחים את בית החזה ומניעים ידיים לאחור; הקפיץ נמתח."],["i","הקפיץ נסגר, ידיים חוזרות לנקודת המוצא."]],m:"Latissimus Dorsi"},
+{n:"Biceps",s:"Arm Chair Series",sp:"קפיצים בצדי הכיסא",st:"ישיבה על קופסה, פנים אל הכיסא, רגליים כפופות, כפות רגליים כנגד הכיסא, ידיים ברצועות ישרות לפנים בגובה החזה, כפות לתקרה.",steps:[["e","מכופפים מרפקים בלי לשנות את גובה המרפק, הקפיץ נמתח."],["i","מיישרים ידיים בחזרה."]],m:"Biceps"},
+{n:"Rhomboid",s:"Arm Chair Series",sp:"קפיצים בצדי הכיסא",st:"אותה ישיבה, ידיים אוחזות ברצועות ישרות לפנים, כפות ידיים מטה.",steps:[["e","מכופפים מרפקים לצדדים, הקפיץ נמתח."],["i","מיישרים ידיים בחזרה."]],m:"Rhomboids"},
+{n:"Hug-A-Tree",s:"Arm Chair Series",sp:"קפיצים בצדי הכיסא",st:"ישיבה עם הגב צמוד אל הכיסא, רגליים על הרצפה מקבילות, ידיים ברצועות ארוכות לצדדים בזווית העיניים, כפות ידיים בגובה בית החזה.",steps:[["e","תנועת חיבוק עם הידיים, הקפיצים נמתחים."],["i","פותחים ידיים בחזרה."]],m:"Pectoralis"},
+{n:"Down Circles",s:"Arm Chair Series",sp:"קפיצים בצדי הכיסא",st:"מתחילים מאותו מנח של Hug-A-Tree.",steps:[["i","מרימים ידיים מהצדדים למעלה, שומרים מתח בקפיץ."],["e","מורידים ידיים עד גובה החזה, הקפיצים נמתחים."],["i","פותחים ידיים לצדדים בגובה החזה, בטווח הראייה, ומרימים בחזרה בצורה מעגלית."]],m:"Pectoralis + Deltoid"},
+{n:"Up Circles",s:"Arm Chair Series",sp:"קפיצים בצדי הכיסא",st:"מתחילים מאותו מנח של Hug-A-Tree.",steps:[["e","סוגרים ידיים לפנים עד שהן מקבילות, הקפיץ נמתח."],["i","מפנים כפות ידיים מטה ומאפשרים לידיים לעלות ולהיפתח בצורה מעגלית."]],m:"Pectoralis + Deltoid"},
+{n:"Salute",s:"Arm Chair Series",sp:"קפיצים בצדי הכיסא",st:"ישיבה עם הגב צמוד אל הכיסא, מרפקים כפופים ומקבילים מעט מעל גובה הכתפיים, אגודלים צמודים לרקות.",steps:[["e","מיישרים ידיים, שומרים על גובה המרפקים, הקפיץ נמתח."],["i","מכופפים מרפקים בחזרה אל הרקות."]],m:"Triceps"},
+{n:"Hamstring Curl",s:"Leg Work",sp:"1-1",st:"שכיבה על המזרן צמוד אל הכיסא, רגליים ישרות, עקבים על הבר, ידיים לצידי הגוף.",steps:[["e","מורידים את הבר תוך כפיפת הברכיים, שומרים על אגן נטרלי."],["i","מאפשרים לבר לעלות ולברכיים להתיישר."]],m:"Hamstrings"},
+{n:"Frog",s:"Leg Work",sp:"1-1",st:"שכיבה על המזרן, עקבים על הבר צמודים, ברכיים פתוחות עד הסוף החוצה, אצבעות מופרדות, ידיים לצידי הגוף.",steps:[["e","דורכים את הבר עד חצי הדרך למטה, עקבים לכיוון הישבן."],["i","נותנים לבר לעלות בחזרה."]],note:"מומלץ להישאר כמה נשימות בחצי הדרך ולהעמיק את העבודה.",m:"Hip Adductors"},
+{n:"Leg Press Standing",s:"Lunge Series",sp:"1-1",st:"עמידה עם הפנים אל הכיסא, ידיים לצידי הגוף, גב זקוף, רגל אחת עם כריות האצבעות על הבר.",steps:[["e","דוחפים את הבר עם הרגל תוך איסוף בטן ושמירה על שיווי משקל."],["i","מאפשרים לבר לעלות בחזרה."]],m:"Quadriceps + Gluteus Medius"},
+{n:"Forward Lunge",s:"Lunge Series",sp:"3-3",st:"רגל אחת עומדת עם האצבעות על הבר, רגל שנייה מונחת בחלק הקדמי של המושב, ידיים לצידי הגוף (אפשר להיתמך בידיות).",steps:[["e","דוחפים עם הרגל הקדמית את המושב ועולים עם כל הגוף במנח אחיד מעלה, כמה שאפשר."],["i","יורדים בחזרה תוך שמירה על מנח הגוף."]],m:"Quadriceps + Gluteus Medius"},
+{n:"Backward Step Down",s:"Lunge Series",sp:"3-3",st:"מבצעים Forward Lunge ועוצרים באמצע הדרך כשהרגל הקדמית כפופה ב-90 מעלות; יד על יד, מרפקים כפופים בגובה הכתפיים.",steps:[["i","מכופפים את הרגל האחורית בלי לשנות את מנח הגוף."],["e","מיישרים את הרגל בחזרה."]],m:"Quadriceps + Gluteus Medius"},
+{n:"Tendon Stretch",s:"Full Body Integration",sp:"3-3",st:"עמידה על הבר על האצבעות, עקבים גבוהים, ישבן לכיוון הכיסא, גב עגול, כפוף לפנים, ידיים ישרות על הקצה הקדמי של המושב.",steps:[["e","אוספים בטן, ותוך קימור מקסימלי של הגב מאפשרים לבר לעלות כמה שניתן."],["i","יורדים בחזרה תוך שמירה על הקימור."]],m:"Rectus Abdominus"},
+{n:"Frog Front",s:"Full Body Integration",sp:"3-3",st:"עמידה עם האצבעות על הבר ב-V, ברכיים כפופות פונות החוצה, פנים אל הכיסא, ידיים ישרות על המושב משני צידיו, כתפיים מעל כפות הידיים, אצבעות פונות החוצה.",steps:[["i","ברכיים מתכופפות, עקבים מתקרבים אל הישבן, שאר הגוף נשאר במנח ההתחלתי."],["e","רגליים דוחפות את הבר עד למטה."]],m:"Hip Adductors"},
+{n:"Frog Back",s:"Full Body Integration",sp:"3-3",st:"ישיבה על הכיסא, כריות האצבעות על הבר ב-V, ברכיים כפופות לצפרדע, הגב אל הכיסא, כפות ידיים על קצה המושב פונות קדימה, מרפקים ישרים ומקבילים. מנתקים את האגן מהכיסא, גב זקוף, ידיים ישרות וחזקות, עקבים קרובים לישבן ככל הניתן.",steps:[["i","מכופפים מרפקים מקבילים, הבר יורד איתנו אבל לא מגיע לרצפה."],["e","מיישרים מרפקים, הבר עולה איתנו, שאר הגוף לא משנה את המנח."]],m:"Triceps"},
+{n:"Mermaid",s:"Side Flexion and Rotation",sp:"1-1",st:"ישיבה על הכיסא בפרופיל, רגל אחת על המושב ב-90 מעלות מהגוף (אם קשה, להוריד רגל לפנים ולעטוף עם העקב את דופן הכיסא), רגל שנייה על הרצפה ישרה, כף הרגל קדימה, ידיים לצידי הגוף.",steps:[["i","כפיפה צידית לכיוון הבר, מניחים את היד הקרובה על הבר תוך הרמת היד השנייה ישרה מעבר לראש; העקב שעל הרצפה מתנתק מעט."],["e","מניחים את העקב ומעמיקים את המתיחה."]],m:"Abdominal Obliques",stretch:true},
+{n:"Kneeling Mermaid",s:"Side Flexion and Rotation",sp:"1*2",st:"עמידה על הברכיים ליד הכיסא בפרופיל, יד אחת על הבר, כף היד לפנים, יד שנייה ישרה לצד הגוף.",steps:[["e","כפיפה צידית תוך שמירה על האגן במרכז; היד שעל הבר נשארת ישרה, היד השנייה עולה ישרה מעבר לראש למתיחה."],["i","חוזרים למרכז, היד הרחוקה יורדת לצד הגוף."]],note:"אפשר להישאר במתיחה הצידית ורק לכופף וליישר את המרפק התחתון, לעבודה על ה-Triceps.",m:"Abdominal Obliques + Triceps"}];
+const LEGW=[{n:"Abductor Lift",s:"Gluteal Side Series",sp:"",st:"שכיבה על הצד, ראש מונח על היד, כף היד העליונה על המזרן תומכת מלפנים, רגל תחתונה כפופה, רגל עליונה ישרה בגובה מפרק הירך, פלקס, אצבעות כף הרגל פונות אל המזרן.",steps:[["e","מרימים את הרגל למעלה."],["i","מורידים את הרגל בחזרה, קצות האצבעות נוגעות במזרן."]],m:"ITB + Gluteus Medius + Gluteus Minimus"},
+{n:"Forward and Lift",s:"Gluteal Side Series",sp:"",st:"אותו מנח של Abductor Lift.",steps:[["e","מניעים את הרגל קדימה ומרימים מעט."],["i","מורידים בחזרה לגובה מפרק הירך ומחזירים את הרגל לאחור בפוינט."]],m:"ITB + Gluteus Medius + Gluteus Minimus"},
+{n:"Forwards With Drops",s:"Gluteal Side Series",sp:"",st:"אותו מנח, הרגל נשארת לפנים, פלקס בכף הרגל.",steps:[["e","מניעים את הרגל מעלה ובחזרה מטה."]],note:"ממשיכים בניעות קטנות עם דגש על הנשיפה, ולוקחים שאיפות קטנות בין הנשיפות.",m:"ITB + Gluteus Medius + Gluteus Minimus"},
+{n:"Adductor Lift",s:"Gluteal Side Series",sp:"",st:"שכיבה על הצד, רגל עליונה כפופה וכף הרגל מונחת על המזרן לפני הגוף, רגל תחתונה ישרה על המזרן.",steps:[["e","מנתקים את הרגל התחתונה מהמזרן כמה שניתן תוך שמירה על מנח הגוף."],["i","מורידים את הרגל בחזרה אל המזרן."]],m:"Hip Adductors"},
+{n:"Hip Extension Bend Knee",s:"Gluteal Kneeling",sp:"",st:"עמידת שש, כפות ידיים מתחת לכתפיים, גב נטרלי, צוואר בהמשך לגב.",steps:[["e","הרגל עם המשקולת עולה כפופה, כף הרגל לכיוון התקרה."],["i","הרגל יורדת בחזרה לכיוון המזרן."]],m:"Gluteus Medius + Gluteus Minimus"},
+{n:"Hip Abduction Bend Knee",s:"Gluteal Kneeling",sp:"",st:"עמידת שש, כפות ידיים מתחת לכתפיים, גב נטרלי, צוואר בהמשך לגב.",steps:[["e","הרגל נפתחת הצידה כפופה."],["i","הרגל נסגרת בחזרה למנח ההתחלתי."]],m:"Gluteus Maximus + Hamstrings"},
+{n:"Hip Extension Straight Leg",s:"Gluteal Kneeling",sp:"",st:"עמידת שש, כפות ידיים מתחת לכתפיים, גב נטרלי, צוואר בהמשך לגב.",steps:[["e","הרגל עולה ישרה, אצבעות כף הרגל פונות אל המזרן."],["i","הרגל יורדת בחזרה, אצבעות כף הרגל נוגעות במזרן."]],m:"Gluteus Maximus + Gluteus Medius"}];
+const MAGIC=[{n:"Chest Lift",s:"Abdominal Work",sp:"",st:"שכיבה על הגב, רגליים כפופות וצמודות, כפות רגליים על המזרן, חישוק בין כפות הידיים, אצבעות ארוכות, ידיים ישרות לאחור מעבר לראש.",steps:[["e","עולים עם בית החזה והראש לכפיפה, הידיים עוברות לפנים עד שהחישוק נוגע בירכיים."],["i","מעמיקים את העלייה ואת איסוף הבטן."],["e","יורדים אל המזרן, החזה, הראש והידיים חוזרים לאחור למנח ההתחלתי."]],m:"Rectus Abdominus"},
+{n:"Chest Lift Oblique",s:"Abdominal Work",sp:"",st:"מתחילים מאותו מנח של Chest Lift.",steps:[["e","עולים עם בית החזה והראש לכפיפה, ידיים לפנים עד שהחישוק נוגע בירכיים."],["i","במקום."],["e","מגלגלים את החישוק לצד אחד על הירכיים, ובכל נשיפה מעמיקים עוד קצת את האלכסון, אגן במרכז."],["i","חוזרים למרכז, החזה נשאר למעלה."]],note:"מצד לצד לסירוגין.",m:"Abdominal Obliques"},
+{n:"Arms Front Press",s:"Arm Work",sp:"",st:"ישיבה או עמידה, גב זקוף, צוואר ארוך. החישוק בין כפות הידיים מול החזה, מרפקים כפופים פונים לצדדים, אצבעות ארוכות לפנים.",steps:[["e","לוחצים על החישוק תוך שמירה על כתפיים משוחררות ואורך הגב."],["i","נותנים לחישוק להיפתח בחזרה."]],note:"אפשר להוסיף יישור של הזרועות קדימה בזמן הלחיצה.",m:"Pectoralis Major"},
+{n:"Arms Over Head Press",s:"Arm Work",sp:"",st:"ישיבה או עמידה, גב זקוף. החישוק בין כפות הידיים מעל הראש, מרפקים כפופים ומקבילים מעט מעל גובה הכתפיים.",steps:[["e","לוחצים על החישוק תוך שמירה על כתפיים משוחררות ואורך הגב."],["i","נותנים לחישוק להיפתח בחזרה."]],note:"אפשר להוסיף יישור של הזרועות בלחיצה, בלי לשנות את גובה המרפקים.",m:"Pectoralis + Biceps"},
+{n:"Single Arm Side Press",s:"Arm Work",sp:"",st:"אוחזים את החישוק בצד הגוף בין כף יד אחת לעצם האגן, המרפק רחוק מהגוף, אצבעות פונות מטה; היד השנייה עושה את אותו המנח בלי חישוק.",steps:[["e","לוחצים על החישוק תוך שמירה על שכמות רחוקות זו מזו."],["i","נותנים לחישוק להיפתח בחזרה."]],m:"Biceps + Anterior Deltoid"},
+{n:"Single Arm Biceps Press",s:"Arm Work",sp:"",st:"החישוק מונח בשקע הכתף, כף היד מונחת עליו מלמעלה, המרפק פונה הצידה; היד השנייה ישרה הצידה בגובה הכתף.",steps:[["e","לוחצים על החישוק תוך שמירה על כתף משוחררת."],["i","נותנים לחישוק להיפתח בחזרה."]],m:"Biceps"},
+{n:"Leg Press (Ankles / Knees)",s:"Leg Work",sp:"",st:"ישיבה בגב זקוף, או שכיבה על הגב ברגליים כפופות; החישוק בין הרגליים.",steps:[["e","לוחצים על החישוק תוך שמירה על מנח הגוף."],["i","נותנים לחישוק להיפתח בחזרה."]],note:"מנחים: Ankles Press (חישוק בין הקרסוליים) · Below Knees Press (חישוק מתחת לברכיים) · Above Knees Press (חישוק מעל הברכיים).",m:"Hip Adductors"},
+{n:"Swan",s:"Back Extension",sp:"",st:"שכיבה על הבטן, יד על יד מונחות על החישוק, החישוק עומד על דופן אחת על המזרן, ידיים ישרות לפנים.",steps:[["e","בטן נאספת, ידיים לוחצות על החישוק ובית החזה עולה לפשיטה."],["i","מאפשרים לחישוק להיפתח, החזה והראש יורדים לכיוון המזרן."]],m:"Back Extensors"},
+{n:"Hamstring Stretch",s:"Stretches",sp:"",st:"שכיבה על הגב, עוטפים את כריות כף הרגל עם המג׳יק, פלקס; מחזיקים את הצד השני של החישוק בשתי ידיים, רגל שנייה ישרה על המזרן, גב נטרלי.",steps:[["i","מכופפים מעט את הברך העליונה, אגן נטרלי ופלקס בכף הרגל."],["e","מיישרים את הרגל בחזרה."]],m:"Hamstring Stretch"},
+{n:"ITB Stretch",s:"Stretches",sp:"",st:"אותו מנח של Hamstring Stretch, מחזיקים את המג׳יק ביד הנגדית.",steps:[["e","לוקחים את הרגל לכיוון היד הנגדית למתיחה, עד שהישבן הנגדי מתחיל להתנתק מעט."],["i","חוזרים למרכז."]],m:"ITB Stretch"},
+{n:"Adductor Stretch",s:"Stretches",sp:"",st:"אותו מנח, מחזיקים את המג׳יק ביד שבאותו צד של הרגל.",steps:[["e","פותחים את הרגל הצידה ולמעלה לכיוון הכתף למתיחה; האגן נשאר נטרלי במרכז."],["i","חוזרים למרכז."]],m:"Hip Adductors Stretch"},
+{n:"Gluteals Stretch",s:"Stretches",sp:"",st:"אותו מנח; מכופפים את הברך של הרגל שבחישוק, הברך נפתחת החוצה וכף הרגל מסתובבת פנימה.",steps:[["e","מקרבים את הרגל לכיוון הראש; אם אפשר, מכופפים את הראש ומניחים אותו על הדופן התחתונה של המג׳יק. נשארים כמה נשימות להעמקה."],["i","משחררים בחזרה למנח ההתחלתי."]],m:"Gluteals Stretch"}];
+const LADDER=[{n:"Side Over",s:"Lateral Flexion",sp:"",st:"עמידה בפרופיל, רגליים על המסגרת שעל הרצפה: הרגל הקרובה לקשת קדימה, הרגל הקרובה לסולם אחורה; צד הגוף מונח על קשת החבית בכפיפה צידית, ידיים שלובות מאחורי הראש.",steps:[["e","עולים עם החזה עד קו ישר מכפות הרגליים ועד קודקוד הראש."],["i","מיישרים ידיים מעבר לראש בהמשך לקו הגוף."],["e","משלבים ידיים בחזרה מאחורי הראש ויורדים אל הכפיפה הצידית."],["i","במקום, למטה."]],m:"Abdominal Obliques"},
+{n:"Side Over Advanced",s:"Lateral Flexion",sp:"",st:"כמו Side Over, כשהרגליים על שלבים גבוהים יותר בסולם; הרגל העליונה בין השלבים, מעל הרגל התחתונה.",steps:[],note:"אותו תרגיל בדיוק. ככל שעולים גבוה יותר בסולם, התרגיל מאתגר יותר.",m:"Abdominal Obliques"},
+{n:"Swan",s:"Back Extension",sp:"",st:"עמידה עם העקבים על השלב הראשון של הסולם, כפות רגליים ב-V קטן, ברכיים מעט כפופות, ידיים שלובות מאחורי הראש, מרפקים בזווית העיניים, החזה מונח על קשת החבית.",steps:[["e","בית החזה עולה עד קו ישר עם הגוף ומעט יותר; מיישרים ברכיים, הידיים מתארכות לצידי הראש."],["i","מחזירים את הידיים אל מאחורי הראש ויורדים למנח ההתחלתי."]],m:"Spine Extensors"},
+{n:"Swan Advanced",s:"Back Extension",sp:"",st:"אותו מנח של Swan; אפשר לעמוד בגובה שמתאים לגמישות הגב.",steps:[["e","מרימים את בית החזה עד פשיטה מקסימלית, ברכיים מתכופפות, הידיים מתארכות למעלה בהמשך לקו הגוף."],["i","מיישרים רגליים, הגב והידיים נעים קדימה עד קו ישר מכפות הרגליים ועד קודקוד הראש."],["e","עולים בחזרה לפשיטה מקסימלית."]],m:"Spine Extensors"},
+{n:"Shoulder Stretch Back",s:"Stretches",sp:"",st:"עמידה עם הגב לחבית, ידיים ישרות, אצבעות שלובות מאחורי הגב, שורשי כפות הידיים מונחים על החבית.",steps:[["e","מכופפים ברכיים לכריעה תוך מתיחת שרירי החזה; הידיים נשארות על החבית."]],note:"נשארים במנח כמה נשימות להעמקת המתיחה.",m:"Pectoralis Stretch"},
+{n:"Shoulder Stretch Front",s:"Stretches",sp:"",st:"עמידה עם הפנים אל החבית, ידיים מונחות אחת על השנייה בין השכמות, מרפקים על החבית, אגן בגובה הכתפיים, גב ישר.",steps:[["i","מכופפים ברכיים ומעמיקים את המתיחה של הזרועות ובית החזה."],["e","מיישרים רגליים בלי לשנות את העמקת המתיחה."]],m:"Pectoralis Stretch"},
+{n:"Gluteals",s:"Stretches",sp:"",st:"עמידה בתוך החבית בפרופיל; מרימים את הרגל הקרובה אל קשת החבית ומניחים עליה, כף הרגל במרכז, ברך כפופה פונה החוצה; רגל העמידה צמודה למסגרת האחורית, ידיים אוחזות בידיות מאחור.",steps:[["i","מאריכים את הגב לכיוון הרגל שעל החבית, הראש משתחרר מטה, מכופפים את ברך העמידה."],["e","מיישרים את רגל העמידה תוך העמקת המתיחה, ועולים חוליה אחר חוליה או מאריכים את הגב ועולים למנח ההתחלתי."]],m:"Gluteals Stretch"},
+{n:"Hamstrings",s:"Stretches",sp:"",st:"כמו Gluteals, רק שהרגל שעל החבית ישרה בפלקס.",steps:[],note:"מבצעים בדיוק את אותו תרגיל כמו Gluteals, עם רגל ישרה בפלקס על החבית.",m:"Hamstring Stretch"},
+{n:"Adductors",s:"Stretches",sp:"",st:"עמידה בתוך החבית בפרופיל, רגל העמידה צמודה לפינה של המסגרת; הרגל הקרובה לקשת מונחת עליה, מעט קדימה מקו הגוף, פלקס; היד הקרובה לקשת אוחזת בבר מלמטה, היד השנייה ישרה הצידה.",steps:[["i","כפיפה צידית של הגוף לכיוון הרגל שעל החבית; היד הרחוקה עולה ארוכה מעבר לראש, מכופפים את ברך העמידה ומעמיקים את המתיחה, שני צידי האגן שווים."],["e","מיישרים את הרגל ועולים בחזרה למנח ההתחלתי."]],m:"Hip Adductors Stretch"},
+{n:"Hip Flexor",s:"Stretches",sp:"",st:"עמידה עם הפנים אל הסולם, רגל עמידה צמודה למסגרת, רגל שנייה מונחת כפופה לאחור כנגד החבית, ידיים אוחזות בידיות משני הצדדים.",steps:[["i","מכופפים את ברך העמידה ומעמיקים את המתיחה של הירך העליונה."],["e","מיישרים בחזרה את רגל העמידה תוך שמירה על מתיחה מקסימלית."]],m:"Hip Flexors Stretch"}];
+const STEP=[{n:"Chest Lift",s:"Abdominal Work",sp:"",st:"ישיבה עם הגב צמוד אל הקשת, ברכיים כפופות וצמודות, בית החזה בפשיטה לאחור, ידיים שלובות מאחורי הראש, מרפקים בזווית הראייה.",steps:[["e","עולים עם בית החזה לכפיפה תוך איסוף הבטן פנימה, עד שהשכמות מתנתקות מהקשת."],["i","מעמיקים את איסוף הבטן עוד קצת."],["e","יורדים בחזרה למנח ההתחלתי."]],m:"Rectus Abdominus"},
+{n:"The Reach",s:"Abdominal Work",sp:"",st:"ישיבה צמוד אל הקשת, גב עגול, כתפיים מעל עצמות הישיבה, ברכיים כפופות, כפות רגליים על הרצפה מקבילות ברוחב האגן, ידיים ישרות לפנים פונות זו אל זו.",steps:[["e","מניחים חוליה אחר חוליה על הקשת; כשמגיעים לעצם בית החזה מתחילים ליישר רגליים תוך הארכת עמוד השדרה לאחור והנעת הזרועות לאחור. האגן עולה, החזה הולך לפשיטה, ידיים מעבר לראש."],["i","מעגל עם הזרועות עד חזרה לפנים, מניחים את האגן ומרימים את בית החזה, הראש והידיים לפנים."],["e","עולים חוליה אחר חוליה תוך כפיפת הברכיים, חזרה למנח ההתחלתי."]],m:"Rectus Abdominus"},
+{n:"Teaser",s:"Abdominal Work",sp:"",st:"יושבים עם הגב צמוד אל הקשת, רגליים ישרות לפנים וצמודות בפוינט, הגב מונח על הקשת, ידיים מעבר לראש, ראש בהמשך לגב.",steps:[["e","עולים עם החזה לכפיפה, מניעים ידיים לפנים ומרימים רגליים ישרות לכיוון התקרה בפלקס."],["i","מורידים רגליים בחזרה בפוינט; החזה והראש יורדים והידיים חוזרות לאחור."]],m:"Rectus Abdominus + Hip Flexors"},
+{n:"Roll Over",s:"Spinal Articulation",sp:"",st:"שכיבה על הגב, כל החוליות על הקשת מלבד הכתפיים והראש שעל המזרן; האגן ב-APT בחלק הגבוה של הקשת, ידיים אוחזות בצידי הקשת, מרפקים החוצה, רגליים ישרות וצמודות ב-60 מעלות, פוינט.",steps:[["i","רגליים עולות ל-90 מעלות."],["e","מנתקים מהקשת חוליה אחר חוליה ומעבירים רגליים ישרות מעבר לראש."],["i","רגליים נפתחות לרוחב הכתפיים, הופכות לפלקס ונוגעות במזרן מאחורי הראש."],["e","מניחים חוליה אחר חוליה על הקשת, רגליים נמוכות ככל האפשר, ובסוף חוזרות ל-60 מעלות, פוינט וצמודות."]],note:"פעם כך ופעם הפוך: לאחור בפוינט ברוחב כתפיים, לפנים בפלקס וצמודות.",m:"Rectus Abdominus"},
+{n:"Spine Twist Supine",s:"Spinal Articulation",sp:"",st:"אותו מנח על הקשת (APT בחלק הגבוה), ידיים בצידי הקשת או על הצלעות, מרפקים החוצה, ברכיים כפופות ב-90 מעלות.",steps:[["i","מניעים רגליים לצד אחד תוך הארכת הצד הנגדי של הגוף; החזה והראש במרכז."],["e","מחזירים רגליים למרכז מתוך איסוף הבטן."]],note:"אפשר לאתגר ולבצע עם רגליים ישרות.",m:"Abdominal Obliques"},
+{n:"Corkscrew",s:"Spinal Articulation",sp:"",st:"אותו מנח על הקשת, רגליים ישרות לכיוון התקרה.",steps:[["i","מטים רגליים לצד אחד תוך הארכת הצד הנגדי, כפות רגליים בפלקס."],["e","מניעים רגליים קדימה ובמעגל בפוינט עד המנח ההתחלתי, וחוזרים לפלקס."]],note:"פעם לצד אחד ופעם לצד השני.",m:"Abdominal Obliques"},
+{n:"Corkscrew Advanced",s:"Spinal Articulation",sp:"",st:"אותו מנח על הקשת, רגליים ישרות ב-60 מעלות קדימה.",steps:[["e","מטים רגליים לצד אחד ומשם אחורה מעבר לראש למנח Roll Over, פלקס."],["i","דרך הצד השני מניחים חוליות על הקשת ומורידים רגליים במעגל עד 60 מעלות."]],note:"חצי מעגל בנשיפה וחצי מעגל בשאיפה, כפות רגליים בפוינט.",m:"Abdominal Obliques"},
+{n:"Scissors",s:"Leg Work – Leg Weights",sp:"",st:"משקולות על הרגליים. שכיבה על הגב, כל החוליות על הקשת מלבד הכתפיים והראש, אגן ב-APT בחלק הגבוה, ידיים בצידי הקשת, מרפקים החוצה, רגליים ישרות לתקרה.",steps:[["i","רגל אחת לפנים בפוינט ורגל אחת לאחור בפלקס, באותו גובה."],["e","סוגרים בחזרה אל התקרה בפוינט."]],m:"Quadriceps + Hamstrings + Hip Adductors"},
+{n:"Openings",s:"Leg Work – Leg Weights",sp:"",st:"אותו מנח עם משקולות, רגליים ישרות לתקרה.",steps:[["i","רגליים ב-turn out נפתחות בפלקס, כל רגל לצד שלה."],["e","רגליים נסגרות בחזרה לתקרה בפוינט."]],m:"Quadriceps + Hamstrings + Hip Adductors"},
+{n:"Helicopter",s:"Leg Work – Leg Weights",sp:"",st:"אותו מנח עם משקולות, רגליים ישרות לתקרה.",steps:[["i","רגל אחת לפנים בפוינט ורגל אחת לאחור בפלקס, למנח Scissors."],["e","תנועה מעגלית עם שתי הרגליים עד שהן מחליפות מקום, ומשם סוגרים בחזרה לתקרה בפוינט."]],note:"פעם לצד אחד ופעם לצד השני.",m:"Quadriceps + Hamstrings + Hip Adductors"},
+{n:"Bicycle",s:"Leg Work – Leg Weights",sp:"",st:"אותו מנח עם משקולות, רגליים ישרות לתקרה.",steps:[["i","רגל אחת לפנים בפוינט ורגל אחת לאחור בפלקס, למנח Scissors."],["e","מכופפים את הרגל הרחוקה מהראש ומחליפים בין הרגליים: כשהרחוקה מתכופפת, הקרובה מתיישרת."]],note:"Reverse: אותו דבר, אבל מכופפים את הרגל הקרובה לראש. בכל שלב רגל אחת כפופה ואחת ישרה.",m:"Quadriceps + Hamstrings + Hip Adductors"},
+{n:"Side Lift",s:"Lateral Flexion",sp:"",st:"שוכבים על הצד, מפרק הירך בתחתית הקשת, רגל תחתונה כפופה 90 מעלות מהגוף, רגל עליונה ישרה בהמשך לקו הגוף, יד תחתונה כפופה מתחת לראש, יד עליונה ישרה על הגוף.",steps:[["e","החזה עולה לכפיפה צידית, היד התחתונה עולה אל מעבר לראש."],["i","היד יורדת בחזרה אל הגוף והחזה יורד אל הקשת."]],m:"Abdominal Obliques"},
+{n:"Swan",s:"Back Extension",sp:"",st:"שכיבה על הקשת על הבטן, הבטן בחלק הגבוה של הקשת, רגליים ישרות לאחור, ידיים ישרות לפנים, מצח מונח על המזרן מעבר.",steps:[["e","מרימים את בית החזה לפשיטה, הרגליים מתארכות לאחור ומתנתקות מהמזרן."],["i","מורידים את בית החזה, הראש והרגליים בחזרה."]],note:"אפשר לבצע הכנה שבה החזה והרגליים עולים כל אחד בנפרד, לפני החיבור של הכול יחד.",m:"Spine Extensors"},
+{n:"Shoulder Stretch Side",s:"Stretches",sp:"",st:"שוכבים על הצד, מפרק הירך בתחתית הקשת, רגל תחתונה כפופה 90 מעלות, רגל עליונה ישרה, יד תחתונה ישרה מתחת לראש, יד עליונה ישרה על הגוף.",steps:[["e","מניעים את היד העליונה לפנים ולמעלה מעבר לראש; בית החזה נפתח לפיתול והיד ארוכה לאחור."],["i","ממשיכים דרך למטה במעגל ולוקחים את היד העליונה רחוק לפנים."]],m:"Pectoralis Stretch"}];
+const TOW=[{n:"Double Leg Foot Work",s:"Foot Work",sp:"אדום, כחול (Bottom Loaded)",st:"שכיבה על הגב, אגן וגב נטרליים, רגליים כנגד ה-PTB, הראש על כרית הראש מעבר למזרן הקדילק, כפות הרגליים מעל האגן, ידיים לצידי הגוף.",steps:[["e","דוחפים עם הרגליים את הבר עד יישור מלא של הברכיים, תוך שמירה על גב ואגן נטרליים."],["i","מכופפים בחזרה את הברכיים ועוצרים רגע לפני סגירת הקפיץ."]],note:"מנחים: Parallel Heels (עקבים על הבר, מקבילות, פלקס) · Parallel Toes (כריות הבהונות, פוינט) · V-Position (כריות הבהונות, עקבים יחד) · Open V-Position Heels (עקבים, פיסוק ברוחב הבר) · Open V-Position Toes (כריות הבהונות, פיסוק ברוחב הבר).",m:"Quadriceps + Hamstrings"},
+{n:"Calf Raises",s:"Foot Work",sp:"אדום, כחול (Bottom Loaded)",st:"כריות הבהונות על ה-PTB, מקבילות ברוחב האגן, רגליים ישרות.",steps:[["i","נותנים לעקבים לרדת לפלקס מקסימלי."],["e","דוחפים את הבר לפוינט."]],m:"Gastrocnemius + Soleus"},
+{n:"Prances",s:"Foot Work",sp:"אדום, כחול (Bottom Loaded)",st:"כריות הבהונות על ה-PTB, מקבילות ברוחב האגן, רגליים ישרות.",steps:[["e","דוחפים את הבר לפוינט."],["i","רגל אחת שוקעת לפלקס והשנייה מתכופפת."],["e","עולים על האצבעות, שתי הרגליים מתיישרות, ומחליפים רגליים."]],note:"ממשיכים: החלפה בשאיפה והחלפה בנשיפה.",m:"Gastrocnemius + Soleus"},
+{n:"Single Leg Foot Work",s:"Foot Work",sp:"אדום (Bottom Loaded)",st:"רגל אחת על ה-PTB, השנייה מונחת כפופה על המזרן, ידיים ישרות לצידי הגוף.",steps:[["e","אוספים בטן ודוחפים את הבר עד יישור מלא של הרגל."],["i","מכופפים את הברך ועוצרים רגע לפני סגירת הקפיץ."]],note:"שתי פוזיציות: Single Leg Heel (עקב על הבר, פלקס) · Single Leg Toes (כריות הבהונות, פוינט).",m:"Quadriceps + Hamstrings"},
+{n:"Hip Opener",s:"Foot Work",sp:"אדום/כחול (Bottom Loaded)",st:"שכיבה על הצד, הראש על היד התחתונה בקו כרית הראש מעבר למזרן הקדילק, אגן מקביל וכתף מעל כתף, רגל תחתונה ישרה על המזרן, כריות הבהונות של הרגל העליונה על ה-PTB ב-turn out.",steps:[["i","הברך העליונה מתכופפת; עוצרים רגע לפני סגירת הקפיץ."],["e","דוחפים את הבר ומיישרים את הרגל תוך העמקת ה-turn out."]],m:"ITB + Gluteus"},
+{n:"Roll Up With Roll Up Bar",s:"Abdominal Work",sp:"צהובים, שליש אמצעי + RUB",st:"ישיבה עם הפנים אל הקדילק, אוחזים בבר, ידיים ישרות לפנים, גב עגול, רגליים ברוחב האגן.",steps:[["e","מניחים על המזרן חוליה אחר חוליה עד שכיבה מלאה."],["i","מרימים את הראש ומסתכלים קדימה."],["e","מנתקים את החוליות מהמזרן אחת אחרי השנייה עד ישיבה."]],m:"Rectus Abdominus + Hip Flexors"},
+{n:"Mini-Roll Ups",s:"Abdominal Work",sp:"PTB אדום, כחול (Top Loaded)",st:"שכיבה על הגב עם הראש עד סוף המזרן, ידיים אוחזות בבר ישרות למעלה, ברכיים כפופות וצמודות.",steps:[["i","נותנים לבית החזה לעלות ולגב התחתון להתנתק מעט מהמזרן, שומרים על גב עגול."],["e","אוספים בטן ומעמיקים את הקימור; הגב התחתון נוגע במזרן."],["i","נותנים לחזה לעלות פעם נוספת."]],note:"תנועה קטנה של העמקה ואיסוף הבטן.",m:"Rectus Abdominus"},
+{n:"Mini-Roll Ups Oblique",s:"Abdominal Work",sp:"PTB אדום, כחול (Top Loaded)",st:"שכיבה על הגב עם הראש עד סוף המזרן, יד אחת אוחזת בבר באחיזה הפוכה (אצבעות פנימה), יד שנייה מאחורי הראש, ברכיים כפופות על המזרן.",steps:[["i","נותנים לחזה לעלות ולגב התחתון להתנתק מעט, מסובבים את החזה לצד של היד הכפופה; אגן במרכז וגב עגול."],["e","אוספים בטן ומעמיקים את הקימור עד שהגב התחתון נוגע במזרן."],["i","נותנים לחזה לעלות פעם נוספת."]],m:"Abdominal Obliques"},
+{n:"Roll Up Top Loaded",s:"Abdominal Work",sp:"PTB כחול (Top Loaded)",st:"שכיבה על הגב עם הראש עד סוף המזרן, ידיים אוחזות בבר ישרות למעלה, רגליים ישרות וצמודות.",steps:[["e","אוספים בטן ועולים עם החזה והראש לקימור."],["i","מאריכים את הגב, ידיים למעלה עד קו ישר מכפות הידיים לעצמות הישיבה."],["e","מקמרים את הגב בחזרה ומניחים חוליה אחר חוליה על המזרן."]],note:"אפשר לבצע גם בלי קפיץ בכלל.",m:"Rectus Abdominus + Spine Extensors"},
+{n:"Roll Up Bottom Loaded",s:"Abdominal Work",sp:"PTB כחול (Bottom Loaded)",st:"כמו Roll Up Top Loaded.",steps:[],note:"מתבצע בדיוק כמו Roll Up Top Loaded, רק הקפיץ שונה, ולכן עבודת השרירים משתנה.",m:"Rectus Abdominus + Spine Extensors"},
+{n:"Teaser 1+2+3",s:"Abdominal Work",sp:"PTB כחול (Top Loaded)",st:"שכיבה על הגב, ראש מתחת לבר, ידיים אוחזות בבר ישרות, רגליים ישרות מונחות על המזרן.",steps:[["i","דוחפים את הבר למעלה ועולים עם החזה והראש חוליה אחר חוליה עד התארכות מלאה של הגב; מרימים רגליים לגובה העיניים למנח Teaser."],["e","1: מורידים חזה וראש אל המזרן, רגליים נשארות ב-60 מעלות."],["i","עולים בחזרה ל-Teaser."],["e","2: מורידים רגליים ישרות אל המזרן בלי שינוי של הגב."],["i","מרימים רגליים חזרה ל-60 מעלות."],["e","3: מורידים חזה, ראש ורגליים אל המזרן."],["i","עולים בחזרה ל-Teaser."]],m:"Rectus Abdominus + Spine Extensors + Hip Flexors"},
+{n:"Frog",s:"Hip Work – Double Leg Supine",sp:"סגולים, מקבילים למזרן",st:"שכיבה על הגב, גב נטרלי, רגליים ברצועות, ידיים ישרות מעבר לראש, כפות ידיים כנגד העמודים מהצד החיצוני, turn out. רגליים כפופות לצפרדע: פלקס ו-V בגובה הברכיים, ברכיים מעל מפרק הירך.",steps:[["e","מיישרים רגליים קדימה עד יישור מלא, מעמיקים את פתיחת מפרקי הירך ומחברים ירכיים."],["i","מכופפים ברכיים בחזרה לצפרדע."]],note:"גובה כפות הרגליים נשמר לאורך כל התרגיל.",m:"Hamstrings + Hip Adductors"},
+{n:"Down Circles",s:"Hip Work – Double Leg Supine",sp:"סגולים, מקבילים למזרן",st:"רגליים ישרות למעלה, הקפיץ ישר, V בין הרגליים.",steps:[["e","מורידים רגליים ישרות וצמודות ב-V עד המזרן."],["i","פותחים רגליים לצדדים ובמעגל סוגרים בחזרה למעלה."]],note:"עמוד השדרה והאגן נשארים נטרליים לאורך כל התרגיל.",m:"Hamstrings + Hip Adductors"},
+{n:"Up Circles",s:"Hip Work – Double Leg Supine",sp:"סגולים, מקבילים למזרן",st:"כמו Down Circles, בכיוון ההפוך.",steps:[["e","פותחים רגליים לצדדים ובמעגל מורידים עד המזרן, ומחברים ב-V."],["i","מרימים רגליים ב-V בחזרה למעלה."]],m:"Hamstrings + Hip Adductors"},
+{n:"Walking",s:"Hip Work – Double Leg Supine",sp:"סגולים, מקבילים למזרן",st:"מתחילים מאותו מנח, רגליים ישרות למעלה.",steps:[["e","רגליים צועדות שישה צעדים למטה עד המזרן."],["i","רגליים צועדות שישה צעדים בחזרה למעלה, עד סגירת הקפיץ."]],m:"Hamstrings + Hip Adductors"},
+{n:"Bicycle",s:"Hip Work – Double Leg Supine",sp:"סגולים, מקבילים למזרן",st:"מתחילים מאותו מנח, רגליים ישרות למעלה.",steps:[["e","רגל אחת יורדת אל המזרן, הקפיץ נמתח."],["i","הרגל מתכופפת ומתנתקת מהמזרן תוך ירידת הרגל השנייה."]],note:"ממשיכים בתנועת אופניים, פעם בשאיפה ופעם בנשיפה. אפשר גם בכיוון ההפוך.",m:"Hamstrings + Hip Adductors"},
+{n:"Frog",s:"Hip Work – Single Leg Supine",sp:"קפיץ סגול אחד, מקביל למזרן",st:"שכיבה על הגב, הראש בצד של הרצועות, מרפקים מעט כפופים, כפות ידיים כנגד מסגרת הקדילק מאחור. רגל אחת ברצועה כפופה ל-90 ומקבילה, רגל שנייה כפופה על המזרן.",steps:[["e","מאריכים את הרגל שעם הקפיץ קדימה עד יישור מלא, כף הרגל באותו גובה כל הדרך."],["i","מכופפים בחזרה ל-90 מעלות."]],m:"Hamstrings + Hip Adductors"},
+{n:"Hip Extension",s:"Hip Work – Single Leg Supine",sp:"קפיץ סגול אחד, מקביל למזרן",st:"הרגל שברצועה ישרה למעלה ומקבילה, הקפיץ ישר.",steps:[["e","מורידים את הרגל תוך מתיחת הקפיץ, ישרה קדימה עד המזרן."],["i","מאפשרים לרגל לעלות בחזרה."]],m:"Hamstrings + Hip Adductors"},
+{n:"Down Circles",s:"Hip Work – Single Leg Supine",sp:"קפיץ סגול אחד, מקביל למזרן",st:"מתחילים מאותו מנח, רגל ישרה למעלה.",steps:[["e","מורידים את הרגל קדימה עד המזרן."],["i","פותחים את הרגל הצידה ובמעגל מחזירים אותה למעלה."]],m:"Hamstrings + Hip Adductors"},
+{n:"Up Circles",s:"Hip Work – Single Leg Supine",sp:"קפיץ סגול אחד, מקביל למזרן",st:"מתחילים מאותו מנח, רגל ישרה למעלה.",steps:[["e","מורידים את הרגל דרך הצד במעגל עד המזרן."],["i","הרגל עולה בחזרה דרך קדימה למעלה."]],m:"Hamstrings + Hip Adductors"},
+{n:"Bicycle",s:"Hip Work – Single Leg Supine",sp:"קפיץ סגול אחד, מקביל למזרן",st:"מתחילים מאותו מנח, רגל ישרה למעלה.",steps:[["e","מורידים את הרגל קדימה עד המזרן."],["i","מכופפים את הברך, כף הרגל מחליקה על המזרן, מנתקים ומיישרים את הברך בחזרה למעלה."]],note:"עושים אותו דבר גם בכיוון ההפוך.",m:"Hamstrings + Hip Adductors"},
+{n:"Changes",s:"Hip Work – Single Leg Side",sp:"קפיץ סגול אחד, מקביל למזרן",st:"שכיבה על הצד, אגן מעט אחורה מקו הגוף, ידיים מעבר לראש מחזיקות את מסגרת המיטה, הראש על היד התחתונה, רגל עליונה ברצועה ישרה מעל הרגל התחתונה.",steps:[["i","מרימים את הרגל העליונה ומסובבים אותה פנימה, הבהונות פונות אל המזרן."],["e","מורידים את הרגל אל המזרן לפני הרגל השנייה, עד מגע הבהונות."],["i","מרימים את הרגל ומסובבים אותה החוצה, העקב פונה אל המזרן."],["e","מורידים את הרגל מאחורי הרגל השנייה, עד מגע העקב."]],m:"Hamstrings + ITB + Hip Flexors"},
+{n:"Bicycle",s:"Hip Work – Single Leg Side",sp:"קפיץ סגול אחד, מקביל למזרן",st:"רגל עליונה ישרה מאחורי קו הגוף, בפשיטה מקסימלית של הירך, שני צידי האגן פונים לפנים.",steps:[["i","מכופפים את הרגל לאחור, מעבירים אותה כפופה קדימה ומיישרים לפנים בפלקס."],["e","מניעים את הרגל ישרה בפוינט לאחור למנח ההתחלתי."]],note:"אפשר גם בכיוון ההפוך.",m:"Hamstrings + ITB + Hip Flexors"},
+{n:"Forward Circles",s:"Hip Work – Single Leg Side",sp:"קפיץ סגול אחד, מקביל למזרן",st:"רגל עליונה ישרה מאחורי קו הגוף, בפשיטה מקסימלית של הירך, אגן מקביל.",steps:[["i","מניעים רגל ישרה ומקבילה כל הדרך לפנים."],["e","מרימים את הרגל ב-turn out, מסובבים למקביל ומורידים מאחורי קו הגוף למנח ההתחלתי."]],m:"Hamstrings + ITB + Hip Flexors"},
+{n:"Back Circles",s:"Hip Work – Single Leg Side",sp:"קפיץ סגול אחד, מקביל למזרן",st:"רגל עליונה ישרה מאחורי קו הגוף, בפשיטה מקסימלית של הירך, אגן מקביל.",steps:[["i","מרימים את הרגל למעלה ב-turn out, מסובבים למקביל ומורידים קדימה עד גובה מפרק הירך."],["e","מניעים את הרגל לאחור לפשיטה מקסימלית, שני צידי האגן פונים לפנים."]],m:"Hamstrings + ITB + Hip Flexors"},
+{n:"Tower",s:"Spinal Articulation",sp:"כחול (Bottom Loaded)",st:"שכיבה על הגב, כריות הבהונות על ה-PTB ברוחב האגן, פלקס, רגליים ישרות, ידיים ישרות לאחור כנגד העמודים.",steps:[["e","הופכים כפות רגליים לפוינט, האגן מתגלגל ועולה תוך כפיפת ברכיים; הבר ללא תנועה."],["i","האגן יורד חוליה אחר חוליה והרגליים מתיישרות, עדיין בלי תנועת הבר. כפות הרגליים חוזרות לפלקס."]],m:"Abdominals + Hamstrings"},
+{n:"Tower Advanced",s:"Spinal Articulation",sp:"כחול (Bottom Loaded)",st:"כמו Tower: כריות הבהונות על ה-PTB, פלקס, רגליים ישרות, ידיים ישרות לאחור כנגד העמודים.",steps:[["e","הופכים לפוינט, האגן מתגלגל ועולה תוך כפיפת ברכיים; הבר ללא תנועה."],["i","מיישרים את הרגליים מעלה למנח נר, האגן גבוה."],["e","יורדים חוליה אחר חוליה עד שהאגן על המזרן שואף להיות נטרלי."],["i","מחזירים את כפות הרגליים לפלקס."]],m:"Abdominals + Hamstrings"},
+{n:"Bottom Lift With RUB",s:"Spinal Articulation",sp:"צהובים, שליש אמצעי + RUB",st:"שכיבה על הגב, ראש בצד של הבר בקצה המיטה, ידיים אוחזות בבר ישרות מעלה, רגליים כפופות על המזרן.",steps:[["e","מגלגלים את האגן חוליה אחר חוליה תוך ירידת הידיים ישרות לכיוון הרגליים; האגן מגיע לקו ישר מהכתפיים ועד הברכיים."],["i","מגלגלים את האגן בחזרה אל המזרן, הידיים עולות בחזרה והקפיץ נסגר."]],note:"מחזור אוויר אחד, בניגוד ל-Pelvic Curl. אפשר גם עם הרגליים בתוך הטרפז.",m:"Hamstrings + Latissimus Dorsi"},
+{n:"Semicircle with RUB",s:"Spinal Articulation",sp:"צהובים, שליש עליון + RUB",st:"שכיבה על הגב, ראש בצד של הבר, ידיים ישרות לאחור על מסגרת המיטה, מכניסים את הבר אל מתחת לברכיים.",steps:[["i","מנתקים את כפות הרגליים מהבר עד שהירך יוצרת קו ישר עם הקפיצים."],["e","מנתקים את החוליות מהמזרן אחת אחרי השנייה עד מנח נר, ברכיים כפופות."],["i","מורידים כפות רגליים בחזרה אל המזרן, האגן נשאר גבוה."],["e","מניחים חוליה אחר חוליה עד מנח נטרלי."],["h","Reverse"],["i","גלגול אגן."],["e","ניתוק רגליים עד נר."],["i","הנחת חוליה אחר חוליה עד נטרלי."],["e","הנחת כפות רגליים על המזרן."]],note:"מומלץ לבצע הכנה של הפרדת תנועת הרגליים ותנועת האגן לפני התרגיל.",m:"Hamstrings + Abdominals"},
+{n:"Breathing With PTB",s:"Spinal Articulation",sp:"PTB כחול (Top Loaded)",st:"שכיבה על הגב, ראש מתחת לבר, ידיים אוחזות בבר ישרות, רגליים כפופות על המזרן.",steps:[["i","מכופפים מרפקים ומעבירים את הידיים והבר מעבר לראש עד יישור מלא."],["e","מכופפים מרפקים ומחזירים את הבר, ידיים מתיישרות למעלה."],["i","מגלגלים את האגן ומנתקים חוליה אחר חוליה עד קו ישר מהכתפיים לברכיים."],["e","מניחים חוליה אחר חוליה עד גב נטרלי."],["i","עולים עם החזה והראש ומרימים את הבר עד מנח Teaser."],["e","מניחים חוליה אחר חוליה עד המנח ההתחלתי."]],note:"אפשר גם עם כפות הרגליים בתוך הטרפז.",m:"Hamstrings + Abdominals + Spine Extensors"},
+{n:"Kneeling Cat Stretch",s:"Spinal Articulation",sp:"אדום (Top Loaded)",st:"עמידה על הברכיים, גב ישר, פנים אל הבר, כפות ידיים ישרות על הבר.",steps:[["e","מגלגלים את החוליות מטה אחת אחרי השנייה ומניעים את הבר לפנים בידיים ישרות; השכמות רחוקות, האגן נשאר מעל הברכיים."],["i","מיישרים את הגב מקביל לרצפה, הבר מתרחק עוד קצת קדימה מעבר למסגרת המיטה."],["e","מקמרים שוב ועולים חוליה אחר חוליה לעמידה על הברכיים, ובסוף לגב זקוף."]],m:"Abdominals + Spine Extensors"},
+{n:"Standing Cat Stretch",s:"Spinal Articulation",sp:"אדום (Top Loaded)",st:"עמידה, פנים אל הבר, כפות ידיים ישרות על הבר.",steps:[],note:"אותו תרגיל בדיוק כמו Kneeling Cat Stretch, רק בעמידה.",m:"Abdominals + Spine Extensors"},
+{n:"Shoulder Adduction Double Arm",s:"Arm Work – Push Through Series",sp:"PTB אדום וכחול (Top Loaded)",st:"ישיבה על המיטה עם הפנים אל הבר, גב זקוף, כתפיים מעל עצמות הישיבה, רגל בכל צד, ידיים אוחזות בבר משני צדדיו, ישרות מעלה.",steps:[["e","מכופפים מרפקים מקבילים ומושכים את הבר מטה, שומרים על שכמות רחבות ויציבות הגב."],["i","מאפשרים לידיים להתיישר בחזרה."]],m:"Latissimus Dorsi + Serratus Anterior"},
+{n:"Shoulder Adduction Single Arm",s:"Arm Work – Push Through Series",sp:"PTB אדום (Top Loaded)",st:"ישיבה בפרופיל אל הבר, שתי הרגליים מעבר למיטה, היד הקרובה אל הבר אוחזת בו מלמטה ישרה, היד השנייה ישרה לצד השני באותו גובה.",steps:[["e","מכופפים מרפק ומושכים את הבר מטה, שכמות רחבות וגב יציב; היד החופשית מבצעת בדיוק את אותה תנועה."],["i","מאפשרים לידיים להתיישר בחזרה."]],m:"Latissimus Dorsi + Serratus Anterior"},
+{n:"Chest Expansion",s:"Arms Standing Series",sp:"צהובים קצרים, מעט מעל גובה הכתפיים",st:"עמידה עם הפנים אל הקפיצים, ידיים ישרות מעט לפני קו הגוף.",steps:[["e","מניעים ידיים ארוכות לאחור עד קו הגוף, גב זקוף ובית חזה פתוח ומשוחרר."],["i","ידיים חוזרות לפנים."]],m:"Latissimus Dorsi"},
+{n:"Hug-A-Tree",s:"Arms Standing Series",sp:"צהובים קצרים, מעט מעל גובה הכתפיים",st:"עמידה עם הגב אל הקפיצים, ידיים ארוכות לפנים בגובה בית החזה, נשענים קדימה עד מתח בקפיצים.",steps:[["i","מאפשרים לידיים להיפתח לצדדים, בזווית העיניים."],["e","בתנועת חיבוק גדול סוגרים ידיים לפנים בלי לגעת זו בזו."]],m:"Pectoralis"},
+{n:"Down Circles",s:"Arms Standing Series",sp:"צהובים קצרים, מעט מעל גובה הכתפיים",st:"מתחילים מאותו מנח של Hug-A-Tree.",steps:[["i","ידיים נפתחות לצדדים ועולות מעלה."],["e","מורידים ידיים לפנים עד גובה החזה."]],m:"Pectoralis + Deltoid"},
+{n:"Up Circles",s:"Arms Standing Series",sp:"צהובים קצרים, מעט מעל גובה הכתפיים",st:"מתחילים מאותו מנח של Hug-A-Tree.",steps:[["i","ידיים עולות למעלה מקבילות ונפתחות לצדדים ולמטה עד גובה החזה, בזווית העיניים."],["e","ידיים נסגרות לפנים ארוכות עד רוחב הכתפיים."]],m:"Pectoralis + Deltoid"},
+{n:"Punching",s:"Arms Standing Series",sp:"צהובים קצרים, מעט מעל גובה הכתפיים",st:"מתחילים מאותו מנח של Hug-A-Tree.",steps:[["i","יד מתיישרת קדימה ויד שנייה מתכופפת, מרפק הצידה; מחליפים בין הידיים (שתי החלפות)."],["e","שתי החלפות."]],note:"שתי החלפות בשאיפה ושתי החלפות בנשיפה.",m:"Pectoralis + Deltoid"},
+{n:"Biceps",s:"Arms Standing Series",sp:"צהובים קצרים, מעט מעל גובה הכתפיים",st:"עמידה עם הגב אל הקפיצים, ידיים ארוכות לאחור מקבילות, כפות ידיים פונות לפנים, נשענים קדימה עד מתח בקפיצים.",steps:[["i","מכופפים מרפקים מקבילים, המרפקים נשארים לאחור, כפות הידיים מגיעות עד צידי האגן."],["e","מיישרים מרפקים בחזרה לאחור."]],note:"המרפק הוא הציר ולא משנה את מיקומו לאורך כל התרגיל.",m:"Biceps"},
+{n:"Butterfly",s:"Arms Standing Series",sp:"צהובים קצרים, מעט מעל גובה הכתפיים",st:"עמידה עם הגב אל הקפיצים, ידיים ארוכות לצדדים בזווית העיניים; שומרים על מתח בקפיצים לאורך כל התרגיל.",steps:[["h","הכנה"],["i","כפיפה צידית עם הגב, הראש נשאר במרכז בין הידיים."],["e","אוספים בטן וחוזרים עם הגוף למרכז."],["h","התרגיל המלא"],["e","מתוך הכפיפה הצידית מסתובבים אל הקפיצים, הידיים מגיעות למטה לאותו גובה ומתח הקפיץ נשמר."],["i","חוזרים למנח ההתחלתי מאותה דרך, עדיין עם מתח בקפיצים."]],note:"מצד לצד לסירוגין.",m:"Pectoralis"},
+{n:"Shrugs",s:"Ped-A-Pull Series",sp:"צהובים קצרים, מקבילים לרצפה בתחילת המתיחה",st:"עמידה או ישיבה עם הגב לרצועות, ממקמים את הקפיצים כך שכשהידיים ישרות לפנים בגובה הכתפיים הקפיץ ישר. ידיים ישרות לצידי הגוף למטה, הקפיצים מתוחים.",steps:[["i","כתפיים עולות לכיוון האוזניים."],["e","עמוד השדרה מתארך, הכתפיים יורדות בחזרה ומתרחקות מהאוזניים."]],m:"Serratus Anterior"},
+{n:"Triceps",s:"Ped-A-Pull Series",sp:"צהובים קצרים, מקבילים לרצפה בתחילת המתיחה",st:"ידיים צמודות אל הגוף, מרפקים כפופים ב-90 מעלות, כפות ידיים פונות מטה.",steps:[["e","מותחים את הקפיץ ומיישרים מרפקים עד שהידיים ישרות מטה."],["i","מכופפים בחזרה את המרפקים ל-90 מעלות."]],m:"Triceps"},
+{n:"Extension",s:"Ped-A-Pull Series",sp:"צהובים קצרים, מקבילים לרצפה בתחילת המתיחה",st:"ידיים ישרות לפנים בגובה הכתפיים, כפות ידיים פונות מטה.",steps:[["e","מותחים את הקפיץ תוך ירידת הידיים לפנים עד למטה לצידי הגוף."],["i","נותנים לידיים לעלות בחזרה לגובה הכתפיים."]],m:"Latissimus Dorsi + Pectoralis"},
+{n:"Adduction",s:"Ped-A-Pull Series",sp:"צהובים קצרים, מקבילים לרצפה בתחילת המתיחה",st:"ידיים ישרות לצדדים בגובה הכתפיים, כפות ידיים פונות מטה.",steps:[["e","מותחים את הקפיץ תוך ירידת הידיים וקירובן אל הגוף."],["i","נותנים לידיים לעלות בחזרה דרך הצדדים לגובה הכתפיים."]],m:"Latissimus Dorsi + Pectoralis"},
+{n:"Down Circles",s:"Ped-A-Pull Series",sp:"צהובים קצרים, מקבילים לרצפה בתחילת המתיחה",st:"ידיים ישרות לפנים בגובה הכתפיים, כפות ידיים פונות מטה.",steps:[["e","מותחים את הקפיץ תוך ירידת הידיים לפנים עד למטה לצידי הגוף."],["i","נותנים לידיים לעלות דרך הצדדים בחזרה לקו הכתף, וסוגרים אותן למקביל בצורה מעגלית."]],m:"Latissimus Dorsi + Pectoralis"},
+{n:"Up Circles",s:"Ped-A-Pull Series",sp:"צהובים קצרים, מקבילים לרצפה בתחילת המתיחה",st:"כמו Down Circles, בכיוון ההפוך.",steps:[],note:"אותו תרגיל בכיוון ההפוך; הקפיץ נמתח בנשיפה.",m:"Latissimus Dorsi + Pectoralis"},
+{n:"Squats",s:"Leg Work",sp:"צהובים, מעט מעל גובה הכתפיים",st:"עמידה עם הפנים אל הקפיצים, ידיים ישרות לפנים, כפות פונות זו אל זו; הולכים אחורה עד מתח בקפיצים, רגליים ברוחב הכתפיים.",steps:[["i","מכופפים ברכיים עד 90 מעלות בין השוק לירך ובין הירך לגב."],["e","מיישרים רגליים בחזרה."]],m:"Quadriceps"},
+{n:"Thigh Stretch with RUB",s:"Leg Work",sp:"צהובים, שליש עליון + RUB",st:"עמידה על הברכיים עם הפנים אל הבר, ידיים ישרות קדימה אוחזות בבר מחוץ לקפיצים, הקפיץ מעט מתוח.",steps:[["i","הטיה של הגוף לאחור, שומרים על קו ישר מהברכיים ועד קודקוד הראש."],["e","חוזרים למנח ההתחלתי בלי לשנות את המנח."]],m:"Quadriceps + Iliopsoas"},
+{n:"Hanging Back",s:"Full Body Integration",sp:"",st:"עומדים על המיטה, ידיים אוחזות במסגרת העליונה, רגליים נכנסות אחת אחרי השנייה לתוך ידיות הפרווה; האגן שמוט מטה, ידיים ורגליים ישרות.",steps:[["e","מגלגלים את האגן פנימה ועולים להקשתה של עמוד השדרה, בית החזה נפתח לפשיטה, מבט לאחור."],["i","מורידים את האגן לאט בחזרה."]],m:"Spine Extensors"},
+{n:"Mermaid",s:"Side Flexion and Rotation",sp:"כחול (Top Loaded)",st:"ישיבה בפרופיל אל הבר, שתי הרגליים מעבר למיטה, היד הקרובה אוחזת בבר ומורידה אותו עד יישור היד, כף היד מטה; היד השנייה ישרה לצד השני באותה זווית.",steps:[["h","הכנה"],["i","מרימים את הכתף לכיוון האוזן."],["e","מורידים את הכתף ומרחיקים אותה מהגוף, בלי שינוי ביציבת עמוד השדרה."],["h","התרגיל המלא"],["i","מרימים את הכתף לכיוון האוזן."],["e","מורידים ומרחיקים את הכתף מהגוף."],["i","ממשיכים את הרחקת הבר ומניעים את הגב לכפיפה צידית; היד השנייה עולה ארוכה מעל הראש, ועצם הישיבה הרחוקה מתנתקת מעט."],["e","מניחים את עצם הישיבה וחוזרים חוליה אחר חוליה."]],note:"אפשר להוסיף פיתול כמו ב-Mermaid על הרפורמר.",m:"Abdominal Obliques"},
+{n:"Side Lift with PTB",s:"Side Flexion and Rotation",sp:"כחול (Top Loaded)",st:"שכיבה על הצד, רגליים ישרות בפלקס בתוך רצועת הביטחון, רגל תחתונה לפנים, יד תחתונה ישרה מתחת לראש, יד עליונה מחזיקה את הבר, כף היד פנימה.",steps:[["i","מכופפים את המרפק העליון ומעבירים את הבר אל מעבר למסגרת המיטה."],["e","מכופפים שוב ומיישרים את המרפק למעלה תוך עליית בית החזה, הראש והיד התחתונה לכפיפה צידית."],["i","יורדים עם בית החזה ומתחילים שוב."]],m:"Abdominal Obliques"},
+{n:"Side Reach",s:"Side Flexion and Rotation",sp:"כחול (Top Loaded)",st:"ישיבה, כפות רגליים צמודות למסגרת הקדילק, ידיים ארוכות לכיוון התקרה אוחזות בבר, גב ישר נשען לפנים, קו ישר מכפות הידיים לעצמות הישיבה.",steps:[["e","גב תחתון מתעגל ונשען לאחור עד קו ישר של הזרועות עם הבר."],["i","יד אחת מתנתקת מהבר ויורדת למטה, החזה מסתובב, הגב והיד מתארכים אחורה ולמעלה, כפות הידיים באותו גובה."],["e","הגב מתעגל וחוזר למרכז; היד בחצי מעגל למטה חוזרת אל הבר."],["i","שתי הידיים על הבר והגב מתארך למעלה למנח ההתחלתי."]],note:"מצד לצד לסירוגין.",m:"Abdominal Obliques + Spine Extensors"},
+{n:"Saw",s:"Side Flexion and Rotation",sp:"כחול (Top Loaded)",st:"מתחילים מאותו מנח של Side Reach.",steps:[["e","מסתובבים עם עמוד השדרה לפיתול, היד הקדמית מעל הרגל הנגדית; לוקחים את הגב להטיה ישר קדימה, היד הקדמית חותכת את הרגל והיד השנייה מתארכת עוד מעלה."],["i","עולים עם החזה מעל האגן וחוזרים למרכז עד שהכתפיים בדיוק מעל האגן."]],note:"מצד לצד לסירוגין. אפשר לחבר את Side Reach ו-Saw לתרגיל אחד משולב.",m:"Abdominal Obliques + Spine Extensors"},
+{n:"Spine Stretch Forward",s:"Back Extension",sp:"PTB כחול (Top Loaded)",st:"ישיבה עם רגליים ישרות, פנים אל הבר, כפות הרגליים צמודות למסגרת הקדילק, ידיים אוחזות ב-PTB, גב ישר נשען קדימה, ידיים ישרות למעלה, קו ישר מכפות הידיים לעצמות הישיבה.",steps:[["e","גב תחתון מתעגל ונשען לאחור עד קו ישר של הזרועות עם הבר; לוקחים גב עגול לפנים, ראש לכיוון הרגליים, ומרחיקים את הבר כמה שאפשר קדימה."],["i","מאריכים את הגב קדימה."],["e","הגב מתעגל וחוזר אחורה עד שהזרועות בקו ישר עם הבר."],["i","מאפשרים לבר לעלות ולגב להתיישר, ונשענים קדימה למנח ההתחלתי."]],m:"Abdominal Obliques + Spine Extensors"},
+{n:"Swan",s:"Back Extension",sp:"אדום (Top Loaded)",st:"שכיבה על הבטן, רגליים ארוכות לאחור, כפות ידיים על הבר, ידיים ישרות, הבר קצת מעבר למסגרת המיטה, אצבעות ארוכות לפנים, מצח על המזרן.",steps:[["e","בית החזה עולה לפשיטה, מרפקים מתכופפים."],["i","מרפקים מתארכים בחזרה לפנים, חזה וראש יורדים אל המזרן."]],m:"Spine Extensors"},
+{n:"Swan Advanced",s:"Back Extension",sp:"אדום (Top Loaded)",st:"מתחילים מאותו מנח של Swan.",steps:[["e","מכופפים מרפקים, הבר עובר מעל הראש ואז בית החזה מצטרף לעלייה והידיים מתיישרות למעלה."],["i","מכופפים מרפקים, מורידים את בית החזה ומעבירים את הידיים כל הדרך בחזרה לפנים."]],m:"Spine Extensors"},
+{n:"Monkey",s:"Stretches",sp:"אדום (Bottom Loaded)",st:"שכיבה על הגב, ראש בקצה המיטה, כריות הבהונות על ה-PTB מקבילות ברוחב האגן, ברכיים כפופות, ידיים אוחזות בבר משני צידי הרגליים.",steps:[["e","דוחפים את הבר עם הרגליים עד יישור מלא; הראש והגב מתנתקים מהמזרן חוליה אחר חוליה."],["i","פלקס בכפות הרגליים."],["e","חוזרים לפוינט."],["i","יורדים חוליה אחר חוליה תוך כפיפת ברכיים מקבילות, חזרה למנח ההתחלתי."]],m:"Hamstring Stretch"},
+{n:"Shoulder Stretch Prone",s:"Stretches",sp:"PTB כחול (Top Loaded)",st:"שכיבה על הבטן, ראש מתחת לבר, יד אחת אוחזת בבר, כף היד פונה לאחור, הראש על המזרן לצד הנגדי.",steps:[["i","מאפשרים לכתף לעלות ולהימתח; נוצרת רוטציה החוצה."],["e","מורידים את הכתף בחזרה אל המזרן תוך רוטציה קלה פנימה."]],note:"לא מומלץ לבצע לבד, רק עם מלווה שיחזיק את הבר בהתחלה ובסוף.",m:"Pectoralis Stretch"},
+{n:"Shoulder Stretch Sitting",s:"Stretches",sp:"PTB אדום (Top Loaded)",st:"ישיבה עם הגב אל הבר, רגליים ישרות קדימה, ידיים אוחזות בבר, כפות הידיים פונות לאחור.",steps:[["i","מקמרים את הגב התחתון ומאפשרים לידיים להתרחק עוד מהגוף ולהימתח."],["e","מניעים את הגב עגול קדימה, ראש לכיוון הרגליים."],["i","מאפשרים לידיים לעלות עוד למעלה למתיחה מקסימלית."],["e","מורידים את הידיים בחזרה ועולים חוליה אחר חוליה למנח ההתחלתי."]],m:"Pectoralis Stretch"}];
+const REF=[{n:"Double Leg Foot Work",s:"Foot Work",sp:"אדום, אדום, ירוק",st:"שכיבה על הגב, גב נטרלי, כפות רגליים על הפוט בר.",steps:[["e","אוספים בטן ודוחפים את הפוט בר לאט עד יישור הרגליים; הגב והאגן נשארים נטרליים."],["i","מכופפים ברכיים וחוזרים אל המנח ההתחלתי."]],note:"מנחים: Parallel Heels (עקבים על הבר, מקבילים ברוחב האגן) · Parallel Toes (כריות הבהונות, מקבילות) · V-Position Toes (כריות הבהונות ב-V, עקבים מחוברים) · Open V-Position Heels (עקבים ב-V, פיסוק לרוחב הבר) · Open V-Position Toes (כריות הבהונות ב-V, פיסוק לרוחב הבר).",m:"Quadriceps + Hamstrings"},
+{n:"Calf Raises",s:"Foot Work",sp:"אדום, אדום, ירוק",st:"כריות הבהונות על הבר, מקבילות ברוחב האגן, רגליים ישרות.",steps:[["i","נותנים לעקבים לרדת לפלקס מקסימלי."],["e","עולים על האצבעות לפוינט."]],m:"Gastrocnemius + Soleus"},
+{n:"Prances",s:"Foot Work",sp:"אדום, אדום, ירוק",st:"כריות הבהונות על הבר, מקבילות ברוחב האגן, רגליים ישרות.",steps:[["e","עקבים עולים גבוה לפוינט."],["i","רגל אחת שוקעת ישרה לפלקס והשנייה מתכופפת."],["e","עולים על האצבעות, שתי הרגליים מתיישרות, ומחליפים בין הרגליים."]],note:"ממשיכים: החלפה בשאיפה והחלפה בנשיפה.",m:"Gastrocnemius + Soleus"},
+{n:"Single Leg Foot Work",s:"Foot Work",sp:"אדום, אדום, כחול",st:"רגל אחת על הפוט בר, השנייה כפופה ב-90 מעלות, ידיים לצידי הגוף.",steps:[["e","אוספים בטן ודוחפים את הבר עד יישור מלא של הרגל."],["i","מכופפים את הברך וחוזרים למנח ההתחלתי."]],note:"שתי פוזיציות: Single Leg Heel (עקב על הבר, פלקס) · Single Leg Toes (כריות הבהונות, פוינט ביישור, נטרלי בכפיפה).",m:"Hip Flexors"},
+{n:"Hundreds",s:"Abdominal Work",sp:"אדום (רצועות קצרות)",st:"ידיים ברצועות ישרות לכיוון התקרה, רגליים כפופות ב-90 מעלות.",steps:[["h","הכנה"],["e","אוספים בטן, Imprinting בגב התחתון, מרימים חזה וראש לכפיפה ומביאים את הידיים ישרות כל הדרך קדימה; מיישרים רגליים ל-45/60 מעלות."],["i","מניחים חזה וראש, ידיים חוזרות לתקרה וברכיים ל-90 מעלות."],["h","התרגיל המלא"],["n","ממנח ההכנה: ניעות קטנות של הידיים מעלה ומטה ונשימות כלב, בלי תנועה של המיטה. 5 נשימות בדגש שאיפה ו-5 בדגש נשיפה, עד 100 ניעות."]],m:"Rectus Abdominus"},
+{n:"Coordination",s:"Abdominal Work",sp:"אדום (רצועות קצרות)",st:"שכיבה על הגב, ידיים ברצועות ישרות לתקרה, כפות ידיים לפנים, רגליים כפופות וצמודות ב-90 מעלות.",steps:[["i","במקום."],["e","מרימים חזה וראש לכפיפה, ידיים ישרות נעות קדימה עד הקבלה למזרן, רגליים מתיישרות ל-45 מעלות."],["i","מפסקים רגליים."],["e","סוגרים רגליים ומכופפים ברכיים ל-90 מעלות."],["i","מניחים חזה וראש, ידיים חוזרות ישרות לתקרה."]],m:"Rectus Abdominus"},
+{n:"ABS in Straps",s:"Abdominal Work",sp:"כחול",st:"שכיבה על הגב, ישבן לכיוון משענות הכתף, שכמות מחוץ לעגלה, רצועות מעל קו הברכיים, רגליים ב-90, ידיים שלובות מאחורי הראש, מרפקים בזווית העיניים, חזה בכפיפה.",steps:[["i","מיישרים רגליים קדימה ל-45/60 מעלות."],["e","מכופפים ברכיים ומקרבים לחזה תוך איסוף בטן."]],m:"Rectus Abdominus"},
+{n:"ABS with Rotation",s:"Abdominal Work",sp:"כחול",st:"מתחילים ממנח ABS in Straps.",steps:[["i","מיישרים רגליים קדימה ל-45/60 מעלות, חזה במרכז."],["e","מכופפים ברכיים לחזה תוך פיתול של הבטן לאלכסון."],["i","חוזרים למרכז, החזה נשאר בכפיפה."]],note:"מצד לצד לסירוגין.",m:"Abdominal Obliques"},
+{n:"Round Back",s:"Abdominal Short Box Series",sp:"כל הקפיצים",st:"קופסה לרוחב המיטה, יושבים עליה עם הפנים אל הבר, רגליים ברצועת הביטחון. כפות ידיים שלובות על הבטן.",steps:[["e","הגב מתעגל לאחור, כפות ידיים שלובות, ידיים נמתחות לפנים תוך העמקת הקימור של הגב ואיסוף הבטן."],["i","במקום, מעמיקים את הקימור."],["e","עולים בחזרה לישיבה, הגב מתיישר, מרפקים מתכופפים, ידיים שלובות על הבטן."]],m:"Abdominals"},
+{n:"Flat Back",s:"Abdominal Short Box Series",sp:"כל הקפיצים",st:"ישיבה על הקופסה לרוחב, רגליים ברצועת הביטחון.",steps:[["i","ידיים אוחזות במקל ישרות לתקרה, מטים את הגב ישר לאחור."],["e","חוזרים לגב ישר אנכי, ידיים נשארות ישרות למעלה."]],m:"Abdominals"},
+{n:"Tilt",s:"Abdominal Short Box Series",sp:"כל הקפיצים",st:"מקל על השכמות, ידיים מונחות ארוכות על המקל.",steps:[["i","מטים את הגוף לכפיפה צידית, עצם הישיבה הרחוקה עולה מעט, הראש נשאר בין הידיים."],["e","אוספים בטן, מניחים את עצם הישיבה וחוזרים למרכז."]],m:"Abdominals"},
+{n:"Twist",s:"Abdominal Short Box Series",sp:"כל הקפיצים",st:"אוחזים במקל, ידיים ישרות לתקרה.",steps:[["i","מסובבים את בית החזה לפיתול ולוקחים הטיה של גב ישר לאחור; עצם הישיבה הנגדית מתנתקת מהקופסה."],["e","אוספים בטן, מחזירים את עצם הישיבה לקופסה וחוזרים למרכז."]],m:"Abdominals"},
+{n:"Roundabout",s:"Abdominal Short Box Series",sp:"כל הקפיצים",st:"אוחזים במקל, ידיים ישרות לתקרה.",steps:[["i","פיתול והטיה של גב ישר לאחור, מקמרים את הגב למרכז, ידיים יורדות ישרות לפנים מול החזה."],["e","מתארכים עם הגב לצד השני, מחזירים את עצם הישיבה לקופסה וחוזרים למרכז."]],note:"בכל חזרה מחליפים כיוון.",m:"Abdominals"},
+{n:"Climb-A-Tree",s:"Abdominal Short Box Series",sp:"כל הקפיצים",st:"מזיזים את הקופסה אחורה עד הכתפות. רגל אחת ברצועת הביטחון, השנייה כפופה; משלבים אצבעות ידיים ומקיפים את כף הרגל הכפופה, מאריכים גב.",steps:[["e","הגב מתעגל לאחור והרגל הקדמית מתיישרת."],["i","יורדים עם הגב תוך צעידת ידיים על הרגל עד הקשתת הגב לאחור; הידיים מציירות מעגל גדול ופשיטה מלאה של החזה."],["e","עולים עם החזה בגב עגול, מטפסים עם הידיים על הרגל עד כף הרגל, מכופפים ברך ומיישרים את הגב למנח ההתחלתי."]],m:"Abdominals"},
+{n:"Backstroke",s:"Abdominal Long Box Series",sp:"אדום",st:"שכיבה על הקופסה, מרפקים כפופים החוצה, כפות ידיים מתחת לבית החזה פונות לפנים, ברכיים כפופות ב-90 מעלות.",steps:[["i","מיישרים רגליים וידיים לכיוון התקרה ופותחים ידיים ורגליים ישרות לצדדים."],["e","חזה עולה לכפיפה, סוגרים רגליים וידיים: רגליים ישרות ל-45 מעלות וידיים ישרות לכיוון האגן; מכופפים ברכיים וידיים למנח ההתחלתי."]],m:""},
+{n:"Teaser",s:"Abdominal Long Box Series",sp:"אדום",st:"שכיבה על הקופסה, הראש לכיוון הרצועות מעבר לקופסה, ידיים ברצועות, רגליים צמודות וכפופות ב-90 מעלות, בית החזה בפשיטה לאחור, ידיים ארוכות לצדדים.",steps:[["h","הכנה"],["e","עולים עם בית החזה לכפיפה, מצמידים ידיים דרך הצדדים לצידי הגוף, מיישרים רגליים ל-60 מעלות."],["i","יורדים למנח ההתחלתי, ידיים לצדדים וברכיים ל-90 מעלות."],["h","התרגיל המלא"],["e","עולים עם בית החזה, ידיים דרך הצדדים לצידי הגוף, מאריכים את הגב ומיישרים רגליים לגובה הראש."],["i","יורדים למנח ההתחלתי, מכופפים ברכיים."]],m:""},
+{n:"Frog",s:"Hip Work",sp:"אדום, צהוב",st:"כפות רגליים ברצועות, גב נטרלי, ידיים לצידי הגוף, רגליים כפופות במנח צפרדע: פלקס ו-V, מעט מעל גובה הברכיים, ברכיים מעל מפרקי הירך.",steps:[["e","מיישרים רגליים קדימה ל-45 מעלות עד יישור מלא, שומרים על V."],["i","מכופפים ברכיים בחזרה לצפרדע."]],m:"Hip Adductors + Hamstrings"},
+{n:"Openings",s:"Hip Work",sp:"אדום, צהוב",st:"שכיבה על הגב, רגליים ברצועות, גב נטרלי, רגליים ישרות קדימה ב-V בגובה 45 מעלות.",steps:[["i","פותחים רגליים לפיסוק רחב, גובה העקבים לא משתנה."],["e","מחברים רגליים חזרה ל-45 מעלות ב-V."]],m:"Hip Adductors + Hamstrings"},
+{n:"Down Circles",s:"Hip Work",sp:"אדום, צהוב",st:"רגליים ברצועות ישרות ב-45 מעלות, V, גב נטרלי.",steps:[["i","רגליים נפתחות לצדדים ועולות במעגל עד שמתחברות כשהן ישרות לתקרה; הגב נטרלי כל הדרך."],["e","רגליים יורדות ישרות ב-V ל-45 מעלות."]],m:"Hip Adductors + Hamstrings"},
+{n:"Up Circles",s:"Hip Work",sp:"אדום, צהוב",st:"כמו Down Circles, בכיוון ההפוך.",steps:[["i","רגליים עולות צמודות ב-V."],["e","רגליים נפתחות ובמעגל יורדות ל-45 מעלות ומתחברות ב-V."]],m:"Hip Adductors + Hamstrings"},
+{n:"Extended Frog",s:"Hip Work",sp:"אדום, צהוב",st:"שכיבה על הגב, רגליים ברצועות במנח צפרדע, V ופלקס, עקבים יחד מעט מעל הברכיים, ידיים לצידי הגוף.",steps:[["e","מיישרים רגליים לפנים ל-45 מעלות."],["i","פותחים רגליים לפיסוק רחב."],["e","מכופפים ברכיים לצפרדע בלי להזיז את העגלה, ובהמשך הנשיפה מיישרים שוב לפנים."]],m:"Hip Adductors"},
+{n:"Extended Frog Reverse",s:"Hip Work",sp:"אדום, צהוב",st:"שכיבה על הגב, רגליים ברצועות ישרות לפנים, V ופלקס, ידיים לצידי הגוף.",steps:[["i","מכופפים ברכיים לצפרדע."],["e","בלי להזיז את העגלה מיישרים לפיסוק, ובהמשך הנשיפה סוגרים רגליים למנח ההתחלתי."]],m:"Hip Adductors"},
+{n:"Short Spine",s:"Spinal Articulation",sp:"אדום, צהוב",st:"שכיבה על הגב, אוחזים בקצה העגלה או בעמודים שמאחורי הכתפות, כפות רגליים ברצועות, רגליים ישרות קדימה ל-45 מעלות ב-V.",steps:[["i","רגליים עולות ישרות בפוינט לתקרה; מאפשרים לאגן לעלות במידת הצורך עד שהעגלה נסגרת, שומרים על מתח ברצועות."],["e","מרימים את האגן כמה שניתן, שומרים על מתח ברצועות ועגלה סגורה, צוואר ארוך, רגליים ישרות בפוינט, עקבים ביחד."],["i","מכופפים ברכיים לצפרדע כשהאגן גבוה, חוזרים לפלקס."],["e","מניחים את האגן חוליה אחר חוליה בלי להזיז את העגלה, ואחרי הנחה מלאה מיישרים רגליים ל-45 מעלות."]],m:"Rectus Abdominus + Hip Flexors"},
+{n:"Long Spine",s:"Spinal Articulation",sp:"אדום, צהוב",st:"שכיבה על הגב, אוחזים בקצה העגלה או בעמודים, כפות רגליים ברצועות, רגליים ישרות קדימה ל-45 מעלות ב-V.",steps:[["i","רגליים עולות ישרות ל-90 מעלות, האגן נשאר נטרלי."],["e","מרימים את האגן בלי להזיז את העגלה, חוליה אחר חוליה, עד מנח נר."],["i","פותחים רגליים לרוחב הכתפיים."],["e","מניחים את האגן חוליה אחר חוליה בלי להזיז את העגלה; בהמשך הנשיפה מורידים רגליים ל-45 מעלות וסוגרים ל-V."]],note:"אפשר גם הפוך: רגליים עולות ברוחב הכתפיים ויורדות צמודות.",m:"Rectus Abdominus + Hamstrings"},
+{n:"Bottom Lift",s:"Spinal Articulation",sp:"אדום, אדום, צהוב",st:"שכיבה על הגב, עקבים מקבילים על הפוט בר, פלקס, גב נטרלי.",steps:[["i","במקום."],["e","אוספים בטן, מצמידים גב למזרן ומגלגלים את האגן; מנתקים חוליה אחר חוליה עד קו אחד מהכתפיים לברכיים, בלי להזיז את העגלה; כפות הרגליים לפוינט."],["i","במקום."],["e","מניחים חוליה אחר חוליה עד אגן נטרלי, כפות הרגליים חוזרות לפלקס."]],note:"שני מחזורי אוויר.",m:"Hamstrings"},
+{n:"Bottom Lift with Extensions",s:"Spinal Articulation",sp:"אדום, אדום, צהוב",st:"מגלגלים את האגן למנח Bottom Lift למעלה, כפות רגליים בפלקס.",steps:[["i","רגליים דוחפות את הבר כמעט עד יישור מלא."],["e","תוך איסוף מרכז הגוף ושחרור שרירי הישבן, רגליים מתכופפות והמיטה נסגרת."]],note:"חוזרים מספר פעמים לפני הירידה. ככל שהקפיצים קלים יותר, התרגיל מאתגר יותר.",m:"Hamstrings"},
+{n:"Semi-Circle",s:"Spinal Articulation",sp:"אדום",st:"שכיבה על הגב, הגב התחתון והאגן מעבר לעגלה בפשיטה מלאה, ידיים ישרות לאחור כנגד הכתפות, כפות ידיים פונות החוצה, כריות הבהונות על הבר ב-V קטן, עקבים מחוברים.",steps:[["e","מגלגלים את האגן חוליה אחר חוליה עד קו אחד מהכתפיים לקודקוד הראש."],["i","דוחפים את הבר ומאריכים את הרגליים עד יישור מלא."],["e","מניחים חוליה אחר חוליה על המזרן ומעבר לו, עד פשיטה מלאה של הגב התחתון."],["i","מכופפים ברכיים וסוגרים את העגלה למנח ההתחלתי."]],note:"אפשר גם בכיוון ההפוך (Reverse).",m:"Hamstrings"},
+{n:"Triceps",s:"Arms Supine",sp:"אדום, צהוב",st:"שכיבה על הגב, גב נטרלי, רגליים כפופות וצמודות ב-90 מעלות, ידיים ברצועות, מרפקים מונחים על המזרן כפופים ל-90 מעלות.",steps:[["e","מרפקים מתיישרים, כפות הידיים מגיעות עד המזרן."],["i","מרפקים מתכופפים בחזרה ל-90 מעלות."]],m:"Triceps"},
+{n:"Extension",s:"Arms Supine",sp:"אדום, צהוב",st:"שכיבה על הגב, ידיים ברצועות ישרות לתקרה בקו הכתף, כפות ידיים פונות לפנים.",steps:[["e","ידיים יורדות ישרות אל המזרן."],["i","ידיים עולות בחזרה מעל הכתפיים."]],m:"Latissimus Dorsi"},
+{n:"Adduction",s:"Arms Supine",sp:"אדום, צהוב",st:"שכיבה על הגב, ידיים ישרות על המיטה, כפות ידיים פונות פנימה אל הגוף.",steps:[["i","ידיים נפתחות לצדדים עד קו הכתפיים."],["e","ידיים נסגרות בחזרה לכיוון האגן."]],m:"Latissimus Dorsi"},
+{n:"Down Circles (Arms)",s:"Arms Supine",sp:"אדום, צהוב",st:"שכיבה על הגב, ידיים ישרות לתקרה, כפות ידיים פונות לפנים.",steps:[["e","ידיים יורדות ישרות אל המזרן."],["i","ידיים נפתחות לצדדים ועולות במעגל בחזרה מעל הכתפיים."]],m:"Latissimus Dorsi + Pectoralis + Teres Major"},
+{n:"Up Circles (Arms)",s:"Arms Supine",sp:"אדום, צהוב",st:"שכיבה על הגב, ידיים ישרות על המזרן, כפות ידיים פונות מטה.",steps:[["i","ידיים עולות עד מעל הכתפיים ונפתחות לצדדים."],["e","ידיים נסגרות לכיוון הגוף."]],m:"Latissimus Dorsi + Pectoralis + Teres Major"},
+{n:"Chest Expansion",s:"Arms Sitting",sp:"כחול, צהוב",st:"ישיבה שלמה עם הפנים אל הרצועות, רגליים ישרות וצמודות בין הכתפות, כפות רגליים מעט מעבר למשענת הראש, גב נטרלי, ידיים ברצועות ישרות לפני קו הגוף, כפות פונות לאחור.",steps:[["e","בית החזה מתרחב ומניעים את הידיים ישרות לאחור."],["i","הידיים חוזרות לפנים."]],note:"התנועה לא גדולה: הידיים מגיעות רק מעט אחרי קו הגוף.",m:"Latissimus Dorsi"},
+{n:"Biceps",s:"Arms Sitting",sp:"כחול, צהוב",st:"ישיבה שלמה מול הרצועות, ידיים ישרות לפנים בקו הכתפיים, כפות פונות לתקרה.",steps:[["e","מכופפים מרפקים ל-90 מעלות."],["i","מיישרים מרפקים בחזרה."]],m:"Biceps"},
+{n:"Rhomboids",s:"Arms Sitting",sp:"כחול, צהוב",st:"ישיבה שלמה מול הרצועות, מרפקים ברצועות בגובה הכתפיים, ידיים ב-90 מעלות.",steps:[["e","מרפקים נפתחים החוצה, ובהמשך התנועה השכמות מתקרבות אחת אל השנייה."],["i","שכמות מתרחקות, ובהמשך סוגרים את המרפקים קדימה."]],m:"Rhomboids"},
+{n:"Hug-A-Tree",s:"Arms Sitting",sp:"כחול",st:"ישיבה שלמה עם הפנים אל הבר, גב זקוף צמוד לכתפות, רגליים ישרות וצמודות. ידיים ארוכות לצדדים כמעט ישרות, כפות ידיים בגובה החזה, מרפקים מעט עגולים.",steps:[["e","מניעים את הידיים לפנים בצורת חיבוק."],["i","ידיים נפתחות בחזרה להתחלה."]],m:"Pectoralis"},
+{n:"Down Circles (Sitting)",s:"Arms Sitting",sp:"כחול",st:"ישיבה עם הפנים אל הבר, ידיים ארוכות לצדדים, כפות ידיים בגובה בית החזה.",steps:[["i","ידיים עולות דרך הצדדים למעלה."],["e","ידיים יורדות קדימה לגובה בית החזה."],["i","ידיים נפתחות ושוב עולות."]],m:"Pectoralis"},
+{n:"Up Circles (Sitting)",s:"Arms Sitting",sp:"כחול",st:"ישיבה עם הפנים אל הבר, ידיים ארוכות לצדדים, כפות ידיים בגובה בית החזה.",steps:[["e","ידיים נסגרות לפנים עד שהן מקבילות."],["i","ידיים עולות ונפתחות בחזרה לצדדים בצורה מעגלית."]],m:"Pectoralis"},
+{n:"Salute",s:"Arms Sitting",sp:"כחול",st:"ישיבה עם הפנים אל הבר, מרפקים כפופים ומקבילים, אגודלים צמודים לרקות, כפות ידיים פונות לפנים.",steps:[["e","מיישרים מרפקים בלי לשנות את גובה המרפק."],["i","מכופפים מרפקים ומחזירים את האגודלים לרקות."]],m:"Triceps"},
+{n:"Chest Expansion (Kneeling)",s:"Arms Kneeling",sp:"כחול, צהוב",st:"עמידה על הברכיים עם הפנים לרצועות, ברכיים צמודות לכתפות, ידיים אוחזות בשורש הרצועה, ישרות מעט לפני קו הגוף. (וריאציה: עמידה על הברכיים עם הפנים אל הבר, כפות הרגליים על משענת הראש.)",steps:[["e","מניעים את הידיים לאחור תוך שמירה על מנח הגוף, הידיים ישרות."],["i","מחזירים את הידיים לפנים."]],m:"Latissimus Dorsi"},
+{n:"Down Circles (Kneeling)",s:"Arms Kneeling",sp:"כחול",st:"עמידה על הברכיים, ידיים ישרות למטה לצידי הגוף, כפות ידיים פונות לפנים.",steps:[["e","דרך הצדדים ידיים עולות למעלה, ידיים בזווית העיניים."],["i","ידיים יורדות כל הדרך למטה לצידי הגוף."]],m:"Deltoid + Pectoralis"},
+{n:"Up Circles (Kneeling)",s:"Arms Kneeling",sp:"כחול",st:"עמידה על הברכיים, ידיים ישרות למטה לצידי הגוף, כפות ידיים פונות לפנים.",steps:[["e","ידיים עולות לפנים כל הדרך למעלה."],["i","ידיים יורדות דרך הצדדים בחזרה למטה."]],m:"Deltoid + Pectoralis"},
+{n:"Triceps (Kneeling)",s:"Arms Kneeling",sp:"כחול",st:"עמידה על הברכיים, ידיים ישרות לתקרה, אגודלים ואצבעות מחוברים בצורת יהלום, מרפקים כפופים ומקבילים, כפות ידיים מאחורי הראש.",steps:[["e","מיישרים מרפקים ושומרים על גובה המרפק; המרפק משמש ציר תנועה."],["i","מרפקים מתכופפים בחזרה."]],m:"Triceps"},
+{n:"Biceps (Kneeling)",s:"Arms Kneeling",sp:"כחול",st:"עמידה על הברכיים, ידיים ישרות מאחורי הגב, כפות ידיים פונות לפנים.",steps:[["e","מרפקים מתכופפים, כפות ידיים נצמדות אל המותניים."],["i","מיישרים את המרפקים בחזרה."]],m:"Biceps"},
+{n:"Deltoid Reach",s:"Arms Kneeling Side Series",sp:"צהוב",st:"עמידה על הברכיים בפרופיל, ברכיים צמודות לכתפות, רצועה ביד הקרובה לרצועות, מרפק כפוף ומקביל, כף היד קרובה לאוזן ופונה פנימה.",steps:[["e","מאריכים את היד לכיוון התקרה, הכתף משוחררת מטה."],["i","מכופפים את המרפק בחזרה."]],m:"Anterior Deltoid"},
+{n:"Cross Arm Pull",s:"Arms Kneeling Side Series",sp:"צהוב",st:"ברכיים צמודות לכתפות, רצועה ביד הרחוקה מהכתפות, כף היד צמודה לטבור, מרפק פתוח הצידה.",steps:[["e","מושכים את הרצועה: קודם מרחיקים את המרפק הצידה, אחר כך מיישרים את האמה ולבסוף את כף היד."],["i","חוזרים: כף יד, אמה ואז מרפק, עד המנח ההתחלתי."]],m:"Teres Minor + Infraspinatus + Posterior Deltoid"},
+{n:"Triceps Extension",s:"Arms Kneeling Side Series",sp:"צהוב",st:"ברכיים במרכז העגלה, רצועה ביד הרחוקה מהכתפות, יד שנייה על הכתפה הקדמית, הגב בכפיפה צידית; היד עם הרצועה מעל הראש, מרפק כפוף, כף היד פונה מעלה, מבט ליד התחתונה.",steps:[["e","מיישרים את היד העליונה לכיוון התקרה."],["i","מכופפים בחזרה."]],m:"Triceps"},
+{n:"Hug A Moon",s:"Arms Kneeling Side Series",sp:"צהוב",st:"ברכיים במרכז העגלה, רצועה ביד הקרובה לכתפות, ידיים ארוכות לצדדים מעט למעלה בזווית העיניים; בוחרים את המקום לפי רצועה ישרה.",steps:[["e","ידיים עולות לכיוון התקרה."],["i","ידיים נפתחות בחזרה לצדדים."]],m:"Deltoid + Supraspinatus"},
+{n:"Double Arm",s:"Shoulder Push",sp:"אדום, צהוב",st:"עמידה על הברכיים, כפות רגליים בפלקס כנגד הכתפות, ידיים על הבר, מרפקים כפופים פונים מטה, גב ישר מקביל לרצפה, כתפיים בגובה האגן, צוואר בהמשך לגב.",steps:[["e","ידיים דוחפות את הבר עד יישור מלא של המרפקים."],["i","מכופפים מרפקים בחזרה."]],m:"Triceps"},
+{n:"Single Arm",s:"Shoulder Push",sp:"אדום",st:"עמידה על הברכיים, כפות רגליים בפלקס כנגד הכתפות, יד אחת על הבר, מרפק כפוף ופונה מטה, יד שנייה בקצה העגלה; גב ישר מקביל לרצפה.",steps:[["e","היד דוחפת את הבר עד יישור מלא של המרפק."],["i","מכופפים את המרפק בחזרה."]],m:"Triceps"},
+{n:"Rowing Back 1 (Into the Sternum)",s:"Rowing Series",sp:"כחול, צהוב",st:"ישיבה שלמה עם הפנים לרצועות, גב זקוף, כתפיים מעל עצמות הישיבה, רגליים ישרות על משענת הראש, ידיים ברצועות ישרות לפנים, כפות ידיים פונות זו אל זו.",steps:[["i","מכופפים מרפקים לצדדים, כפות ידיים פונות אל הגוף."],["e","מקמרים את הגב התחתון לאחור תוך שמירה על מנח הידיים."],["i","מיישרים ידיים לצדדים והופכים את כפות הידיים לאחור."],["e","מניעים את הגב עגול לפנים עד שהמצח לכיוון הרגליים, ידיים לאחור."],["i","מעבירים ידיים במעגל גדול קדימה ומסובבים כפות ידיים זו אל זו."],["e","מיישרים את הגב חוליה אחר חוליה למנח ההתחלתי."]],note:"שלושה מחזורי אוויר.",m:"Posterior Deltoid + Rhomboids"},
+{n:"Rowing Back 2 (90 Degrees)",s:"Rowing Series",sp:"כחול, צהוב",st:"ישיבה שלמה עם הפנים לרצועות, גב זקוף, רגליים ישרות על משענת הראש, ידיים ברצועות ישרות לפנים, כפות ידיים לתקרה.",steps:[["i","מכופפים מרפקים מקבילים ל-90 מעלות, בגובה הכתף."],["e","מקמרים את הגב התחתון לאחור תוך שמירה על מנח הידיים."],["i","מאריכים את הגב בהטיה לאחור ומיישרים זרועות לתקרה."],["e","חוזרים בגב זקוף לפנים עד שהכתפיים מעל עצמות הישיבה, ופותחים זרועות ארוכות לצדדים בלי להזיז את העגלה."],["i","במקום."],["e","סוגרים ידיים בחזרה לפנים."]],note:"שלושה מחזורי אוויר.",m:"Biceps"},
+{n:"Rowing Front 1",s:"Rowing Series",sp:"כחול",st:"ישיבה שלמה, גב לרצועות, גב זקוף, כתפיים מעל עצמות הישיבה, רגליים ישרות לפנים, כפות ידיים ברצועות, ידיים כפופות וצמודות לגוף, כפות ידיים פונות מעלה.",steps:[["e","מיישרים מרפקים תוך סיבוב הזרועות כך שכפות הידיים פונות זו אל זו; מורידים ידיים ישרות עד מגע במיטה."],["i","מרימים ידיים למעלה, מפנים כפות ידיים לפנים, פותחים לצדדים עד מנח T."]],note:"מחזור אוויר אחד.",m:"Deltoid + Lower Trapezius"},
+{n:"Rowing Front 2",s:"Rowing Series",sp:"כחול",st:"ישיבה, גב לרצועות, גב עגול, רגליים ישרות לפנים, אגודלים ברצועות, ידיים כפופות וצמודות לגוף, כפות ידיים פונות מעלה.",steps:[["e","מקמרים את הגב לפנים ומיישרים מרפקים תוך סיבוב הזרועות; מורידים ידיים ישרות עד מגע במיטה."],["i","מיישרים את הגב לפנים ומרימים ידיים מעבר לראש, חוזרים לגב ישר במרכז וידיים לתקרה, מפנים כפות לפנים ופותחים לצדדים עד מנח T."]],note:"מחזור אוויר אחד.",m:"Deltoid + Lower Trapezius"},
+{n:"Skating",s:"Leg Work – Split Series",sp:"כחול, צהוב",st:"עמידה על המיטה: רגל אחת על משטח העמידה, רגל שנייה על קצה העגלה, ברכיים מעט כפופות, ידיים ישרות לצידי הגוף.",steps:[["e","מיישרים רגל אחת, הרגל השנייה נשארת כפופה."],["i","מכופפים את הרגל בחזרה."]],note:"אפשר גם בשילוב שני הצדדים: נשיפה – מיישרים את הרגל שעל משטח העמידה, העגלה נפתחת, מיישרים את הרגל שעל העגלה ומכופפים את זו שעל המשטח; שאיפה – סוגרים את העגלה, שתי הברכיים כפופות.",m:"Gluteus Medius + Quadriceps"},
+{n:"Side Split",s:"Leg Work – Split Series",sp:"כחול",st:"עמידה על המיטה: רגל אחת על משטח העמידה, רגל שנייה על העגלה במרכז שלה, ידיים ישרות לצידי הגוף, כפות פונות פנימה.",steps:[["i","מאפשרים למיטה להיפתח תוך פתיחת הרגליים לפיסוק, מרימים ידיים ישרות עד קו הכתפיים."],["e","סוגרים את העגלה, וידיים נסגרות אל הגוף למנח ההתחלתי."]],m:"Hip Adductors"},
+{n:"Jumping Board",s:"Leg Work",sp:"הכנה: אדום, אדום, ירוק · מלא: כחול, צהוב · רגל אחת: כחול",st:"שכיבה על הגב, גב נטרלי, ידיים לצידי הגוף, כפות רגליים על הג'מפינג בורד, מקבילות.",steps:[["h","הכנה לקפיצה"],["e","מיישרים ברכיים ועולים על האצבעות."],["i","מכופפים ברכיים ולבסוף מורידים עקבים."],["h","הכנה לנחיתה"],["e","עולים על האצבעות ומיישרים רגליים."],["i","מניחים עקבים ומכופפים ברכיים."],["h","התרגיל המלא"],["e","דוחפים את הבורד לקפיצה; באוויר הרגליים ישרות."],["i","נוחתים ברכות על האצבעות ואז על העקב, תוך כפיפת הברכיים."]],note:"פוזיציות: Parallel (רגליים מקבילות) · V-Position · Single Leg Parallel (רגל אחת קופצת, השנייה ב-90) · Leg Changes (החלפות בין הרגליים).",m:"Quadriceps + Hamstrings"},
+{n:"Stomach Massage",s:"Full Body Integration",sp:"אדום, אדום, צהוב",st:"ישיבה במרכז העגלה עם הפנים אל הבר, אצבעות כפות הרגליים על הבר ב-V קטן, עקבים ביחד.",steps:[["e","דוחפים את המיטה עד יישור הרגליים, ירכיים צמודות, מורידים עקבים לפלקס ומרימים בחזרה לפוינט."],["i","מכופפים ברכיים בחזרה למנח ההתחלתי."]],note:"בקצב מהיר, בשלושה מנחים: Round Back (גב עגול, ידיים בקצה הקדמי של העגלה) · Flat Back (גב ישר, ידיים ישרות על הכתפות, כפות לאחור) · Reaching (גב ישר, ידיים ישרות למעלה, כפות לפנים).",m:"Abdominals + Back Extensors"},
+{n:"Scooter",s:"Knee Stretch Series",sp:"אדום, צהוב",st:"עמידה: רגל אחת על הרצפה ליד מרכז העגלה, רגל שנייה על המיטה בפלקס כנגד הכתפה הקרובה, ברך באוויר. ידיים על הבר, גב עגול, משקל לאחור, מבט פנימה.",steps:[["i","הרגל שעל המיטה דוחפת את העגלה לאחור."],["e","הרגל מתכופפת ומאפשרת למיטה להיסגר לפנים."]],note:"בקצב יחסית גבוה; הגוף נשאר במנח ההתחלתי והתנועה מהרגל בלבד.",m:"Abdominals + Quadriceps + Hamstrings"},
+{n:"Knee Stretch Round Back",s:"Knee Stretch Series",sp:"אדום, צהוב",st:"עמידה על הברכיים, כפות רגליים בפלקס כנגד הכתפות, ידיים על הבר, גב עגול, משקל לאחור, מבט אל הבטן.",steps:[["i","רגליים דוחפות את העגלה, הגב לא משתנה."],["e","איסוף עמוק של הבטן, הגב מתעגל עוד יותר, ברכיים מתקרבות לפנים והמיטה נסגרת."]],note:"הדגש: גיוס השרירים בסגירת העגלה.",m:"Abdominals + Quadriceps + Hamstrings"},
+{n:"Knee Stretch Flat Back",s:"Knee Stretch Series",sp:"אדום, צהוב",st:"אותו מנח, גב נטרלי, משקל לאחור, כתפיים בגובה האגן, צוואר בהמשך לגב.",steps:[["i","רגליים דוחפות את העגלה, הגב לא משתנה."],["e","איסוף בטן, הגב נשאר נטרלי, ברכיים מתקרבות לפנים והמיטה נסגרת."]],m:"Quadriceps + Hamstrings"},
+{n:"Reverse Knee Stretch Round Back",s:"Knee Stretch Series",sp:"צהוב",st:"עמידת שש, ברכיים צמודות לכתפות, כפות ידיים על מסגרת המיטה מתחת לכתפיים, אצבעות בצד החיצוני, גב עגול.",steps:[["e","מעמיקים את קימור הגב, בטן נאספת, מושכים את המיטה מכוח הבטן, ברכיים מתקרבות אל הידיים."],["i","מאפשרים למיטה לחזור, הגב נשאר עגול."]],m:"Rectus Abdominus"},
+{n:"Reverse Knee Stretch Flat Back",s:"Knee Stretch Series",sp:"צהוב",st:"אותו מנח, גב נטרלי, צוואר בהמשך לגב.",steps:[["e","בטן נאספת, מושכים את המיטה מכוח הבטן, ברכיים מתקרבות לידיים בלי לשנות את מנח הגב."],["i","מאפשרים למיטה לחזור, הגב נשאר נטרלי."]],m:"Transverse Abdominus"},
+{n:"Down Stretch 1+2+3",s:"Full Body Integration",sp:"אדום",st:"עמידה על הברכיים, כפות רגליים בפלקס כנגד הכתפות, ידיים על הבר, הגב בפשיטה, פשיטה מלאה במפרק הירך.",steps:[["h","1"],["i","דוחפים את המיטה לאחור, מנח הגוף לא משתנה; מפרק הכתף הוא ציר התנועה."],["e","המיטה נסגרת בחזרה."],["h","2 (מתחילים כשהמיטה פתוחה, קו ישר מהברכיים לקודקוד)"],["i","בלי תנועה של העגלה, לוקחים את האגן לאחור עד שהגב מקביל לרצפה, עמוד שדרה נטרלי."],["e","בלי תנועה של העגלה, מקמרים את הגב ומחזירים את האגן לפנים."],["h","3 (שילוב של הכול)"],["i","דוחפים את המיטה לאחור, מפרק הכתף הוא ציר התנועה."],["e","בלי תנועת עגלה, האגן לאחור עד גב מקביל לרצפה."],["i","מקמרים את הגב, המיטה נסגרת וברכיים באות לפנים."],["e","האגן עולה בחזרה לפשיטה."]],m:"Abdominals + Deltoid"},
+{n:"Elephant",s:"Up Stretch Series",sp:"אדום",st:"עמידה על המיטה, כפות רגליים צמודות לכתפות, ידיים ישרות על הבר ברוחב הכתפיים, גב עגול בקימור מקסימלי.",steps:[["i","פותחים את המיטה חצי דרך לאחור, התנועה רק ממפרק הירך, מאריכים את הגב ליישור מלא."],["e","אוספים בטן, מעמיקים את הקימור וסוגרים את המיטה."]],m:"Abdominals + Spine Extensors + Deltoid"},
+{n:"Up Stretch 1+2+3",s:"Up Stretch Series",sp:"אדום, צהוב",st:"עמידה על המיטה על קצות האצבעות, עקבים צמודים לכתפות, ידיים ישרות על הבר ברוחב הכתפיים, עצמות הישיבה לתקרה, גב ישר, צוואר בהמשך לגב, אוזניים בין הידיים.",steps:[["h","1"],["i","פותחים את המיטה, שומרים על אורך הגב ועל מנח הפירמידה."],["e","אוספים בטן וסוגרים את המיטה."],["h","2"],["i","מורידים את האגן עד Front Support, הכתפיים במקום ומשמשות ציר תנועה."],["e","המיטה נסגרת, הגב נשאר ישר, עצמות הישיבה חוזרות לתקרה (Up Stretch 1)."],["h","3"],["i","מורידים את האגן ל-Front Support, הכתפיים ציר התנועה (Up Stretch 2)."],["e","מעבירים משקל לפנים, המיטה נסגרת, הכתפיים עוברות את קו הבר, מנח הגוף נשמר."],["i","מרימים את האגן בחזרה ל-Up Stretch 1."]],m:"Abdominals + Spine Extensors + Deltoid"},
+{n:"Long Stretch",s:"Full Body Integration",sp:"אדום, צהוב",st:"מנח Front Support: ידיים על הבר ברוחב הכתפיים, כפות רגליים כנגד הכתפות.",steps:[["i","מרחיקים את העגלה לאחור, שומרים על מנח הגוף."],["e","סוגרים את העגלה, הכתפיים עוברות מעבר לבר, מנח הגוף נשמר."]],m:"Abdominals + Deltoid"},
+{n:"Long Back Stretch",s:"Full Body Integration",sp:"אדום, צהוב",st:"ישיבה על הבר, ידיים על הבר, אצבעות קדימה, כפות הרגליים כנגד הכתפות.",steps:[["i","מרפקים מתכופפים מקבילים, האגן יורד נמוך מהבר."],["e","מגלגלים את האגן פנימה, המיטה זזה, האגן עולה והידיים מתיישרות עד קו ישר מכפות הרגליים לקודקוד."],["i","מאפשרים למיטה להיסגר למנח ההתחלתי; הישבן מוביל, הגב מתיישר."]],m:"Triceps + Serratus Anterior + Hamstrings"},
+{n:"Tendon Stretch",s:"Full Body Integration",sp:"אדום",st:"יושבים על הבר, כפות הרגליים בקצה העגלה, עקבים באוויר, ידיים על הבר; מנתקים ישבן ומיישרים רגליים, המיטה סגורה, הראש לכיוון הרגליים, גב עגול.",steps:[["i","דוחפים את העגלה לפנים תוך ירידה של האגן, שומרים על קימור הגב."],["e","חוזרים למנח ההתחלתי תוך איסוף מרכז הגוף פנימה."]],m:"Serratus Anterior + Rectus Abdominus"},
+{n:"Balance Control Front",s:"Full Body Integration",sp:"אדום",st:"מנח Front Support, כפות הידיים על הכתפות ובהונות הרגליים על הבר.",steps:[["e","ידיים דוחפות את העגלה קדימה; הכתף היא ציר התנועה, בלי שינוי של מנח הגוף."],["i","ידיים חוזרות אל מתחת לכתפיים."]],m:"Abdominals + Deltoid"},
+{n:"Balance Control Back",s:"Full Body Integration",sp:"אדום",st:"מנח Back Support עם האגן מטה, לא מונח. כפות ידיים על הכתפות ובהונות הרגליים על הבר.",steps:[["e","מרימים את האגן לקו הגוף תוך הרחקת העגלה לאחור."],["i","מחזירים את האגן מטה וידיים מתקרבות אל הגוף, ישרות לאורך כל התרגיל."]],m:"Triceps + Hamstrings"},
+{n:"Mermaid",s:"Side Flexion and Rotation",sp:"אדום",st:"ישיבה על המיטה בפרופיל: ברך כפופה לפנים ב-90, כף הרגל צמודה לירך השנייה; ברך שנייה כפופה לאחור, השוק צמודה לכתפות. יד אחת על הבר ישרה, יד שנייה ישרה לצד השני, שתי עצמות הישיבה על המזרן.",steps:[["i","דוחפים את הבר ויוצרים הטיה צידית; עצם הישיבה הרחוקה מתנתקת מעט, היד הרחוקה עולה לקו אחד עם היד שעל הבר."],["e","מסתובבים עם החזה לכיוון הבר, היד השנייה מצטרפת אל הבר, צוואר בהמשך לגב."],["i","היד נפתחת בחזרה לנקודה שממנה יצאה לפיתול."],["e","מחזירים את עצם הישיבה למזרן וחוזרים מההטיה לגוף ישר."]],m:"Abdominal Obliques"},
+{n:"Side Over on Box",s:"Side Flexion and Rotation",sp:"כל הקפיצים",st:"ישיבה על הקופסה בפרופיל, הקופסה צמודה לכתפות, רגל אחת ברצועת הביטחון, רגל שנייה על הקופסה ב-90 מהגוף, ידיים שלובות מאחורי הראש, מרפקים בזווית העיניים.",steps:[["i","יורדים לכפיפה צידית עד שהמרפק התחתון עובר מעבר לעגלה; הרגל שברצועה מתיישרת, עצם הישיבה מתנתקת."],["e","אוספים בטן, עולים עם החזה עד קו ישר מהעקב שברצועה עד הקודקוד."],["i","מיישרים ידיים למעלה בהמשך לקו הגוף."],["e","מכופפים ידיים אל הראש ויורדים בחזרה לכפיפה צידית."],["i","במקום, למטה."]],m:"Abdominal Obliques"},
+{n:"Breaststroke",s:"Back Extension – Long Box Series",sp:"הכנה: אדום, צהוב · מלא: כחול",st:"קופסה לאורך המיטה, שוכבים עליה על הבטן, קו החזה בקצה הקופסה. הכנה: פנים אל הבר, ידיים על הבר, מרפקים פונים לצדדים. מלא: פנים אל הבר, אגודלים ברצועות, מרפקים כפופים וצמודים לגוף, כפות ידיים לצידי הכתפיים.",steps:[["h","הכנה"],["e","דוחפים את הבר עד יישור מלא של הזרועות."],["i","מרימים את החזה לפשיטה, צוואר בהמשך לגב."],["e","מורידים את בית החזה."],["i","מכופפים מרפקים בחזרה."],["h","התרגיל המלא"],["e","מיישרים ידיים לפנים בהמשך לקו הגוף."],["i","בית החזה עולה לפשיטה תוך פתיחת הידיים לצדדים עד האגן, ומכופפים מרפקים בחזרה."]],note:"כדי להתמקם: אגודלים ברצועות, אוחזים בקצה הקדמי של הקופסה, ורק אז עולים ונשכבים עליה.",m:"Spine Extensors + Deltoid"},
+{n:"Pulling Straps",s:"Back Extension – Long Box Series",sp:"כחול",st:"שכיבה על הקופסה עם הפנים אל הרצועות, ידיים אוחזות בחבלים עצמם.",steps:[["e","ידיים מושכות את החבלים מלמטה לצידי הגוף, בית החזה עולה לפשיטה."],["i","ידיים יורדות וחוזרות לפנים, בית החזה יורד."]],m:"Spine Extensors + Latissimus Dorsi"},
+{n:"T Pull",s:"Back Extension – Long Box Series",sp:"כחול",st:"כמו ב-Pulling Straps.",steps:[["e","ידיים נפתחות לצדדים וממשיכות עד הצמדה לצידי הגוף, בית החזה עולה לפשיטה."],["i","דרך הצדדים ידיים חוזרות, והחזה יורד."]],m:"Spine Extensors + Latissimus Dorsi"},
+{n:"Hamstring Curl",s:"Back Extension – Long Box Series",sp:"אדום",st:"שכיבה על הבטן, בית החזה מעבר לקופסה לכיוון הבר, ידיים מחבקות את הקופסה מלפנים, כפות רגליים ברצועות הקטנות, רגליים ארוכות לאחור כמעט ישרות.",steps:[["e","מכופפים ברכיים תוך שמירה על הפשיטה במפרק הירך ועל רגליים מקבילות, כפות הרגליים מתקרבות לעצמות הישיבה."],["i","מאריכים את הרגליים בחזרה."]],m:"Spine Extensors + Hamstrings"},
+{n:"Standing Lunge",s:"Stretches – Hamstring Series",sp:"אדום",st:"עמידה עם רגל אחת צמודה לרגל המיטה, רגל שנייה על העגלה, כף הרגל כנגד הכתפה בפלקס, ידיים על הבר ברוחב הכתפיים.",steps:[["i","מכופפים את הברך הקדמית, הרגל האחורית נמתחת."],["e","מיישרים את הרגל הקדמית ומנתקים אצבעות לפלקס; אגן מקביל, ידיים ישרות, גב ישר, צוואר בהמשך לגב."],["i","מכופפים בחזרה את הרגל הקדמית."],["e","עולים בחזרה למנח ההתחלתי."]],m:"Hamstring Stretch"},
+{n:"Kneeling Lunge",s:"Stretches – Hamstring Series",sp:"אדום",st:"ברך אחת על המיטה, כף הרגל בפלקס צמודה לכתפה; אצבעות הרגל השנייה על הבר; קצות האצבעות נוגעות בבר, ידיים ישרות ברוחב הכתפיים, גב ישר.",steps:[["i","פשיטה של הירך: האגן יורד והרגל האחורית נמתחת."],["e","מיישרים את הרגל הקדמית בלי לשנות את מנח האגן."],["i","מכופפים בחזרה את הברך הקדמית."],["e","האגן עולה והמיטה נסגרת."]],m:"Hamstring Stretch"},
+{n:"Full Lunge",s:"Stretches – Hamstring Series",sp:"אדום",st:"כף רגל אחת כנגד הכתפה, ברך ישרה לא מונחת; אצבעות הרגל השנייה על הבר, ברך כפופה; קצות האצבעות נוגעות בבר, ידיים ישרות ברוחב הכתפיים, גב ישר, אגן מקביל.",steps:[["e","מיישרים את הרגל הקדמית, שומרים על אגן מקביל וגב ישר."],["i","מכופפים בחזרה את הברך הקדמית."]],m:"Hamstring Stretch"}];
+const PROGS={
+  mat:{label:"מזרן",en:"Mat",title:"פילאטיס מזרן",ex:MAT,key:"pilates-mat-known-v1"},
+  reformer:{label:"רפורמר",en:"Reformer",title:"פילאטיס רפורמר",ex:REF,key:"pilates-reformer-known-v1"},
+  tower:{label:"טאוור",en:"Tower",title:"פילאטיס טאוור",ex:TOW,key:"pilates-tower-known-v1"},
+  chair:{label:"כיסא",en:"Chair",title:"פילאטיס כיסא",ex:CHAIR,key:"pilates-chair-known-v1"},
+  legw:{label:"משקולות רגליים",en:"Leg Weights",title:"פילאטיס משקולות רגליים",ex:LEGW,key:"pilates-legw-known-v1"},
+  magic:{label:"מג׳יק סירקל",en:"Magic Circle",title:"פילאטיס מג׳יק סירקל",ex:MAGIC,key:"pilates-magic-known-v1"},
+  ladder:{label:"לדר בארל",en:"Ladder Barrel",title:"פילאטיס לדר בארל",ex:LADDER,key:"pilates-ladder-known-v1"},
+  step:{label:"סטפ בארל",en:"Step Barrel",title:"פילאטיס סטפ בארל",ex:STEP,key:"pilates-step-known-v1"}
+};
+const SECHE={"Warm Up":"חימום","Abdominal Work":"עבודת בטן","Hip Work":"עבודת ירך","Spinal Articulation":"מפרוק עמוד השדרה","Leg Work":"עבודת רגליים","Full Body Integration":"שילוב כל הגוף","Side Flexion and Rotation":"כפיפה צידית ופיתול","Back Extension":"פשיטת גב","Stretches":"מתיחות",
+"Foot Work":"עבודת כפות רגליים","Abdominal Short Box Series":"בטן – קופסה קצרה","Abdominal Long Box Series":"בטן – קופסה ארוכה","Arms Supine":"ידיים בשכיבה","Arms Sitting":"ידיים בישיבה","Arms Kneeling":"ידיים על הברכיים","Arms Kneeling Side Series":"ידיים על הברכיים בצד","Shoulder Push":"דחיפת כתפיים","Rowing Series":"סדרת חתירה","Leg Work – Split Series":"רגליים – פיצול","Knee Stretch Series":"סדרת מתיחת ברכיים","Up Stretch Series":"סדרת מתיחה למעלה","Back Extension – Long Box Series":"פשיטת גב – קופסה ארוכה","Stretches – Hamstring Series":"מתיחות – אחורי הירך","Hip Work – Double Leg Supine":"ירך – שתי רגליים בשכיבה","Hip Work – Single Leg Supine":"ירך – רגל אחת בשכיבה","Hip Work – Single Leg Side":"ירך – רגל אחת על הצד","Arm Work – Push Through Series":"ידיים – Push Through","Arms Standing Series":"ידיים בעמידה","Ped-A-Pull Series":"סדרת Ped-A-Pull","Arm Work":"עבודת ידיים","Arm Chair Series":"ידיים – סדרת כיסא","Lunge Series":"סדרת לאנג׳","Gluteal Side Series":"עכוז – על הצד","Gluteal Kneeling":"עכוז – עמידת שש","Lateral Flexion":"כפיפה צידית","Leg Work – Leg Weights":"רגליים – עם משקולות"};
+const MUS={"Hamstrings":"שרירי הירך האחוריים","Hamstring":"שרירי הירך האחוריים","Hip Flexors":"מכופפי הירך","Abdominals Obliques":"שרירי הבטן האלכסוניים","Abdominal Obliques":"שרירי הבטן האלכסוניים","Obliques":"שרירי הבטן האלכסוניים","Rectus Abdominus":"שריר הבטן הישר","Transverse Abdominus":"שריר הבטן הרוחבי","Abdominals":"שרירי הבטן","Back Extensors":"פושטי הגב","Spine Extensors":"פושטי עמוד השדרה","Hip Extensors":"פושטי הירך","Hip Adductors":"מקרבי הירך","Gluteus Maximus":"שריר העכוז הגדול","Gluteus Medius":"שריר העכוז האמצעי","ITB":"הרצועה הכסלית-שוקית","Triceps":"התלת-ראשי","Biceps":"הדו-ראשי","Quadriceps":"הארבע-ראשי","Gastrocnemius":"שריר התאומים (שוק)","Soleus":"שריר הסולאוס (שוק)","Latissimus Dorsi":"הרחב הגבי","Pectoralis":"שרירי החזה","Teres Major":"העגול הגדול","Teres Minor":"העגול הקטן","Infraspinatus":"התת-קוצי","Supraspinatus":"העל-קוצי","Rhomboids":"המעוינים","Deltoid":"הדלתואיד (שריר הכתף)","Anterior Deltoid":"הדלתואיד הקדמי","Posterior Deltoid":"הדלתואיד האחורי","Lower Trapezius":"הטרפז התחתון","Serratus Anterior":"המשונן הקדמי","Hamstring Stretch":"מתיחת שרירי הירך האחוריים","Gluteus":"שרירי העכוז","Iliopsoas":"האיליופסואס (מכופף הירך)","Pectoralis Stretch":"מתיחת שרירי החזה","Gluteus Minimus":"שריר העכוז הקטן","Pectoralis Major":"החזה הגדול","ITB Stretch":"מתיחת הרצועה הכסלית-שוקית","Hip Adductors Stretch":"מתיחת מקרבי הירך","Gluteals Stretch":"מתיחת שרירי העכוז","Hip Flexors Stretch":"מתיחת מכופפי הירך"};
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const he=s=>SECHE[s]||"";
+const muscles=m=>m?m.split("+").map(x=>x.trim()).filter(Boolean):[];
+const musHe=m=>muscles(m).map(x=>MUS[x]||x).join(" + ");
+let prog="mat";
+try{const p=localStorage.getItem("pilates-program");if(p&&PROGS[p])prog=p}catch(e){}
+let known=new Set();
+const P=()=>PROGS[prog],EX=()=>P().ex;
+const kid=e=>e.s+"|"+e.n;
+function loadKnown(){known=new Set();try{const raw=JSON.parse(localStorage.getItem(P().key)||"[]");const ids=new Set(EX().map(kid));raw.forEach(k=>{if(ids.has(k))known.add(k);else{const f=EX().find(e=>e.n===k);if(f)known.add(kid(f))}})}catch(e){}}
+function save(){try{localStorage.setItem(P().key,JSON.stringify([...known]))}catch(e){}}
+let tab="cards",sec="all",onlyNew=false;
+const SECS=()=>[...new Set(EX().map(e=>e.s))];
+const pool=()=>EX().filter(e=>sec==="all"||e.s===sec);
+function updProg(){const k=EX().filter(e=>known.has(kid(e))).length;$("#prog").textContent=`ידעת ${k} מתוך ${EX().length} תרגילים`;$("#pbar").style.width=(k/EX().length*100)+"%"}
+function buildFilter(){$("#filter").innerHTML=`<option value="all">כל הפרקים (${EX().length})</option>`+SECS().map(s=>`<option value="${esc(s)}">${esc(s)} – ${he(s)} (${EX().filter(e=>e.s===s).length})</option>`).join("");$("#filter").value=sec}
+document.getElementById("progs").innerHTML=Object.entries(PROGS).map(([k,v])=>`<button data-prog="${k}" aria-pressed="false">${v.label}<small>${v.en} · ${v.ex.length}</small></button>`).join("");
+function setProg(p){prog=p;sec="all";try{localStorage.setItem("pilates-program",p)}catch(e){}document.body.dataset.prog=p;document.querySelectorAll(".prog button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.prog===p));$("#title").textContent=P().title;document.title=P().title+" – תרגול";loadKnown();buildFilter();updProg();render(true)}
+document.querySelectorAll(".prog button").forEach(b=>b.onclick=()=>{if(b.dataset.prog!==prog)setProg(b.dataset.prog)});
+$("#filter").onchange=e=>{sec=e.target.value;render(true)};
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));render(true)});
+$("#reset").onclick=()=>{if(confirm(`לאפס את ההתקדמות ב${P().label}?`)){known.clear();save();updProg();render(true)}};
+const PILL={i:"שאיפה",e:"נשיפה",n:"נשימה"};
+function musBlock(e){
+  const ms=muscles(e.m);
+  if(!ms.length)return `<div class="note">לא מצוין בחוברת.</div>`;
+  return `<div class="mlist">`+ms.map(x=>`<div class="mrow"><span class="en">${esc(x)}</span><span class="he">${esc(MUS[x]||"")}</span></div>`).join("")+`</div>`+(e.stretch?`<div class="note">מתיחה לשרירים אלה.</div>`:"");
+}
+function details(e){
+  let h="";
+  if(e.sp)h+=`<div class="lbl">קפיצים מומלצים</div><span class="springs">${esc(e.sp)}</span>`;
+  h+=`<div class="lbl">מוצא</div><div>${esc(e.st)}</div>`;
+  if(e.steps.length){h+=`<div class="lbl">ביצוע</div><ul class="steps">`+e.steps.map(([t,x])=>t==="h"?`<li class="h">${esc(x)}</li>`:`<li><span class="pill ${t}">${PILL[t]}</span><span>${esc(x)}</span></li>`).join("")+`</ul>`}
+  if(e.note)h+=`<div class="note">${esc(e.note)}</div>`;
+  h+=`<div class="lbl">שרירים עיקריים</div>`+musBlock(e);
+  return h;
+}
+/* cards */
+let deck=[],shown=false,doneCount=0;
+function newDeck(){deck=shuffle(pool().filter(e=>!onlyNew||!known.has(kid(e))));shown=false;doneCount=0}
+function cards(){
+  const v=$("#view");
+  let h=`<label class="chk"><input type="checkbox" id="onlyNew" ${onlyNew?"checked":""}> רק תרגילים שעוד לא ידעתי</label>`;
+  if(!deck.length){
+    h+=`<div class="card" style="text-align:center"><div class="big">✓</div><p>סיימת את החבילה${doneCount?` (${doneCount} כרטיסיות)`:""}.</p><button class="btn" id="again">ערבוב והתחלה מחדש</button></div>`;
+    v.innerHTML=h;$("#again").onclick=()=>{newDeck();cards()};
+  }else{
+    const e=deck[0];
+    h+=`<div class="card"><div class="sec">${esc(e.s)} – ${he(e.s)}</div><div class="name">${esc(e.n)}</div>`;
+    if(!shown){h+=`<p class="hint">נסי לומר בקול: ${e.sp?"קפיצים, ":""}מוצא, מה קורה בשאיפה ומה בנשיפה, ואילו שרירים עובדים.</p><div class="row"><button class="btn" id="show">הצגת התשובה</button></div>`}
+    else{h+=details(e)+`<div class="row"><button class="btn no" id="no">עוד לא</button><button class="btn yes" id="yes">ידעתי</button></div>`}
+    h+=`</div><div class="count">נשארו ${deck.length} בחבילה</div>`;
+    v.innerHTML=h;
+    if(!shown)$("#show").onclick=()=>{shown=true;cards()};
+    else{
+      $("#yes").onclick=()=>{known.add(kid(e));save();updProg();deck.shift();doneCount++;shown=false;cards()};
+      $("#no").onclick=()=>{known.delete(kid(e));save();updProg();deck.shift();deck.splice(Math.min(3,deck.length),0,e);shown=false;cards()};
+    }
+  }
+  $("#onlyNew").onchange=x=>{onlyNew=x.target.checked;newDeck();cards()};
+}
+/* quiz */
+let quiz=[],qi=0,score=0,answered=false;
+function pickOpts(correct,all,n=4){const o=shuffle([...new Set(all)].filter(x=>x&&x!==correct)).slice(0,n-1);return shuffle([correct,...o])}
+function makeQ(e){
+  const Pl=pool(),A=EX();
+  const types=[];
+  if(!/^(מתחילים|מנח|אותו|כמו|מגלגלים)/.test(e.st))types.push("start");
+  if(e.m)types.push("mus","mus");
+  if(e.steps.some(s=>s[0]==="i"||s[0]==="e"))types.push("breath","breath");
+  if(e.sp&&new Set(A.map(x=>x.sp)).size>=3)types.push("sp");
+  if(sec==="all")types.push("sec");
+  const t=types[Math.random()*types.length|0];
+  if(t==="start"){const same=Pl.length>=4?Pl:A;return{q:"איזה תרגיל מתחיל כך?",text:e.st,ans:e.n,opts:pickOpts(e.n,shuffle(same.map(x=>x.n))),ltr:true,ex:e}}
+  if(t==="mus")return{q:`אילו שרירים עיקריים עובדים ב-${e.n}?`,ans:e.m,opts:pickOpts(e.m,shuffle(A.map(x=>x.m))),ltr:true,mus:true,ex:e};
+  if(t==="sp")return{q:`אילו קפיצים מומלצים ל-${e.n}?`,ans:e.sp,opts:pickOpts(e.sp,shuffle(A.map(x=>x.sp))),ex:e};
+  if(t==="sec")return{q:`לאיזה פרק שייך ${e.n}?`,ans:e.s,opts:pickOpts(e.s,SECS()),ltr:true,sec:true,ex:e};
+  const st=shuffle(e.steps.filter(s=>s[0]==="i"||s[0]==="e"))[0];
+  return{q:`ב-${e.n}: שאיפה או נשיפה?`,text:st[1].replace(/^\([^)]*\)\s*/,""),ans:PILL[st[0]],opts:["שאיפה","נשיפה"],ex:e};
+}
+function newQuiz(){const Pl=shuffle(pool());quiz=[];for(let i=0;i<10;i++)quiz.push(makeQ(Pl[i%Pl.length]));qi=0;score=0;answered=false}
+function optLabel(Q,o){if(Q.mus)return `${esc(o)}<small>${esc(musHe(o))}</small>`;if(Q.sec)return `${esc(o)}<small>${esc(he(o))}</small>`;return esc(o)}
+function quizView(){
+  const v=$("#view");
+  if(qi>=quiz.length){
+    v.innerHTML=`<div class="card" style="text-align:center"><div class="sec">התוצאה שלך</div><div class="big">${score}/${quiz.length}</div><p>${score>=9?"מצוין, את שולטת בחומר.":score>=6?"יפה מאוד. עוד סבב אחד ונגיע לשם.":"כדאי לעבור שוב על הכרטיסיות של הפרק הזה."}</p><button class="btn" id="again">עוד סבב</button></div>`;
+    $("#again").onclick=()=>{newQuiz();quizView()};return;
+  }
+  const Q=quiz[qi];
+  let h=`<div class="card"><div class="sec">שאלה ${qi+1} מתוך ${quiz.length} · ${score} נכונות</div><div class="q">${esc(Q.q)}</div>`;
+  if(Q.text)h+=`<div class="qtext">${esc(Q.text)}</div>`;
+  h+=`<div class="opts">`+Q.opts.map((o,i)=>`<button class="opt ${Q.ltr?"ltr":""}" data-i="${i}">${optLabel(Q,o)}</button>`).join("")+`</div><div id="fb"></div></div>`;
+  v.innerHTML=h;
+  v.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    if(answered)return;answered=true;
+    const pick=Q.opts[+b.dataset.i],ok=pick===Q.ans;if(ok)score++;
+    v.querySelectorAll(".opt").forEach(x=>{x.disabled=true;const val=Q.opts[+x.dataset.i];if(val===Q.ans)x.classList.add("right");else if(x===b)x.classList.add("wrong")});
+    $("#fb").innerHTML=`<p style="margin:14px 0 0;font-weight:700;color:var(${ok?"--ok":"--bad"})">${ok?"נכון!":"לא בדיוק. התשובה מסומנת בירוק."}</p><details style="margin-top:10px"><summary>לראות את ${esc(Q.ex.n)} במלואו</summary><div>${details(Q.ex)}</div></details><div class="row"><button class="btn" id="next">${qi===quiz.length-1?"לתוצאה":"השאלה הבאה"}</button></div>`;
+    $("#next").onclick=()=>{qi++;answered=false;quizView()};
+  });
+}
+/* list */
+function list(){
+  const groups=SECS().filter(s=>sec==="all"||s===sec);
+  $("#view").innerHTML=groups.map(s=>`<h2>${esc(s)} – ${he(s)}</h2>`+EX().filter(e=>e.s===s).map(e=>`<details><summary><span class="en">${esc(e.n)}</span>${known.has(kid(e))?'<span class="tick">✓</span>':""}</summary><div>${details(e)}</div></details>`).join("")).join("");
+}
+/* ---------- lessons ---------- */
+const T=(txt,d=25)=>({tr:true,txt,d});
+const X=(n,reps,cue,d,sec,opt,s)=>({n,reps,cue,d,sec,opt:!!opt,s});
+const DS="Hip Work – Double Leg Supine",AS="Arms Standing Series";
+const LESSONS={
+mat:[
+{title:"מזרן – בינוני",level:"בינוני",scale:1,items:[
+X("Pelvic Curl","5","חוליה אחר חוליה; למעלה קו ישר, בלי קימור",100,"חימום"),
+X("Shoulder Bridge","3 לכל רגל","האגן לא נופל לצד הרגל שעולה",130,"חימום"),
+X("Single Leg Lifts","4 לכל רגל","האגן שקט; התנועה ממפרק הירך",50,"חימום"),
+X("Leg Changes","8 החלפות","שתי הרגליים זזות יחד",50,"חימום"),
+X("Spine Twist Supine","4 לכל צד","הצלעות נשארות על המזרן",85,"חימום"),
+X("Chest Lift","6","ידיים תומכות בראש, לא מושכות",65,"חימום"),
+X("Chest Lift With Rotation","4 לכל צד","הסיבוב מהצלעות, לא מהמרפק",65,"חימום"),
+T("מורידים ראש, מיישרים ידיים לאחור על המזרן ומתכוננים ל־Hundreds.",20),
+X("Hundreds","100 ניעות","רגליים ב־60; אם הגב מתקמר, מגביהים רגליים",130,"עבודת בטן"),
+X("Roll Up","5","בלי תנופה; גב עגול בישיבה",100,"עבודת בטן"),
+X("Single Leg Stretch","8 לכל רגל","ההחלפות בנשיפה; החזה יציב",100,"עבודת בטן"),
+X("Double Leg Stretch","6","החזה לא יורד כשנפתחים",85,"עבודת בטן"),
+X("Crisscross","6 לכל צד","המרפקים פתוחים; האגן לא מסתובב",100,"עבודת בטן"),
+X("Hamstring Pull 1+2+3","8 החלפות בשלבים 1 ו־2","שתי רגליים ישרות לגמרי",100,"עבודת בטן"),
+X("Neck Pull","4","הבטן עובדת, לא הידיים",65,"עבודת בטן",1),
+T("חוזרים לשכיבה, רגל אחת לתקרה בפלקס, למעגלי רגל.",20),
+X("Leg Circles","5 לכל כיוון, לכל רגל","גודל המעגל לפי יציבות האגן",165,"ירך ומפרוק"),
+X("Roll Over","3 בכל וריאציה","המשקל על השכמות, לעולם לא על הצוואר",130,"ירך ומפרוק"),
+X("Corkscrew","3 לכל צד","הצלעות והכתפיים על המזרן",100,"ירך ומפרוק",1),
+T("מתגלגלים לישיבה ומתכנסים ל־Roll Like A Ball.",20),
+X("Roll Like A Ball","6","עד השכמות בלבד; צורת הכדור לא משתנה",65,"ישיבה ופיתולים"),
+X("Open Leg Rocker","5","הבטן מחזירה קדימה, לא תנופת הרגליים",65,"ישיבה ופיתולים"),
+X("Teaser 1+2+3","הכנה 3, ו־Teaser 1 שלוש פעמים","עולים מהבטן; גב ארוך ב־V",130,"ישיבה ופיתולים"),
+X("Spine Stretch Forward","4","האגן זקוף על עצמות הישיבה",65,"ישיבה ופיתולים"),
+X("Saw","4 לכל צד","שתי עצמות הישיבה על המזרן",100,"ישיבה ופיתולים"),
+X("Spine Twist","4 לכל צד","מתארכים למעלה לפני כל סיבוב",85,"ישיבה ופיתולים"),
+T("נשכבים על הצד, ראש על היד, אגן מעט אחורה מקו הגוף.",20),
+X("Side Leg Lift","6, צד ראשון","המותן התחתון לא שוקע",65,"על הצד"),
+X("Side Kick","6 בעיטות כפולות, צד ראשון","מרפק, אגן וכף רגל באותו קו",65,"על הצד"),
+X("Side Bend","3, צד ראשון","הכתף התומכת רחוקה מהאוזן",65,"על הצד"),
+T("מתהפכים לצד השני.",20),
+X("Side Leg Lift","6, צד שני","המותן התחתון לא שוקע",65,"על הצד"),
+X("Side Kick","6 בעיטות כפולות, צד שני","מרפק, אגן וכף רגל באותו קו",65,"על הצד"),
+X("Side Bend","3, צד שני","הכתף התומכת רחוקה מהאוזן",65,"על הצד"),
+T("מתהפכים לשכיבה על הבטן, אמות על המזרן.",20),
+X("Basic Back Extension","4","הבטן מתנתקת מהמזרן, הגב לא זז",50,"פשיטת גב"),
+X("Single Leg Kick","6 לכל רגל","הבטן מנותקת כל הזמן",85,"פשיטת גב"),
+X("Double Leg Kick","3 לכל צד","הראש מונח כל פעם על צד אחר",85,"פשיטת גב"),
+X("Swimming","2 מחזורים","מתארכים לשני הכיוונים, לא רק מרימים",65,"פשיטת גב"),
+X("Rest Position","3 עד 4 נשימות","איזון אחרי עבודת הגב",35,"פשיטת גב"),
+T("מתנוחת המנוחה לעמידת שש, ומשם לפלנק.",20),
+X("Front Support","4 לכל רגל","האגן לא נופל כשהברך מתכופפת",85,"שילוב כל הגוף"),
+X("Leg Pull Front","4 לכל רגל","האגן נשאר ישר, לא מסתובב",85,"שילוב כל הגוף"),
+X("Back Support","4","החזה פתוח, הכתפיים רחוקות מהאוזניים",65,"שילוב כל הגוף"),
+X("Leg Pull Back","3 לכל רגל","גובה האגן לא משתנה",65,"שילוב כל הגוף",1),
+T("עוברים לעמידת שש לסיום.",20),
+X("Cat Stretch","4","חוליה אחר חוליה, מבט פנימה ואז קדימה",65,"סיום"),
+X("Rest Position","5 עד 6 נשימות","נושמים לגב; אפשר לפתוח ברכיים",65,"סיום")]},
+{title:"מזרן – מתחילים",level:"מתחילים",scale:1.2,items:[
+X("Pelvic Curl","5","מתחילים מהטיית האגן, לא מהרמת הישבן",120,"חימום"),
+X("Shoulder Bridge","הכנה בלבד, 3 לכל רגל","שני צידי האגן באותו גובה",120,"חימום"),
+X("Single Leg Lifts","4 לכל רגל","אוספים בטן לפני שהרגל עולה",90,"חימום"),
+X("Leg Changes","6 החלפות","האגן לא מתנדנד",60,"חימום"),
+X("Spine Twist Supine","3 לכל צד","הברכיים צמודות, החזה במרכז",90,"חימום"),
+X("Chest Lift","5","מרווח של אגרוף בין הסנטר לחזה",90,"חימום"),
+X("Chest Lift With Rotation","3 לכל צד","נשארים בגובה הכפיפה גם במרכז",90,"חימום"),
+T("מניחים ראש ומתכוננים לעבודת בטן.",20),
+X("Hundreds","50 עד 100, ברכיים כפופות","הניעות מהכתפיים, הראש לא קופץ",120,"עבודת בטן"),
+X("Single Leg Stretch","6 לכל רגל","הרגליים בקו ישר מהירך",100,"עבודת בטן"),
+X("Double Leg Stretch","5, אפשר ברכיים כפופות","הגב התחתון צמוד למזרן",90,"עבודת בטן"),
+X("Crisscross","4 לכל צד","הסיבוב מבית החזה",90,"עבודת בטן"),
+X("Roll Up","3 עד 4, אפשר עם ברכיים כפופות","בלי לקפוץ מהידיים",100,"עבודת בטן"),
+T("חוזרים לשכיבה; הרגל התומכת יכולה להישאר כפופה.",20),
+X("Leg Circles","4 לכל כיוון, לכל רגל","מעגל קטן, אגן שקט",150,"עבודת ירך"),
+T("עולים לישיבה.",20),
+X("Roll Like A Ball","5","מתגלגלים רק עד השכמות",75,"ישיבה ופיתולים"),
+X("Spine Stretch Forward","4","הבטן נאספת כאילו מתרחקת מהרגליים",90,"ישיבה ופיתולים"),
+X("Saw","3 לכל צד","הפיתול לפני הכפיפה",90,"ישיבה ופיתולים"),
+X("Spine Twist","3 לכל צד","האגן לא זז",75,"ישיבה ופיתולים"),
+T("נשכבים על הצד.",20),
+X("Side Leg Lift","5, צד ראשון","האגן לא מתגלגל",75,"על הצד"),
+X("Side Kick","5, צד ראשון","רק הרגל זזה",75,"על הצד"),
+T("מתהפכים לצד השני.",20),
+X("Side Leg Lift","5, צד שני","האגן לא מתגלגל",75,"על הצד"),
+X("Side Kick","5, צד שני","רק הרגל זזה",75,"על הצד"),
+T("מתהפכים לשכיבה על הבטן.",20),
+X("Basic Back Extension","5","הבטן תומכת בגב",75,"פשיטת גב"),
+X("Single Leg Kick","5 לכל רגל","החזה פתוח, ברכיים צמודות",90,"פשיטת גב"),
+X("Rest Position","4 נשימות","נושמים לגב",45,"פשיטת גב"),
+T("עוברים לעמידת שש.",20),
+X("Cat Stretch","5","הצוואר בהמשך לגב בשני הכיוונים",90,"סיום"),
+X("Front Support","3 לכל רגל, אפשר על הברכיים","הידיים דוחפות את המזרן",90,"סיום"),
+X("Back Support","3, ברכיים כפופות","החזה פתוח",75,"סיום"),
+X("Rest Position","6 נשימות","מתכנסים ונחים",75,"סיום")]}],
+reformer:[
+{title:"רפורמר – בינוני",level:"בינוני",scale:1.15,items:[
+X("Double Leg Foot Work","10 בכל מנח","הגב והאגן נטרליים; לא נועלים ברכיים",240,"Foot Work"),
+X("Calf Raises","10","עקבים יורדים לפלקס מקסימלי",60,"Foot Work"),
+X("Prances","10","ההחלפה רכה, הבר לא קופץ",60,"Foot Work"),
+X("Single Leg Foot Work","8 לכל רגל בכל פוזיציה","האגן לא מסתובב",150,"Foot Work"),
+T("מורידים את הפוט בר, מחליפים קפיצים לאדום ולוקחים את הרצועות הקצרות."),
+X("Hundreds","100 ניעות","המיטה לא זזה בזמן הניעות",120,"Abdominal Work"),
+X("Coordination","5","פתיחה וסגירה של הרגליים בלי לאבד את הכפיפה",100,"Abdominal Work"),
+T("רגליים לרצועות, קפיצים אדום וצהוב."),
+X("Frog","8","שומרים על V לאורך כל הדרך",75,"Hip Work"),
+X("Openings","8","גובה העקבים לא משתנה",75,"Hip Work"),
+X("Down Circles","5","הגב נטרלי כל הדרך",75,"Hip Work"),
+X("Up Circles","5","מעגל רציף ושווה",75,"Hip Work"),
+X("Extended Frog","5","בלי להזיז את העגלה בכפיפה",75,"Hip Work"),
+X("Short Spine","4","צוואר ארוך, המשקל על השכמות",150,"Spinal Articulation"),
+X("Semi-Circle","3 לכל כיוון","חוליה אחר חוליה, גם מעבר למזרן",120,"Spinal Articulation",1),
+T("ידיים לרצועות, ברכיים ב־90 מעלות."),
+X("Triceps","8","המרפקים נשארים על המזרן",60,"Arms Supine"),
+X("Extension","8","הכתפיים רחוקות מהאוזניים",60,"Arms Supine"),
+X("Adduction","8","הצלעות לא נפתחות",60,"Arms Supine"),
+X("Down Circles (Arms)","5","מעגל גדול ושקט",60,"Arms Supine"),
+X("Up Circles (Arms)","5","הגב התחתון לא מתקמר",60,"Arms Supine"),
+T("עוברים לישיבה מול הרצועות, קפיצים כחול וצהוב."),
+X("Chest Expansion","6","התנועה קטנה, החזה פתוח",70,"Arms Sitting"),
+X("Biceps","8","המרפקים בגובה הכתפיים",60,"Arms Sitting"),
+X("Rhomboids","8","השכמות מתקרבות בסוף התנועה",60,"Arms Sitting"),
+T("מניחים את הקופסה לרוחב, רגליים ברצועת הביטחון."),
+X("Round Back","5","הקימור מהבטן, לא מהכתפיים",75,"Abdominal Short Box Series"),
+X("Flat Back","5","גב ישר, הצלעות סגורות",75,"Abdominal Short Box Series"),
+X("Tilt","3 לכל צד","הראש נשאר בין הידיים",90,"Abdominal Short Box Series"),
+X("Twist","3 לכל צד","עצם הישיבה חוזרת לקופסה",90,"Abdominal Short Box Series"),
+T("מורידים את הקופסה ומחזירים את הפוט בר, קפיצים אדום וצהוב."),
+X("Knee Stretch Round Back","10","גיוס הבטן בסגירת העגלה",60,"Knee Stretch Series"),
+X("Knee Stretch Flat Back","10","הגב לא משתנה",60,"Knee Stretch Series"),
+X("Elephant","8","התנועה רק ממפרק הירך",75,"Up Stretch Series"),
+X("Long Stretch","5","הגוף כמו קרש, הכתפיים עוברות את הבר",90,"Full Body Integration",1),
+T("קפיץ אדום, ישיבה בפרופיל."),
+X("Mermaid","3 לכל צד","עצמות הישיבה חוזרות למזרן",120,"Side Flexion and Rotation"),
+X("Standing Lunge","3 לכל צד","אגן מקביל, גב ישר",120,"Stretches – Hamstring Series")]},
+{title:"רפורמר – מתחילים",level:"מתחילים",scale:1.35,items:[
+X("Double Leg Foot Work","8 בכל מנח","לא נועלים ברכיים ביישור",240,"Foot Work"),
+X("Calf Raises","8","תנועה רק מהקרסול",60,"Foot Work"),
+X("Prances","8","עולים גבוה על האצבעות",60,"Foot Work"),
+X("Single Leg Foot Work","6 לכל רגל בכל פוזיציה","האגן ישר",150,"Foot Work"),
+T("מורידים את הפוט בר, קפיץ אדום ורצועות קצרות."),
+X("Hundreds","הכנה, ואז 50 ניעות","אם קשה, ברכיים נשארות ב־90",120,"Abdominal Work"),
+T("קפיץ כחול, רצועות מעל הברכיים."),
+X("ABS in Straps","6","החזה נשאר בכפיפה",90,"Abdominal Work"),
+T("רגליים לרצועות, קפיצים אדום וצהוב."),
+X("Frog","8","ברכיים מעל מפרקי הירך",75,"Hip Work"),
+X("Openings","6","פתיחה רק כמה שהאגן יציב",75,"Hip Work"),
+X("Down Circles","4","מעגל קטן",75,"Hip Work"),
+X("Up Circles","4","הגב נטרלי",75,"Hip Work"),
+T("מחזירים את הפוט בר, קפיצים אדום, אדום וצהוב."),
+X("Bottom Lift","5","קו ישר מהכתפיים לברכיים, העגלה לא זזה",120,"Spinal Articulation"),
+T("ידיים לרצועות, קפיצים אדום וצהוב."),
+X("Triceps","8","מרפקים על המזרן",60,"Arms Supine"),
+X("Extension","8","כתפיים רחוקות מהאוזניים",60,"Arms Supine"),
+X("Adduction","8","הגב לא מתקמר",60,"Arms Supine"),
+T("ישיבה מול הרצועות, קפיצים כחול וצהוב."),
+X("Chest Expansion","6","גב זקוף",70,"Arms Sitting"),
+X("Biceps","8","המרפקים לא יורדים",60,"Arms Sitting"),
+X("Rhomboids","6","תנועה איטית ושקטה",60,"Arms Sitting"),
+T("קופסה לרוחב, רגליים ברצועת הביטחון."),
+X("Round Back","4","הקימור מהבטן",75,"Abdominal Short Box Series"),
+X("Flat Back","4","הטיה קטנה בגב ישר",75,"Abdominal Short Box Series"),
+X("Tilt","2 לכל צד","שתי עצמות הישיבה חוזרות לקופסה",90,"Abdominal Short Box Series"),
+T("מורידים את הקופסה, קפיצים אדום וצהוב."),
+X("Knee Stretch Round Back","8","הבטן סוגרת את העגלה",60,"Knee Stretch Series"),
+X("Knee Stretch Flat Back","8","כתפיים בגובה האגן",60,"Knee Stretch Series"),
+T("קפיץ אדום, ישיבה בפרופיל."),
+X("Mermaid","2 לכל צד","הטיה רכה, בלי לקרוס",120,"Side Flexion and Rotation"),
+X("Standing Lunge","2 לכל צד","ידיים ישרות, צוואר ארוך",120,"Stretches – Hamstring Series")]}],
+tower:[
+{title:"טאוור – בינוני",level:"בינוני",scale:1.08,items:[
+X("Double Leg Foot Work","8 בכל מנח","עוצרים רגע לפני סגירת הקפיץ",180,"Foot Work"),
+X("Calf Raises","10","פלקס מקסימלי",60,"Foot Work"),
+X("Single Leg Foot Work","8 לכל רגל","האגן לא מסתובב",120,"Foot Work"),
+X("Hip Opener","6 לכל צד","כתף מעל כתף, אגן מעל אגן",100,"Foot Work"),
+T("מעבירים את ה־PTB ל־Top Loaded, קפיץ כחול."),
+X("Roll Up Top Loaded","5","מאריכים את הגב לפני הירידה",100,"Abdominal Work"),
+X("Mini-Roll Ups","8","תנועה קטנה, עמוקה",75,"Abdominal Work"),
+X("Mini-Roll Ups Oblique","6 לכל צד","האגן נשאר במרכז",90,"Abdominal Work"),
+X("Teaser 1+2+3","2 מכל שלב","הגב מתארך לפני הירידה",150,"Abdominal Work"),
+T("PTB ל־Bottom Loaded, קפיץ כחול."),
+X("Tower","5","הבר לא זז בזמן גלגול האגן",100,"Spinal Articulation"),
+T("PTB ל־Top Loaded."),
+X("Breathing With PTB","4","חוליה אחר חוליה בכל כיוון",120,"Spinal Articulation"),
+T("רגליים לרצועות, קפיצים סגולים מקבילים למזרן."),
+X("Frog","8","גובה כפות הרגליים קבוע",75,"Hip Work – Double Leg Supine",0,DS),
+X("Down Circles","5","האגן נטרלי כל הדרך",75,"Hip Work – Double Leg Supine",0,DS),
+X("Up Circles","5","מחברים ב־V למטה",75,"Hip Work – Double Leg Supine",0,DS),
+X("Walking","3","שישה צעדים, קצב אחיד",75,"Hip Work – Double Leg Supine",0,DS),
+X("Bicycle","5 לכל כיוון","תנועת אופניים זורמת",75,"Hip Work – Double Leg Supine",0,DS),
+T("קפיץ סגול אחד, שכיבה על הצד."),
+X("Changes","6 לכל צד","האגן מעט אחורה ויציב",120,"Hip Work – Single Leg Side"),
+X("Forward Circles","5 לכל צד","שני צידי האגן פונים לפנים",100,"Hip Work – Single Leg Side"),
+X("Back Circles","5 לכל צד","פשיטה מקסימלית בלי לקמר את הגב",100,"Hip Work – Single Leg Side"),
+T("קמים לעמידה, קפיצים צהובים קצרים מעט מעל גובה הכתפיים."),
+X("Chest Expansion","8","החזה פתוח ומשוחרר",60,AS,0,AS),
+X("Hug-A-Tree","8","הידיים לא נוגעות זו בזו",60,AS,0,AS),
+X("Down Circles","5","מתח בקפיצים כל הזמן",60,AS,0,AS),
+X("Up Circles","5","ידיים בזווית העיניים",60,AS,0,AS),
+X("Punching","8","שתי החלפות בשאיפה ושתיים בנשיפה",45,AS,0,AS),
+X("Biceps","8","המרפק הוא הציר ולא זז",60,AS,0,AS),
+X("Butterfly","3 לכל צד","הראש במרכז בין הידיים",100,AS,0,AS),
+X("Squats","8","90 מעלות בין השוק לירך",60,"Leg Work"),
+X("Thigh Stretch with RUB","4","קו ישר מהברכיים לקודקוד",75,"Leg Work"),
+T("ישיבה בפרופיל אל הבר, PTB ב־Top Loaded."),
+X("Mermaid","3 לכל צד","הכתף יורדת לפני ההטיה",120,"Side Flexion and Rotation"),
+X("Spine Stretch Forward","4","מרחיקים את הבר כמה שאפשר",90,"Back Extension"),
+X("Swan","5","המרפקים מתכופפים, החזה עולה",75,"Back Extension"),
+T("PTB ל־Bottom Loaded, קפיץ אדום."),
+X("Monkey","3","חוליה אחר חוליה בעלייה ובירידה",90,"Stretches"),
+X("Shoulder Stretch Sitting","2","מתיחה רכה, בלי לכפות",75,"Stretches")]},
+{title:"טאוור – מתחילים",level:"מתחילים",scale:1.4,items:[
+X("Double Leg Foot Work","6 בכל מנח","אגן וגב נטרליים",180,"Foot Work"),
+X("Calf Raises","8","תנועה רק מהקרסול",60,"Foot Work"),
+X("Single Leg Foot Work","6 לכל רגל","הרגל השנייה רפויה על המזרן",120,"Foot Work"),
+X("Hip Opener","5 לכל צד","האגן לא מתגלגל",100,"Foot Work"),
+T("PTB ל־Top Loaded, אדום וכחול."),
+X("Mini-Roll Ups","8","הגב התחתון נוגע במזרן בנשיפה",75,"Abdominal Work"),
+X("Mini-Roll Ups Oblique","4 לכל צד","הסיבוב מהחזה",90,"Abdominal Work"),
+T("עוברים ל־Roll Up Bar עם הקפיצים הצהובים."),
+X("Roll Up With Roll Up Bar","4","הבר עוזר, הבטן עובדת",100,"Abdominal Work"),
+X("Bottom Lift With RUB","5","קו ישר מהכתפיים לברכיים",100,"Spinal Articulation"),
+T("PTB ל־Top Loaded, קפיץ כחול."),
+X("Breathing With PTB","3","נושמים עמוק, תנועה איטית",120,"Spinal Articulation"),
+T("רגליים לרצועות, קפיצים סגולים."),
+X("Frog","8","ברכיים מעל מפרק הירך",75,"Hip Work – Double Leg Supine",0,DS),
+X("Down Circles","4","מעגל קטן",75,"Hip Work – Double Leg Supine",0,DS),
+X("Up Circles","4","הגב נטרלי",75,"Hip Work – Double Leg Supine",0,DS),
+X("Walking","2","צעדים קטנים ושקטים",75,"Hip Work – Double Leg Supine",0,DS),
+T("ישיבה מול הבר, PTB ב־Top Loaded."),
+X("Shoulder Adduction Double Arm","6","שכמות רחבות",75,"Arm Work – Push Through Series"),
+T("קמים לעמידה, קפיצים צהובים."),
+X("Chest Expansion","8","גב זקוף",60,AS,0,AS),
+X("Hug-A-Tree","8","מרפקים מעט עגולים",60,AS,0,AS),
+X("Biceps","8","המרפקים נשארים לאחור",60,AS,0,AS),
+X("Squats","8","רגליים ברוחב הכתפיים",60,"Leg Work"),
+X("Kneeling Cat Stretch","4","האגן נשאר מעל הברכיים",90,"Spinal Articulation"),
+T("ישיבה בפרופיל אל הבר."),
+X("Mermaid","הכנה בלבד, 3 לכל צד","רק הרמה והורדה של הכתף",100,"Side Flexion and Rotation"),
+X("Side Reach","2 לכל צד","כפות הידיים באותו גובה",100,"Side Flexion and Rotation"),
+X("Swan","4","מצח למזרן בסוף כל חזרה",75,"Back Extension"),
+T("PTB ל־Bottom Loaded, קפיץ אדום."),
+X("Monkey","2","מתיחה רכה",90,"Stretches"),
+X("Shoulder Stretch Sitting","2","בלי לכפות",75,"Stretches")]}],
+chair:[
+{title:"כיסא – בינוני",level:"בינוני",scale:1.15,items:[
+X("Double Leg Foot Work","8 בכל מנח","הגב זקוף, הכתפיים מעל עצמות הישיבה",180,"Foot Work"),
+X("Single Leg Foot Work","8 לכל רגל","הרגל השנייה לא זזה",120,"Foot Work"),
+X("Calf Raises","8 לכל רגל","קו אלכסוני מהעקב לקודקוד",100,"Foot Work"),
+T("קופסה קטנה מול הכיסא, קפיצים 1-1."),
+X("Pike Sitting","6","השכמות מתרחקות",75,"Abdominal Work"),
+X("Standing Pike","6","הגב עגול, הבר יורד עד למטה",75,"Abdominal Work"),
+X("Standing Pike Reverse","5","הגב מתארך בעלייה",75,"Abdominal Work"),
+T("קפיצים 3-3."),
+X("Full Pike","5","הכתפיים מעל כפות הידיים",90,"Abdominal Work"),
+X("Side Pike","3 לכל צד","קימור מקסימלי",100,"Abdominal Work"),
+X("Teaser","5","הגב ישר לכל אורך התנועה",90,"Abdominal Work"),
+T("קפיצים 1-1, שכיבה על המזרן צמוד לכיסא."),
+X("Pelvic Curl","5","הבר נשאר למטה",100,"Spinal Articulation"),
+X("Cat Stretch","5","הבר לא מגיע לרצפה",75,"Spinal Articulation"),
+X("Jack Knife","3","המשקל על השכמות",100,"Spinal Articulation"),
+T("ישיבה על קופסה קטנה עם הגב לכיסא."),
+X("Shrugs","8","הכתפיים יורדות בנשיפה",60,"Arm Work"),
+X("Triceps Press Sit","8","מרפקים מקבילים",60,"Arm Work"),
+T("קפיצים בצדי הכיסא, ישיבה מול הכיסא."),
+X("Chest Expansion","8","מאריכים את עמוד השדרה",60,"Arm Chair Series"),
+X("Biceps","8","גובה המרפק לא משתנה",60,"Arm Chair Series"),
+X("Rhomboid","8","המרפקים לצדדים",60,"Arm Chair Series"),
+X("Hug-A-Tree","8","הגב צמוד למשענת",60,"Arm Chair Series"),
+X("Down Circles","5","מתח בקפיץ כל הזמן",60,"Arm Chair Series"),
+X("Up Circles","5","הידיים בטווח הראייה",60,"Arm Chair Series"),
+X("Salute","8","גובה המרפקים קבוע",60,"Arm Chair Series"),
+T("שכיבה על המזרן צמוד לכיסא, קפיצים 1-1."),
+X("Hamstring Curl","8","אגן נטרלי",75,"Leg Work"),
+X("Frog","6","נשארים כמה נשימות בחצי הדרך",90,"Leg Work"),
+T("עמידה מול הכיסא."),
+X("Leg Press Standing","8 לכל רגל","שיווי משקל ובטן אסופה",100,"Lunge Series"),
+T("קפיצים 3-3."),
+X("Forward Lunge","5 לכל רגל","עולים במנח אחיד",120,"Lunge Series"),
+X("Backward Step Down","5 לכל רגל","הגוף לא משנה מנח",100,"Lunge Series"),
+X("Tendon Stretch","5","קימור מקסימלי",75,"Full Body Integration"),
+X("Frog Front","6","הכתפיים מעל כפות הידיים",75,"Full Body Integration"),
+X("Frog Back","6","הבר לא נוגע ברצפה",75,"Full Body Integration"),
+T("קפיצים 1-1, ישיבה בפרופיל."),
+X("Mermaid","3 לכל צד","העקב מתנתק מעט בשאיפה",100,"Side Flexion and Rotation"),
+X("Kneeling Mermaid","3 לכל צד","האגן נשאר במרכז",100,"Side Flexion and Rotation")]},
+{title:"כיסא – מתחילים",level:"מתחילים",scale:1.45,items:[
+X("Double Leg Foot Work","6 בכל מנח","החזה פתוח",180,"Foot Work"),
+X("Single Leg Foot Work","6 לכל רגל","הרגל השנייה כפופה באותו מקום",120,"Foot Work"),
+X("Calf Raises","6 לכל רגל","הגוף בקו אלכסוני",100,"Foot Work"),
+T("קופסה קטנה מול הכיסא, קפיצים 1-1."),
+X("Pike Sitting","5","הבטן נאספת עוד פנימה",75,"Abdominal Work"),
+X("Standing Pike","5","גב עגול",75,"Abdominal Work"),
+X("Standing Pike Reverse","4","ברכיים מעט כפופות",75,"Abdominal Work"),
+T("שכיבה על המזרן צמוד לכיסא."),
+X("Pelvic Curl","5","חוליה אחר חוליה",100,"Spinal Articulation"),
+X("Cat Stretch","4","הבר יורד רק קצת",75,"Spinal Articulation"),
+T("ישיבה על קופסה קטנה עם הגב לכיסא."),
+X("Shrugs","8","השכמות מתרווחות",60,"Arm Work"),
+X("Triceps Press Sit","8","שכמות רחבות",60,"Arm Work"),
+T("קפיצים בצדי הכיסא."),
+X("Chest Expansion","8","גב זקוף",60,"Arm Chair Series"),
+X("Biceps","8","המרפקים במקום",60,"Arm Chair Series"),
+X("Rhomboid","8","תנועה שקטה",60,"Arm Chair Series"),
+X("Hug-A-Tree","8","חיבוק גדול",60,"Arm Chair Series"),
+X("Down Circles","4","מעגל קטן",60,"Arm Chair Series"),
+X("Up Circles","4","בטווח הראייה",60,"Arm Chair Series"),
+X("Salute","8","אגודלים לרקות",60,"Arm Chair Series"),
+T("שכיבה על המזרן, קפיצים 1-1."),
+X("Hamstring Curl","6","האגן לא מתרומם",75,"Leg Work"),
+X("Frog","5","ברכיים פתוחות החוצה",90,"Leg Work"),
+T("עמידה מול הכיסא."),
+X("Leg Press Standing","6 לכל רגל","אפשר להחזיק בידית",100,"Lunge Series"),
+X("Forward Lunge","3 לכל רגל, עם הידיות","עולים לאט",120,"Lunge Series"),
+T("ישיבה בפרופיל."),
+X("Mermaid","2 לכל צד","מתיחה רכה",100,"Side Flexion and Rotation"),
+X("Kneeling Mermaid","2 לכל צד","האגן במרכז",100,"Side Flexion and Rotation")]}]
+};
+let LS={li:0,i:0,el:0,run:false,opt:true,timer:null,last:0,spokeI:-1,warned:-1};
+const VO={on:true,full:true,rate:1,he:null,en:null};
+try{const v=JSON.parse(localStorage.getItem("pilates-voice")||"{}");if(typeof v.on==="boolean")VO.on=v.on;if(typeof v.full==="boolean")VO.full=v.full;if(v.rate)VO.rate=v.rate}catch(e){}
+const saveVO=()=>{try{localStorage.setItem("pilates-voice",JSON.stringify({on:VO.on,full:VO.full,rate:VO.rate}))}catch(e){}};
+const hasTTS="speechSynthesis" in window;
+function pickVoices(){if(!hasTTS)return;const vs=speechSynthesis.getVoices();VO.he=vs.find(v=>/^(he|iw)/i.test(v.lang))||null;VO.en=vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;const n=document.getElementById("vnote");if(n)n.textContent=voiceNote()}
+if(hasTTS){pickVoices();speechSynthesis.onvoiceschanged=pickVoices}
+function voiceNote(){if(!hasTTS)return "הדפדפן הזה לא תומך בהקראה.";if(!VO.he)return "לא נמצא קול עברי במכשיר; ההקראה עלולה לא לעבוד. באייפון: הגדרות ← נגישות ← תוכן מוקרא ← קולות ← עברית.";return ""}
+function sayParts(parts,cancel){
+  if(!hasTTS||!VO.on)return;
+  if(cancel)speechSynthesis.cancel();
+  parts.forEach(([txt,lang])=>{
+    String(txt).replace(/([.;!?])\s+/g,"$1\n").split("\n").filter(s=>s.trim()).forEach(s=>{
+      const u=new SpeechSynthesisUtterance(s.replace(/[·]/g,","));
+      u.lang=lang==="en"?"en-US":"he-IL";const v=lang==="en"?VO.en:VO.he;if(v)u.voice=v;u.rate=VO.rate;
+      speechSynthesis.speak(u);
+    });
+  });
+}
+const speaking=()=>hasTTS&&(speechSynthesis.speaking||speechSynthesis.pending);
+const findEx=x=>EX().find(y=>y.n===x.n&&(!x.s||y.s===x.s));
+function speakItem(x,nx){
+  if(x.tr){const p=[["מעבר. "+x.txt,"he"]];if(nx&&!nx.tr){p.push(["התרגיל הבא:","he"],[nx.n,"en"])}sayParts(p,true);return}
+  const e=findEx(x);const p=[[x.n,"en"],[x.reps+".","he"]];
+  if(e&&e.sp)p.push(["קפיצים: "+e.sp+".","he"]);
+  if(VO.full&&e){p.push(["מוצא: "+e.st,"he"]);e.steps.forEach(([t,s])=>{if(t==="h")p.push([s+".","he"]);else p.push([(t==="n"?"":PILL[t]+": ")+s,"he"])})}
+  p.push(["דגש: "+x.cue+".","he"]);
+  sayParts(p,true);
+}
+const lessonItems=()=>{const L=(LESSONS[prog]||[])[LS.li];return L?L.items.filter(x=>LS.opt||!x.opt).map(x=>({...x,d:Math.round(x.d*(L.scale||1)/5)*5})):[]};
+const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
+function stopTimer(){if(LS.timer){clearInterval(LS.timer);LS.timer=null}LS.run=false;if(hasTTS)speechSynthesis.cancel()}
+function tick(){const now=Date.now();LS.el+=(now-LS.last)/1000;LS.last=now;const it=lessonItems();
+  if(LS.el>=it[LS.i].d){if(LS.i<it.length-1){LS.i++;LS.el=0}else{LS.el=it[LS.i].d;clearInterval(LS.timer);LS.timer=null;LS.run=false;sayParts([["כל הכבוד. סיימנו את השיעור. תודה רבה.","he"]],true)}}
+  lessonUpdate()}
+function play(){if(LS.run)return;LS.run=true;LS.last=Date.now();LS.timer=setInterval(tick,250);lessonUpdate()}
+function jump(i){const it=lessonItems();LS.i=Math.max(0,Math.min(it.length-1,i));LS.el=0;LS.spokeI=-1;lessonView()}
+function breathFor(x){
+  if(x.tr)return null;const e=findEx(x);if(!e)return null;
+  const st=e.steps.filter(s=>s[0]!=="h");if(!st.length)return null;
+  const lens=st.map(s=>s[0]==="n"?8:4),cyc=lens.reduce((a,b)=>a+b,0);
+  let t=LS.el%cyc,k=0;while(t>=lens[k]){t-=lens[k];k++}
+  return {s:st[k],len:lens[k],k,cy:Math.floor(LS.el/cyc)};
+}
+function lessonView(){
+  const v=$("#view");const Ls=LESSONS[prog]||[];
+  if(!Ls.length){v.innerHTML=`<div class="card" style="text-align:center"><p>עוד אין שיעור מוכן ל${P().label}.</p><p class="hint">בקשי ממני לבנות אחד, ואוסיף אותו כאן.</p></div>`;return}
+  if(LS.li>=Ls.length)LS.li=0;
+  const L=Ls[LS.li],it=lessonItems();if(LS.i>=it.length)LS.i=0;
+  const total=it.reduce((a,x)=>a+x.d,0);
+  v.innerHTML=`<div class="lp">
+  <div class="lpsel">${Ls.map((l,j)=>`<button data-li="${j}" aria-pressed="${j===LS.li}">${esc(l.level)}</button>`).join("")}</div>
+  <div class="lphead"><div><div class="sec">${esc(L.title)}</div><div class="lptot">סה״כ ${fmt(total)} דק׳</div></div>
+  <label class="chk" style="margin:0"><input type="checkbox" id="lopt" ${LS.opt?"checked":""}> כולל אופציונליים</label></div>
+  <div class="lpvoice"><label class="chk" style="margin:0"><input type="checkbox" id="von" ${VO.on?"checked":""} ${hasTTS?"":"disabled"}> 🔊 קול מדריך</label>
+  <select id="vfull" aria-label="אורך ההסבר"><option value="1" ${VO.full?"selected":""}>הסבר מלא</option><option value="0" ${VO.full?"":"selected"}>רק שם, חזרות ודגש</option></select>
+  <select id="vrate" aria-label="מהירות"><option value="0.85">איטי</option><option value="1">רגיל</option><option value="1.15">מהיר</option></select>
+  <div class="note" id="vnote">${voiceNote()}</div></div>
+  <div class="lpbar" id="lpbar">${it.map((x,j)=>`<i data-j="${j}" style="flex:${x.d}" class="${x.tr?"tr":""}"></i>`).join("")}</div>
+  <div class="card lpcard" id="lpcard"></div>
+  <div class="lpctl"><button class="btn ghost" id="lprev" aria-label="הקודם">⏭</button><button class="btn" id="lplay"></button><button class="btn ghost" id="lnext" aria-label="הבא">⏮</button></div>
+  <ol class="lplist" id="lplist">${it.map((x,j)=>`<li data-j="${j}" class="${x.tr?"tr":""}">${x.tr?`<span>↪ ${esc(x.txt)}</span>`:`<span class="en">${esc(x.n)}</span><span class="lpr">${esc(x.reps)}${x.opt?" · אופציונלי":""}</span>`}<span class="lpd">${fmt(x.d)}</span></li>`).join("")}</ol></div>`;
+  $("#vrate").value=String(VO.rate);
+  v.querySelectorAll(".lpsel button").forEach(b=>b.onclick=()=>{stopTimer();LS.li=+b.dataset.li;LS.i=0;LS.el=0;LS.spokeI=-1;lessonView()});
+  $("#lopt").onchange=e=>{LS.opt=e.target.checked;stopTimer();LS.i=0;LS.el=0;LS.spokeI=-1;lessonView()};
+  $("#von").onchange=e=>{VO.on=e.target.checked;saveVO();if(!VO.on&&hasTTS)speechSynthesis.cancel();else if(LS.run){LS.spokeI=-1}};
+  $("#vfull").onchange=e=>{VO.full=e.target.value==="1";saveVO()};
+  $("#vrate").onchange=e=>{VO.rate=+e.target.value;saveVO()};
+  $("#lplay").onclick=()=>{if(LS.run){stopTimer();lessonUpdate()}else{if(LS.el<1)LS.spokeI=-1;else LS.spokeI=LS.i;
+    if(hasTTS&&VO.on&&LS.spokeI===LS.i)sayParts([["ממשיכים.","he"]],true);
+    play()}};
+  $("#lprev").onclick=()=>{const r=LS.run;stopTimer();jump(LS.el>3?LS.i:LS.i-1);if(r)play()};
+  $("#lnext").onclick=()=>{const r=LS.run;stopTimer();jump(LS.i+1);if(r)play()};
+  v.querySelectorAll("#lplist li,#lpbar i").forEach(n=>n.onclick=()=>{const r=LS.run;stopTimer();jump(+n.dataset.j);if(r)play()});
+  LS.lastI=-1;lessonUpdate();
+}
+function lessonUpdate(){
+  const card=$("#lpcard");if(!card)return;
+  const it=lessonItems(),x=it[LS.i],nx=it[LS.i+1];
+  const total=it.reduce((a,y)=>a+y.d,0),done=it.slice(0,LS.i).reduce((a,y)=>a+y.d,0)+LS.el;
+  const ended=LS.i===it.length-1&&LS.el>=x.d;
+  $("#lplay").textContent=ended?"השיעור הסתיים 🎉":LS.run?"השהיה":(done>0?"המשך":"התחלת השיעור");
+  document.querySelectorAll("#lpbar i").forEach((n,j)=>{n.className=(it[j].tr?"tr ":"")+(j<LS.i?"done":j===LS.i?"now":"")});
+  document.querySelectorAll("#lplist li").forEach((n,j)=>n.classList.toggle("now",j===LS.i));
+  const e=findEx(x),b=breathFor(x);
+  if(LS.lastI!==LS.i){
+    LS.lastI=LS.i;LS.lastK=null;
+    const nxt=nx?`<div class="lpnext">הבא: ${nx.tr?esc(nx.txt):`<b class="en">${esc(nx.n)}</b>`}</div>`:`<div class="lpnext">התרגיל האחרון בשיעור</div>`;
+    card.innerHTML=x.tr
+      ?`<div class="sec">מעבר</div><div class="lptr">${esc(x.txt)}</div><div class="lptime"><span id="lpleft"></span></div>${nx&&!nx.tr?`<div class="lpnext">הבא: <b class="en">${esc(nx.n)}</b></div>`:""}`
+      :`<div class="sec">${esc(x.sec)} · ${LS.i+1}/${it.length}</div><div class="name">${esc(x.n)}</div>
+        <div class="lpreps">${esc(x.reps)}${x.opt?" · אופציונלי":""}</div>
+        ${e&&e.sp?`<div style="margin-top:6px"><span class="springs">קפיצים: ${esc(e.sp)}</span></div>`:""}
+        <div class="lpbreath"><div class="orb" id="orb"></div><div class="orbtxt"><span class="pill" id="bpill"></span><div id="btxt"></div></div></div>
+        <div class="lpcue"><b>דגש:</b> ${esc(x.cue)}</div>
+        <div class="lptime"><span id="lpleft"></span> · נשארו בשיעור <span id="lptot"></span></div>
+        ${nxt}${e?`<details><summary>התרגיל המלא</summary><div>${details(e)}</div></details>`:""}`;
+  }
+  if(LS.run&&LS.spokeI!==LS.i){LS.spokeI=LS.i;LS.warned=-1;speakItem(x,nx)}
+  const left=$("#lpleft");if(left)left.textContent=fmt(x.d-LS.el);
+  const tot=$("#lptot");if(tot)tot.textContent=fmt(total-done);
+  if(LS.run&&!x.tr&&x.d-LS.el<=10&&x.d>30&&LS.warned!==LS.i&&!speaking()){LS.warned=LS.i;sayParts([["עוד עשר שניות.","he"]])}
+  const orb=$("#orb");
+  if(orb){
+    if(b){
+      const key=b.k+"|"+b.cy;
+      if(LS.lastK!==key){
+        LS.lastK=key;const t=b.s[0];
+        $("#bpill").className="pill "+t;$("#bpill").textContent=PILL[t];$("#btxt").textContent=b.s[1];
+        orb.style.transitionDuration=b.len+"s";orb.className="orb "+t+(LS.run?" go":"");
+        if(LS.run&&LS.spokeI===LS.i&&!speaking()&&t!=="n")sayParts([[PILL[t],"he"]]);
+      }
+      if(!LS.run)orb.classList.remove("go");else if(!orb.classList.contains("go"))orb.classList.add("go");
+    }else{$("#bpill").textContent="";$("#btxt").textContent="";orb.className="orb"}
+  }
+}
+function render(reset){
+  stopTimer();
+  const lesson=tab==="lesson";
+  $("#filter").style.display=lesson?"none":"";
+  if(tab==="cards"){if(reset)newDeck();cards()}
+  else if(tab==="quiz"){if(reset)newQuiz();quizView()}
+  else if(lesson){if(reset){LS.i=0;LS.el=0}lessonView()}
+  else list();
+}
+setProg(prog);
+</script>
+</body>
+</html>
